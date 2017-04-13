@@ -1,11 +1,6 @@
 SSH: 
 ```
-ssh -CAXY llj.lilingjie.brc@brain.megvii-inc.com
-```
-
-Internal DNS: 
-```
-llj.lilingjie.brc.sm.megvii-op.org
+ssh -CAXY llj_bash.lilingjie.brw@brain.megvii-inc.com
 ```
 
 HTTP Proxy: 
