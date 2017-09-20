@@ -89,10 +89,17 @@ alias ohmyzsh="vi ~/.oh-my-zsh"
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
+confirm() {
+    # call with a prompt string or use a default
+    bash -c "read -r -p \"${1:-Are you sure? [y/N]} \" response; case \"\$response\" in [yY][eE][sS]|[yY]) true;; *) false;; esac"
+}
+
 alias l="ls -lh"
 alias tmux="tmux -2"
 alias rebuild="rm -r build; mkdir build; cd build"
 alias remake="cd build; make -j; cd .."
+alias del="mv -f -t ~/.trash"
+alias emptytrash="confirm && rm -rf ~/.trash && mkdir ~/.trash"
 alias javac="javac -J-Dfile.encoding=utf8"
 alias grep="grep --color=auto"
 alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
