@@ -1,0 +1,21 @@
+alias l="ls -lh"
+alias tmux="tmux -2"
+alias rebuild="rm -r build; mkdir build; cd build"
+alias remake="cd build; make -j; cd .."
+alias del="mv -f -t ~/.trash"
+alias emptytrash="confirm && rm -rf ~/.trash && mkdir ~/.trash"
+alias javac="javac -J-Dfile.encoding=utf8"
+alias grep="grep --color=auto"
+alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+alias -s js=vi
+alias -s c=vi
+alias -s h=vi
+alias -s cc=vi
+alias -s java=vi
+alias -s txt=vi
+alias -s gz='tar -xzvf'
+alias -s tar='tar -xvf'
+alias -s tgz='tar -xzvf'
+alias -s zip='unzip'
+alias -s bz2='tar -xjvf'
+
