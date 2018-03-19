@@ -6,5 +6,5 @@ cp ./.tmux.conf ~
 cp ./.vimrc ~
 cp ./.ycm_extra_conf.py ~
 cp ./.zshrc ~
-sh -s /bin/zsh
+chsh -s /bin/zsh
 
