@@ -4,7 +4,6 @@ alias rebuild="rm -r build; mkdir build; cd build"
 alias remake="cd build; make -j; cd .."
 alias del="mv -f -t ~/.trash"
 alias emptytrash="confirm && rm -rf ~/.trash && mkdir ~/.trash"
-alias ccat="pygmentize -g"
 alias javac="javac -J-Dfile.encoding=utf8"
 alias grep="grep --color=auto"
 alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
