@@ -6,7 +6,7 @@ alias del="mv -f -t ~/.trash"
 alias emptytrash="confirm && rm -rf ~/.trash && mkdir ~/.trash"
 alias javac="javac -J-Dfile.encoding=utf8"
 alias grep="grep --color=auto"
-alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+# alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
 alias -s js=vi
 alias -s c=vi
 alias -s h=vi
