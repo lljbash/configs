@@ -56,12 +56,14 @@ antigen use oh-my-zsh
 # visit https://github.com/unixorn/awesome-zsh-plugins
 antigen bundle git
 antigen bundle ubuntu
+antigen bundle tmux
 # antigen bundle heroku
 antigen bundle pip
 antigen bundle svn-fast-info
 # antigen bundle command-not-find
 
 antigen bundle colorize
+antigen bundle colored-man-pages
 antigen bundle github
 antigen bundle python
 antigen bundle rupa/z z.sh
@@ -150,10 +152,11 @@ bindkey '\ev' deer
 
 # alias ll='ls -l'
 source $HOME/.aliases
-
+source $HOME/.environment
 
 # options
-unsetopt correct_all
+setopt correct
+# unsetopt correct_all
 
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
