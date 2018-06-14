@@ -152,6 +152,7 @@ bindkey '\ev' deer
 
 # alias ll='ls -l'
 source $HOME/.aliases
+touch $HOME/.environment
 source $HOME/.environment
 
 # options

@@ -1,5 +1,5 @@
-alias ls="ls -FG"
-alias l="ls -lh"
+alias l="ls -lhF"
+alias la="ls -alhF"
 alias tmux="tmux -2"
 alias rebuild="rm -r build; mkdir build; cd build"
 alias remake="cd build; make -j; cd .."
