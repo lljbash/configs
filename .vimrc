@@ -33,6 +33,7 @@ Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'lilydjwg/fcitx.vim'
 "Plugin 'Raimondi/delimitMate'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " 插件列表结束
@@ -226,7 +227,7 @@ let NERDTreeMinimalUI=1
 
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
-let g:AutoPairsFlyMode=1
+"let g:AutoPairsFlyMode=1
 
 set pastetoggle=<F9>
 set backspace=indent,eol,start
