@@ -1,3 +1,5 @@
+source $HOME/.environment
+
 # Antigen: https://github.com/zsh-users/antigen
 ANTIGEN="$HOME/.local/bin/antigen.zsh"
 
@@ -152,8 +154,6 @@ bindkey '\ev' deer
 
 # alias ll='ls -l'
 source $HOME/.aliases
-touch $HOME/.environment
-source $HOME/.environment
 
 # options
 setopt correct
