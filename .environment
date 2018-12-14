@@ -1,5 +1,7 @@
 export PATH="$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
+export LIBRARY_PATH="$LD_LIBRARY_PATH"
+export CPATH=""
 
 # Deduplicate path variables
 get_var () {
@@ -19,3 +21,5 @@ dedup_pathvar () {
 }
 dedup_pathvar PATH
 dedup_pathvar LD_LIBRARY_PATH
+dedup_pathvar LIBRARY_PATH
+
