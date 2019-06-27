@@ -74,6 +74,8 @@ flags = [
 '-I',
 '/usr/lib/gcc/x86_64-linux-gnu/7/include',
 '-I',
+'/usr/include/mpi',
+'-I',
 './ClangCompleter',
 '-isystem',
 './tests/gmock/gtest',

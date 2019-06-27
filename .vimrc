@@ -242,4 +242,13 @@ nnoremap <silent> <Leader>t :TagbarToggle<CR>
 
 set pastetoggle=<F9>
 set backspace=indent,eol,start
+set clipboard=exclude:.*
+:map <MiddleMouse> <Nop>
+:map! <MiddleMouse> <Nop>
+:map <2-MiddleMouse> <Nop>
+:map! <2-MiddleMouse> <Nop>
+:map <3-MiddleMouse> <Nop>
+:map! <3-MiddleMouse> <Nop>
+:map <4-MiddleMouse> <Nop>
+:map! <4-MiddleMouse> <Nop>
 
