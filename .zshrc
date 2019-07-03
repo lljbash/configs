@@ -33,7 +33,8 @@ fi
 export PS1="%n@%m:%~%# "
 
 # Enable 256 color to make auto-suggestions look nice
-export TERM="xterm-256color"
+[[ $TERM == screen* ]] && export TERM="screen-256color"
+[[ $TERM == xterm* ]] && export TERM="xterm-256color"
 
 
 # Load local bash/zsh compatible settings
