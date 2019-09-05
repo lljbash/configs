@@ -7,4 +7,4 @@ cp ./.vimrc ~
 cp ./.ycm_extra_conf.py ~
 cp ./.zshrc ~
 cp ./.environment ~
-chsh -s /bin/zsh
+
