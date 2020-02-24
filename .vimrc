@@ -73,7 +73,8 @@ Plug 'Lokaltog/vim-easymotion'
 
 " 括号自动补全
 "Plug 'Raimondi/delimitMate'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
+" now using coc-pairs
 
 " 括号环绕、编辑、取消
 Plug 'tpope/vim-surround'
@@ -121,7 +122,7 @@ nnoremap <Leader>jw <C-W>j
 nmap <Leader>M %
 
 " 让配置变更立即生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " 搜索时大小写不敏感
 "set ignorecase
@@ -437,4 +438,7 @@ endfunction
 
 " Keymapping for grep word under cursor with interactive mode
 nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+
+" <CR> between pairs insert new indented line
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
