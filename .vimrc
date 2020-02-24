@@ -20,7 +20,7 @@ Plug 'vim-scripts/phd'
 Plug 'tpope/vim-sensible'
 
 " 状态栏
-Plug 'Lokaltog/vim-powerline'
+Plug 'Lokaltog/vim-powerline', {'branch': 'develop'}
 
 " C++ 语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -63,7 +63,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " 多标签管理
-Plug 'fholgado/minibufexpl.vim'
+"Plug 'fholgado/minibufexpl.vim'
 
 " 智能范围选择
 Plug 'gcmt/wildfire.vim'
@@ -121,7 +121,7 @@ nnoremap <Leader>jw <C-W>j
 nmap <Leader>M %
 
 " 让配置变更立即生效
-"autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " 搜索时大小写不敏感
 "set ignorecase
@@ -155,13 +155,10 @@ hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 set hlsearch
 
 " 设置 gvim 显示字体
-set guifont=YaHei\ Consolas\ Hybrid\ 11.5
+"set guifont=YaHei\ Consolas\ Hybrid\ 11.5
 
 " 禁止折行
 "set nowrap
-
-" 设置状态栏主题风格
-let g:Powerline_colorscheme='solarized256'
 
 " 开启语法高亮功能
 syntax enable
@@ -200,6 +197,9 @@ map <3-MiddleMouse> <Nop>
 map! <3-MiddleMouse> <Nop>
 map <4-MiddleMouse> <Nop>
 map! <4-MiddleMouse> <Nop>
+
+" 设置状态栏
+let g:Powerline_colorscheme='solarized256'
 
 "" C++ 高亮设置
 let g:cpp_class_decl_highlight = 1
@@ -417,8 +417,12 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Enhanced search
+nnoremap <silent> <space>/  :<C-u>CocList words<CR>
 " Grep in current cwd.
 nnoremap <silent> <space>g  :<C-u>CocList grep<CR>
+" Show buffers.
+nnoremap <silent> <space>b  :<C-u>CocList buffers<cr>
 " Mappings using coc-yank
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
