@@ -422,6 +422,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent> <space>/  :<C-u>CocList words<CR>
 " Grep in current cwd.
 nnoremap <silent> <space>g  :<C-u>CocList grep<CR>
+" Open file.
+nnoremap <silent> <space>n  :<C-u>CocList files<cr>
 " Show buffers.
 nnoremap <silent> <space>b  :<C-u>CocList buffers<cr>
 " Mappings using coc-yank
