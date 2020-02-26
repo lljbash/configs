@@ -79,8 +79,8 @@ antigen bundle Vifon/deer
 
 # uncomment the line below to enable theme
 # antigen theme fishy
-antigen theme lljbash/zsh-themes lljbash.zsh-theme
-
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
 # check login shell
 if [[ -o login ]]; then
@@ -98,7 +98,7 @@ typeset -A ZSH_HIGHLIGHT_STYLES
 
 ZSH_HIGHLIGHT_STYLES[default]=none
 ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=009
-ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=009,standout
+ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=cyan,bold,standout
 ZSH_HIGHLIGHT_STYLES[alias]=fg=cyan,bold
 ZSH_HIGHLIGHT_STYLES[builtin]=fg=cyan,bold
 ZSH_HIGHLIGHT_STYLES[function]=fg=cyan,bold
@@ -170,18 +170,18 @@ setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
 setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
-setopt HIST_VERIFY # Don't execute immediately upon history expansion.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 
 
 # source function.sh if it exists
 [ -f "$HOME/.local/etc/function.sh" ] && . "$HOME/.local/etc/function.sh"
 
 
-# ignore complition
+# ignore completion
 zstyle ':completion:*:complete:-command-:*:*' ignored-patterns '*.pdf|*.exe|*.dll'
 zstyle ':completion:*:*sh:*:' tag-order files
 
-DISABLE_AUTO_TITLE="true"
+export LSCOLORS="ExgxcxdxCxegedabagacad"
 
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
