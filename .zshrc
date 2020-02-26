@@ -182,6 +182,7 @@ zstyle ':completion:*:complete:-command-:*:*' ignored-patterns '*.pdf|*.exe|*.dl
 zstyle ':completion:*:*sh:*:' tag-order files
 
 export LSCOLORS="ExgxcxdxCxegedabagacad"
+DISABLE_AUTO_TITLE="true"
 
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
