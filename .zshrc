@@ -77,6 +77,10 @@ antigen bundle zsh-users/zsh-completions
 # antigen bundle supercrabtree/k
 antigen bundle Vifon/deer
 
+antigen bundle changyuheng/fz
+antigen bundle changyuheng/zsh-interactive-cd
+antigen bundle denisidoro/navi
+
 # uncomment the line below to enable theme
 # antigen theme fishy
 antigen bundle mafredri/zsh-async
