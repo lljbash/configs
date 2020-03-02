@@ -77,6 +77,7 @@ antigen bundle zsh-users/zsh-completions
 # antigen bundle supercrabtree/k
 antigen bundle Vifon/deer
 
+antigen bundle fzf
 antigen bundle changyuheng/fz
 antigen bundle changyuheng/zsh-interactive-cd
 antigen bundle denisidoro/navi
