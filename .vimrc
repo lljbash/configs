@@ -444,3 +444,6 @@ nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep
 " <CR> between pairs insert new indented line
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+" auto fix by clangd
+nnoremap <leader>f :CocList --input=fix actions<cr>
+
