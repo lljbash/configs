@@ -59,8 +59,8 @@ Plug 'honza/vim-snippets'
 Plug 'Pomakhin/vim-protodef-custom'
 
 " 文件树
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'scrooloose/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " 多标签管理
 "Plug 'fholgado/minibufexpl.vim'
@@ -187,7 +187,7 @@ set nofoldenable
 " 切换粘贴模式
 set pastetoggle=<F9>
 " 禁止系统剪贴板
-"set clipboard=exclude:.*
+set clipboard=exclude:.*
 
 " 禁止鼠标中键功能
 map <MiddleMouse> <Nop>
@@ -203,10 +203,7 @@ map! <4-MiddleMouse> <Nop>
 let g:Powerline_colorscheme='solarized256'
 
 "" C++ 高亮设置
-let g:cpp_class_decl_highlight = 1
 let g:cpp_posix_standard = 1
-let g:cpp_experimental_simple_template_highlight = 1
-let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 let c_no_curly_error=1
 
@@ -261,17 +258,17 @@ let g:tagbar_autofocus = 1
 "            \ }
 
 "" 文件树设置
-" <Leader>N 打开/关闭
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-" 当不带参数打开Vim时自动加载项目树
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" 当所有文件关闭时关闭项目树窗格
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-" 不显示这些文件
-let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules'] "ignore files in NERDTree
-" 不显示项目树上额外的信息，例如帮助、提示什么的
-let NERDTreeMinimalUI=1
+"" <Leader>N 打开/关闭
+"nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+"" 当不带参数打开Vim时自动加载项目树
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"" 当所有文件关闭时关闭项目树窗格
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"" 不显示这些文件
+"let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules'] "ignore files in NERDTree
+"" 不显示项目树上额外的信息，例如帮助、提示什么的
+"let NERDTreeMinimalUI=1
 
 
 "" coc 设置
