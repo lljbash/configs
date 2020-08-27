@@ -1,4 +1,4 @@
-source $HOME/.environment
+source $HOME/.environment.zsh
 
 # Antigen: https://github.com/zsh-users/antigen
 ANTIGEN="$HOME/.local/bin/antigen.zsh"
@@ -71,6 +71,16 @@ antigen bundle github
 antigen bundle python
 antigen bundle rupa/z z.sh
 # antigen bundle z
+
+# custom plugins
+## aliases
+antigen bundle common-aliases
+## cpv: verbose cp
+antigen bundle cp
+## nmap_***
+antigen bundle nmap
+## [Esc] [Esc]: add sudo or sudoedit in front
+antigen bundle sudo
 
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
@@ -158,8 +168,8 @@ bindkey '\e[1;3B' end-of-line
 
 bindkey '\ev' deer
 
-# alias ll='ls -l'
-source $HOME/.aliases
+# aliases
+source $HOME/.aliases.zsh
 
 # options
 setopt correct
