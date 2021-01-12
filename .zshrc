@@ -92,6 +92,9 @@ antigen bundle changyuheng/fz
 antigen bundle changyuheng/zsh-interactive-cd
 antigen bundle denisidoro/navi
 
+# my own plugins
+antigen bundle lljbash/zsh-renew-tmux-env
+
 # uncomment the line below to enable theme
 # antigen theme fishy
 antigen bundle mafredri/zsh-async
@@ -211,4 +214,3 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
-

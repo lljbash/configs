@@ -79,6 +79,9 @@ Plug 'Lokaltog/vim-easymotion'
 " 括号环绕、编辑、取消
 Plug 'tpope/vim-surround'
 
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
 " 自动补全框架，需要 node, 用 CocInstall 安装插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -187,7 +190,10 @@ set nofoldenable
 " 切换粘贴模式
 set pastetoggle=<F9>
 " 禁止系统剪贴板
-set clipboard=exclude:.*
+"set clipboard=exclude:.*
+" 默认使用系统剪贴板
+"set clipboard^=unnamed,unnamedplus
+nnoremap <leader>p :<c-u>put +<cr>
 
 " 禁止鼠标中键功能
 map <MiddleMouse> <Nop>
@@ -439,8 +445,32 @@ endfunction
 nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 
 " <CR> between pairs insert new indented line
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " auto fix by clangd
 nnoremap <leader>f :CocList --input=fix actions<cr>
 
+
+"" coc-fzf-preview mappings
+nmap <Leader>f [fzf-p]
+xmap <Leader>f [fzf-p]
+
+nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
+nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
+nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
+nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
+nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
+nnoremap <silent> [fzf-p]n     :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
+nnoremap <silent> [fzf-p]N     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
+nnoremap <silent> [fzf-p]gn     :<C-u>CocCommand fzf-preview.GitFiles<CR>
