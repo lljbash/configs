@@ -142,8 +142,10 @@ zt as"completion" blockf from"gh-r" light-mode for \
            alias lx='\''exa -lbhHigUmuSa@ --time-style=long-iso --git \
                      --color-scale ${EXA_ICONS}'\'';
            alias lS='\''exa -1'\'';
-           alias lt='\''exa --tree --level=2 ${EXA_ICONS}'\'';
-           alias ltt='\''exa --tree ${EXA_ICONS}'\''' \
+           alias lt='\''exa -FT ${EXA_ICONS}'\''
+           alias lta='\''exa -FTa --ignore-glob=.git ${EXA_ICONS}'\''
+           alias llt='\''exa -lbFT --git ${EXA_ICONS}'\''
+           alias llta='\''exa -lbFTa --git --ignore-glob=.git ${EXA_ICONS}'\''' \
         ogham/exa \
     mv"ripgrep* -> ripgrep" cp"ripgrep/comp*/_rg -> _rg" sbin"ripgrep/rg" \
     atclone"rm -rf ripgrep/comp*" atpull'%atclone' \
