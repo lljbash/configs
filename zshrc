@@ -69,6 +69,8 @@ zinit light-mode for \
         OMZP::colorize/colorize.plugin.zsh \
     trigger-load'!alias-finder' \
         OMZP::alias-finder/alias-finder.plugin.zsh \
+    trigger-load'!\=' \
+        arzzen/calc.plugin.zsh \
     trigger-load'!cpv' \
         OMZP::cp/cp.plugin.zsh
 
