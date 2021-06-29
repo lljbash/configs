@@ -1,0 +1,17 @@
+clang
+%cpp -std=c++20
+%h -x
+%h c++-header
+-Wall
+-Wextra
+-Wconversion
+-Wno-sign-conversion
+-Wno-unused-const-variable
+-Wno-unused-function
+-Wno-c++98-compat
+-Wno-long-long
+-Wno-variadic-macros
+-fexceptions
+-DEDITOR
+-I/usr/local/include
+-I./include
