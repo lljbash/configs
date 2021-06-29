@@ -33,3 +33,6 @@ get-nodejs-12:
 set-login-shell:
 	cat /etc/shells
 	chsh
+
+generate-ssh-key:
+	ssh-keygen -t rsa -b 4096
