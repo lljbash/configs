@@ -180,6 +180,10 @@ set tabstop=4
 set shiftwidth=4
 " 让 vim 把连续数量的空格视为一个制表符
 set softtabstop=4
+" Justfile 识别为 Makefile
+augroup filetypedetect
+  au BufNewFile,BufRead justfile,Justfile setf make
+augroup END
 
 " 基于缩进或语法进行代码折叠
 "set foldmethod=indent

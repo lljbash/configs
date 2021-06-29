@@ -1,3 +1,4 @@
+# Important environment variables
 export PATH=$PATH
 export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$LIBRARY_PATH
@@ -24,3 +25,10 @@ dedup_pathvar LD_LIBRARY_PATH
 dedup_pathvar LIBRARY_PATH
 dedup_pathvar CPATH
 
+# Other configurations
+## git editor
+export EDITOR=vim
+## proxy server
+#export ALL_PROXY=
+## exa --icons
+#EXA_ICONS=--icons

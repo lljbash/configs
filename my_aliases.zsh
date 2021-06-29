@@ -1,6 +1,5 @@
 # vim
 (( $+commands[vi] )) || alias vi='vim'
-export EDITOR=vim
 
 # cmake
 alias cconf="cmake -H. -Bbuild"

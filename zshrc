@@ -1,0 +1,187 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-${HOME}}/.zinit}}"
+ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-${ZPLG_BIN_DIR_NAME}}:-bin}"
+### Added by Zinit's installer
+if [[ ! -f "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh" ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+    command mkdir -p "${ZINIT_HOME}" && command chmod g-rwX "${ZINIT_HOME}"
+    command git clone https://github.com/zdharma/zinit "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f"
+fi
+source "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit installer's chunk
+
+# Initialize command prompt
+export PS1="%n@%m:%~%# "
+
+# Enable 256 color to make auto-suggestions look nice
+[[ $TERM == screen* ]] && export TERM="screen-256color"
+[[ $TERM == xterm* ]] && export TERM="xterm-256color"
+
+# Load local bash/zsh compatible settings
+_INIT_SH_NOFUN=1
+[ -f "$HOME/.local/etc/init.sh" ] && source "$HOME/.local/etc/init.sh"
+[ -f "$HOME/.local/etc/config.zsh" ] && source "$HOME/.local/etc/config.zsh" 
+[ -f "$HOME/.local/etc/local.zsh" ] && source "$HOME/.local/etc/local.zsh"
+[ -f "$HOME/.local/etc/function.sh" ] && . "$HOME/.local/etc/function.sh"
+
+# check login shell
+if [[ -o login ]]; then
+    [ -f "$HOME/.local/etc/login.sh" ] && source "$HOME/.local/etc/login.sh"
+    [ -f "$HOME/.local/etc/login.zsh" ] && source "$HOME/.local/etc/login.zsh"
+fi
+
+# exit for non-interactive shell
+[[ $- != *i* ]] && return
+
+# WSL (aka Bash for Windows) doesn't work well with BG_NICE
+[ -d "/mnt/c" ] && [[ "$(uname -a)" == *Microsoft* ]] && unsetopt BG_NICE
+
+#### PLUGIN START ####
+
+alias zt='zinit wait lucid depth=3'
+
+### Powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+### Trigger-load
+zinit light-mode for \
+    trigger-load'!x' svn \
+        OMZ::plugins/extract \
+    trigger-load'!man' \
+        ael-code/zsh-colored-man-pages \
+    trigger-load'!zshz;!z' blockf \
+        agkozak/zsh-z \
+    trigger-load'!zhooks' \
+        agkozak/zhooks \
+    trigger-load'!ccat;!cless' \
+        OMZP::colorize/colorize.plugin.zsh \
+    trigger-load'!alias-finder' \
+        OMZP::alias-finder/alias-finder.plugin.zsh \
+    trigger-load'!cpv' \
+        OMZP::cp/cp.plugin.zsh
+
+### OMZ basics
+zinit light-mode for \
+        OMZL::completion.zsh \
+        OMZL::history.zsh \
+        OMZL::key-bindings.zsh \
+    atload'export LSCOLORS="ExgxcxdxCxegedabagacad"' \
+        OMZL::theme-and-appearance.zsh
+setopt CORRECT
+DISABLE_MAGIC_FUNCTIONS=true
+DISABLE_AUTO_TITLE=true
+
+### Important aliases & functions
+zinit aliases light-mode for \
+        OMZL::directories.zsh \
+        OMZP::common-aliases/common-aliases.plugin.zsh \
+    blockf \
+        OMZP::tmux/tmux.plugin.zsh
+zinit light lljbash/zsh-renew-tmux-env
+
+### Other plugins
+zt light-mode for \
+    atload"_zsh_autosuggest_start" \
+        zsh-users/zsh-autosuggestions \
+        OMZP::command-not-found/command-not-found.plugin.zsh \
+        OMZP::safe-paste/safe-paste.plugin.zsh \
+        OMZP::sudo/sudo.plugin.zsh \
+    atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
+        hlissner/zsh-autopair \
+    atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'@atclone' \
+    nocompletions pick'lscolors.zsh' \
+        trapd00r/LS_COLORS \
+    as'null' atload'export CCLS_INIT_CONFIG=$(pwd)/ccls-config;
+                    alias ccls-init='\''cp $CCLS_INIT_CONFIG .ccls'\''' \
+        'https://github.com/lljbash/configs/blob/master/ccls-config'
+
+### Aliases
+zt aliases light-mode for \
+    blockf \
+        OMZP::git/git.plugin.zsh \
+        OMZP::nmap/nmap.plugin.zsh \
+        OMZP::rsync/rsync.plugin.zsh \
+    blockf \
+        OMZP::ubuntu/ubuntu.plugin.zsh \
+        'https://github.com/lljbash/configs/blob/master/my_aliases.zsh'
+
+### Binaries
+zinit light zinit-zsh/z-a-bin-gem-node
+zt as "null" from"gh-r" light-mode for \
+    mv"fd* -> fd" sbin"fd/fd" atload"unalias fd &>/dev/null" \
+        @sharkdp/fd \
+    sbin"fzf" atload"export FZF_DEFAULT_COMMAND='fd --type f'" \
+        junegunn/fzf-bin \
+    mv"hyperfine* -> hyperfine" sbin"hyperfine/hyperfine" \
+        @sharkdp/hyperfine \
+    mv"delta* -> delta" sbin"delta/delta" \
+    atclone"sed -e '1,/\`\`\`gitconfig/d' -e '/\`\`\`/,\$d' delta/README.md > gitconfig;
+            git config --global include.path \$(pwd)/gitconfig" \
+    atpull'%atclone' \
+        dandavison/delta
+## With completions
+zt as"completion" blockf from"gh-r" light-mode for \
+    cp"comp*/*.zsh -> _exa" sbin"bin/exa" \
+    atload'alias ls='\''exa'\'';
+           alias l='\''exa -lbF --git ${EXA_ICONS}'\'';
+           alias ll='\''exa -lbGF --git ${EXA_ICONS}'\'';
+           alias llm='\''exa -lbGd --git --sort=modified ${EXA_ICONS}'\'';
+           alias la='\''exa -lbFa --git ${EXA_ICONS}'\'';
+           alias lx='\''exa -lbhHigUmuSa@ --time-style=long-iso --git \
+                     --color-scale ${EXA_ICONS}'\'';
+           alias lS='\''exa -1'\'';
+           alias lt='\''exa --tree --level=2 ${EXA_ICONS}'\'';
+           alias ltt='\''exa --tree ${EXA_ICONS}'\''' \
+        ogham/exa \
+    mv"ripgrep* -> ripgrep" cp"ripgrep/comp*/_rg -> _rg" sbin"ripgrep/rg" \
+    atclone"rm -rf ripgrep/comp*" atpull'%atclone' \
+        BurntSushi/ripgrep \
+    atclone'./just --completions zsh > _just' atpull'%atclone' sbin \
+        casey/just \
+    atclone'mv bat* bat; mv -f **/*.zsh _bat' atpull'%atclone' sbin"bat/bat" \
+        @sharkdp/bat
+## Actually scripts
+zt as"null" light-mode for \
+    sbin"bin/git-ignore" \
+        laggardkernel/git-ignore
+
+### Completions
+zt light-mode for \
+    as"null" atload'export FZF_BASE=$(pwd)' \
+        junegunn/fzf \
+    blockf \
+        OMZP::fzf/fzf.plugin.zsh \
+    as"completion" blockf \
+        OMZP::fd/_fd \
+    blockf \
+        zsh-users/zsh-completions \
+    blockf compile'lib/*f*~*.zwc' \
+    atinit'zicompinit; zicdreplay' \
+    atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
+        Aloxaf/fzf-tab
+
+### Highlighting
+zt light-mode for \
+    atclone'(){local f;cd -q →*;for f (*~*.zwc){zcompile -Uz -- ${f}};}' \
+    compile'.*fast*~*.zwc' nocompletions atpull'%atclone' \
+    atload'fast-theme -q clean' \
+        zdharma/fast-syntax-highlighting \
+
+### Cleanup
+zt as"null" light-mode for \
+    id-as'Cleanup' nocd atinit'unalias zt &>/dev/null; _zsh_autosuggest_bind_widgets' \
+        zdharma/null
+
+#### PLUGIN  END  ####
