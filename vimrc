@@ -180,10 +180,6 @@ set tabstop=4
 set shiftwidth=4
 " 让 vim 把连续数量的空格视为一个制表符
 set softtabstop=4
-" Justfile 识别为 Makefile
-augroup filetypedetect
-  au BufNewFile,BufRead justfile,Justfile setf make
-augroup END
 
 " 基于缩进或语法进行代码折叠
 "set foldmethod=indent
@@ -216,6 +212,11 @@ let g:Powerline_colorscheme='solarized256'
 let g:cpp_posix_standard = 1
 let g:cpp_concepts_highlight = 1
 let c_no_curly_error=1
+
+" Doxygen 识别为 C++
+au! BufNewFile,BufRead *.dox setf cpp
+" Justfile 识别为 Makefile
+au BufNewFile,BufRead justfile,Justfile setf make
 
 "" 显示缩进设置
 " 随 vim 自启动
