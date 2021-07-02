@@ -30,5 +30,3 @@ dedup_pathvar CPATH
 export EDITOR=vim
 ## proxy server
 #export ALL_PROXY=
-## exa --icons
-#EXA_ICONS=--icons

@@ -105,6 +105,8 @@ zt light-mode for \
     atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'@atclone' \
     nocompletions pick'lscolors.zsh' \
         trapd00r/LS_COLORS \
+    pick'autoenv.zsh' nocompletions \
+        Tarrasch/zsh-autoenv \
     as'null' atload'export CCLS_INIT_CONFIG=$(pwd)/ccls-config;
                     alias ccls-init='\''cp $CCLS_INIT_CONFIG .ccls'\''' \
         'https://github.com/lljbash/configs/blob/master/ccls-config'
@@ -136,18 +138,23 @@ zt as "null" from"gh-r" light-mode for \
 ## With completions
 zt as"completion" blockf from"gh-r" light-mode for \
     cp"comp*/*.zsh -> _exa" sbin"bin/exa" \
-    atload'alias ls='\''exa'\'';
-           alias l='\''exa -lbF --git ${EXA_ICONS}'\'';
-           alias ll='\''exa -lbGF --git ${EXA_ICONS}'\'';
-           alias llm='\''exa -lbGd --git --sort=modified ${EXA_ICONS}'\'';
-           alias la='\''exa -lbFa --git ${EXA_ICONS}'\'';
+    atload'_lljbash_exa_icons() {
+               if [[ $POWERLEVEL9K_LEFT_PROMPT_ELEMENTS[(r)os_icon] == os_icon ]]; then
+                   echo "--icons"
+               fi
+           }
+           alias ls='\''exa'\'';
+           alias l='\''exa -lbF --git $(_lljbash_exa_icons)'\'';
+           alias ll='\''exa -lbGF --git $(_lljbash_exa_icons)'\'';
+           alias llm='\''exa -lbGd --git --sort=modified $(_lljbash_exa_icons)'\'';
+           alias la='\''exa -lbFa --git $(_lljbash_exa_icons)'\'';
            alias lx='\''exa -lbhHigUmuSa@ --time-style=long-iso --git \
-                     --color-scale ${EXA_ICONS}'\'';
+                     --color-scale $(_lljbash_exa_icons)'\'';
            alias lS='\''exa -1'\'';
-           alias lt='\''exa -FT ${EXA_ICONS}'\''
-           alias lta='\''exa -FTa --ignore-glob=.git ${EXA_ICONS}'\''
-           alias llt='\''exa -lbFT --git ${EXA_ICONS}'\''
-           alias llta='\''exa -lbFTa --git --ignore-glob=.git ${EXA_ICONS}'\''' \
+           alias lt='\''exa -FT $(_lljbash_exa_icons)'\''
+           alias lta='\''exa -FTa --ignore-glob=.git $(_lljbash_exa_icons)'\''
+           alias llt='\''exa -lbFT --git $(_lljbash_exa_icons)'\''
+           alias llta='\''exa -lbFTa --git --ignore-glob=.git $(_lljbash_exa_icons)'\''' \
         ogham/exa \
     mv"ripgrep* -> ripgrep" cp"ripgrep/comp*/_rg -> _rg" sbin"ripgrep/rg" \
     atclone"rm -rf ripgrep/comp*" atpull'%atclone' \
