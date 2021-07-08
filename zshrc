@@ -182,7 +182,7 @@ zt light-mode for \
     blockf \
         zsh-users/zsh-completions \
     blockf compile'lib/*f*~*.zwc' \
-    atinit'zicompinit; zicdreplay' \
+    atinit'zicompinit; zicdreplay; compdef _delta delta' \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
         Aloxaf/fzf-tab
 
