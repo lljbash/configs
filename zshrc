@@ -58,7 +58,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 ### Trigger-load
 zinit light-mode for \
     trigger-load'!x' svn \
-        OMZ::plugins/extract \
+        OMZP::extract \
     trigger-load'!man' \
         ael-code/zsh-colored-man-pages \
     trigger-load'!zshz;!z' blockf \
@@ -113,6 +113,7 @@ zt light-mode for \
 
 ### Aliases
 zt aliases light-mode for \
+        OMZL::git.zsh \
     blockf \
         OMZP::git/git.plugin.zsh \
         OMZP::nmap/nmap.plugin.zsh \
@@ -179,7 +180,7 @@ zt light-mode for \
     blockf \
         zsh-users/zsh-completions \
     blockf compile'lib/*f*~*.zwc' \
-    atinit'zicompinit; zicdreplay' \
+    atinit'zicompinit; zicdreplay; compdef _gnu_generic delta' \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
         Aloxaf/fzf-tab
 
