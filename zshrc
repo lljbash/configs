@@ -177,10 +177,12 @@ zt light-mode for \
         OMZP::fzf/fzf.plugin.zsh \
     as"completion" blockf \
         OMZP::fd/_fd \
+    as"completion" blockf \
+        "https://github.com/jonathanpoelen/dotfiles/blob/master/.zshcompletions/_delta" \
     blockf \
         zsh-users/zsh-completions \
     blockf compile'lib/*f*~*.zwc' \
-    atinit'zicompinit; zicdreplay; compdef _gnu_generic delta' \
+    atinit'zicompinit; zicdreplay' \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
         Aloxaf/fzf-tab
 
