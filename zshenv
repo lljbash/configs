@@ -29,4 +29,4 @@ dedup_pathvar CPATH
 ## git editor
 export EDITOR=vim
 ## proxy server
-#export ALL_PROXY=
+#export ALL_PROXY=socks5://localhost:1080
