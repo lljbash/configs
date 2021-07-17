@@ -89,7 +89,7 @@ DISABLE_AUTO_TITLE=true
 zinit aliases light-mode for \
         OMZL::directories.zsh \
         OMZP::common-aliases/common-aliases.plugin.zsh \
-    blockf \
+    blockf atload'export ZSH_TMUX_FIXTERM=false' \
         OMZP::tmux/tmux.plugin.zsh
 zinit light lljbash/zsh-renew-tmux-env
 
