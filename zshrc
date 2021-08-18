@@ -102,7 +102,7 @@ zt light-mode for \
         OMZP::sudo/sudo.plugin.zsh \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
         hlissner/zsh-autopair \
-    atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'@atclone' \
+    atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'%atclone' \
     nocompletions pick'lscolors.zsh' \
         trapd00r/LS_COLORS \
     pick'autoenv.zsh' nocompletions \
