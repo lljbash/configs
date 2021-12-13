@@ -15,7 +15,7 @@ fi
 npm install coc-lists --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 npm install coc-dictionary --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 npm install coc-word --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
-npm install coc-snippets --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+npm install coc-snippets@2.4.5 --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 npm install coc-highlight --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 npm install coc-calc --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 npm install coc-yank --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
