@@ -123,7 +123,7 @@ zt aliases light-mode for \
         'https://github.com/lljbash/configs/blob/master/my_aliases.zsh'
 
 ### Binaries
-zinit light zinit-zsh/z-a-bin-gem-node
+zinit light zdharma-continuum/zinit-annex-bin-gem-node
 zt as "null" from"gh-r" light-mode for \
     mv"fd* -> fd" sbin"fd/fd" atload"unalias fd &>/dev/null" \
         @sharkdp/fd \
