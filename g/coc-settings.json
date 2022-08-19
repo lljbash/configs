@@ -1,0 +1,22 @@
+{
+  "yank.enableCompletion":false,
+  "languageserver": {
+    "ciderlsp": {
+      "command": "/google/bin/releases/cider/ciderlsp/ciderlsp",
+      "args": [
+        "--tooltag=coc-nvim",
+        "--noforward_sync_responses"
+      ],
+      "filetypes": [
+        "borg",
+        "c",
+        "cpp",
+        "go",
+        "java",
+        "proto",
+        "python",
+        "textproto"
+      ]
+    }
+  }
+}
