@@ -61,8 +61,6 @@ zinit light-mode for \
         OMZP::extract \
     trigger-load'!man' \
         ael-code/zsh-colored-man-pages \
-    trigger-load'!zshz;!z' blockf \
-        agkozak/zsh-z \
     trigger-load'!zhooks' \
         agkozak/zhooks \
     trigger-load'!ccat;!cless' \
@@ -100,6 +98,8 @@ zt light-mode for \
         OMZP::command-not-found/command-not-found.plugin.zsh \
         OMZP::safe-paste/safe-paste.plugin.zsh \
         OMZP::sudo/sudo.plugin.zsh \
+        OMZP::per-directory-history/per-directory-history.zsh \
+        agkozak/zsh-z \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
         hlissner/zsh-autopair \
     atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'%atclone' \
