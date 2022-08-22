@@ -12,9 +12,10 @@ endif
 call plug#begin('~/.vim/plugged')
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " 主题
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-Plug 'vim-scripts/phd'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'tomasr/molokai'
+"Plug 'vim-scripts/phd'
+Plug 'rafi/awesome-vim-colorschemes'
 
 " 基本设置
 Plug 'tpope/vim-sensible'
@@ -81,14 +82,12 @@ Plug 'tpope/vim-surround'
 
 " fzf
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf'
 
 " 自动进入paste模式
 Plug 'ConradIrwin/vim-bracketed-paste'
 
-" 自动补全框架，需要 node, 用 CocInstall 安装插件
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" 支持 fig 的 diff 显示
+" 支持多种版本管理系统的 diff 显示
 if has('nvim') || has('patch-8.0.902')
   Plug 'mhinz/vim-signify'
 else
@@ -97,6 +96,12 @@ endif
 
 " 根据编码显示颜色
 Plug 'lilydjwg/colorizer'
+
+" Terminal
+Plug 'voldikss/vim-floaterm'
+
+" 自动补全框架，需要 node, 用 CocInstall 安装插件
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 call plug#end()
@@ -318,6 +323,13 @@ nnoremap <silent> <Leader>sw :FSHere<cr>
 nnoremap <Leader>t :TagbarToggle<CR>
 " 启动时自动focus
 let g:tagbar_autofocus = 1
+
+"" floaterm 设置
+let g:floaterm_keymap_new    = '<F6>'
+let g:floaterm_keymap_prev   = '<F7>'
+let g:floaterm_keymap_next   = '<F8>'
+let g:floaterm_keymap_toggle = '<F5>'
+autocmd QuitPre * :FloatermKill!
 
 "" ycm 设置
 "let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
@@ -556,3 +568,7 @@ nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 nnoremap <silent> [fzf-p]n     :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
 nnoremap <silent> [fzf-p]N     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
 nnoremap <silent> [fzf-p]gn     :<C-u>CocCommand fzf-preview.GitFiles<CR>
+
+"" coc-typos mappings
+" Fix typo at cursor position
+nmap z= <Plug>(coc-typos-fix)

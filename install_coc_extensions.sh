@@ -26,6 +26,7 @@ npm install coc-json --global-style --ignore-scripts --no-bin-links --no-package
 npm install coc-cmake --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 npm install coc-tabnine --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 npm install coc-fzf-preview --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+npm install coc-typos --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
 #if [ ! -x "$(command -v clangd)" ]; then
 #echo Warning: clangd is required to use coc-clangd
