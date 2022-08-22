@@ -30,7 +30,7 @@ export PS1="%n@%m:%~%# "
 # Load local bash/zsh compatible settings
 _INIT_SH_NOFUN=1
 [ -f "$HOME/.local/etc/init.sh" ] && source "$HOME/.local/etc/init.sh"
-[ -f "$HOME/.local/etc/config.zsh" ] && source "$HOME/.local/etc/config.zsh" 
+[ -f "$HOME/.local/etc/config.zsh" ] && source "$HOME/.local/etc/config.zsh"
 [ -f "$HOME/.local/etc/local.zsh" ] && source "$HOME/.local/etc/local.zsh"
 [ -f "$HOME/.local/etc/function.sh" ] && . "$HOME/.local/etc/function.sh"
 
@@ -99,7 +99,6 @@ zt light-mode for \
         OMZP::safe-paste/safe-paste.plugin.zsh \
         OMZP::sudo/sudo.plugin.zsh \
         OMZP::per-directory-history/per-directory-history.zsh \
-        agkozak/zsh-z \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
         hlissner/zsh-autopair \
     atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'%atclone' \
@@ -107,6 +106,8 @@ zt light-mode for \
         trapd00r/LS_COLORS \
     pick'autoenv.zsh' nocompletions \
         Tarrasch/zsh-autoenv \
+    blockf \
+        agkozak/zsh-z \
     as'null' atload'export CCLS_INIT_CONFIG=$(pwd)/ccls-config;
                     alias ccls-init='\''cp $CCLS_INIT_CONFIG .ccls'\''' \
         'https://github.com/lljbash/configs/blob/master/ccls-config'
@@ -124,20 +125,20 @@ zt aliases light-mode for \
 
 ### Binaries
 zinit light zdharma-continuum/zinit-annex-bin-gem-node
-zt as "null" from"gh-r" light-mode for \
+zt as "null" from"gh-r" nocompile light-mode for \
     mv"fd* -> fd" sbin"fd/fd" atload"unalias fd &>/dev/null" \
         @sharkdp/fd \
-    sbin"fzf" atload"export FZF_DEFAULT_COMMAND='fd --type f'" \
-        junegunn/fzf-bin \
-    mv"hyperfine* -> hyperfine" sbin"hyperfine/hyperfine" \
-        @sharkdp/hyperfine \
     mv"delta* -> delta" sbin"delta/delta" \
     atclone"sed -e '1,/\`\`\`gitconfig/d' -e '/\`\`\`/,\$d' delta/README.md > gitconfig;
             git config --global include.path \$(pwd)/gitconfig" \
     atpull'%atclone' \
         dandavison/delta
+zt as "null" nocompile light-mode for \
+    atclone"sed --in-place=.orig -e 's/github.com\/junegunn\/fzf\/releases/download.fastgit.org\/junegunn\/fzf\/releases/' install; ./install --bin" reset atpull'%atclone' sbin"bin/fzf" \
+    atload'export FZF_DEFAULT_COMMAND="fd --type f"; export FZF_BASE=$(pwd)' \
+        junegunn/fzf
 ## With completions
-zt as"completion" blockf from"gh-r" light-mode for \
+zt as"completion" blockf from"gh-r" nocompile light-mode for \
     cp"comp*/*.zsh -> _exa" sbin"bin/exa" \
     atload'_lljbash_exa_icons() {
                if [[ $POWERLEVEL9K_LEFT_PROMPT_ELEMENTS[(r)os_icon] == os_icon ]]; then
@@ -165,14 +166,12 @@ zt as"completion" blockf from"gh-r" light-mode for \
     atclone'mv bat* bat; mv -f **/*.zsh _bat' atpull'%atclone' sbin"bat/bat" \
         @sharkdp/bat
 ## Actually scripts
-zt as"null" light-mode for \
+zt as"null" light-mode nocompile for \
     sbin"bin/git-ignore" \
         laggardkernel/git-ignore
 
 ### Completions
 zt light-mode for \
-    as"null" atload'export FZF_BASE=$(pwd)' \
-        junegunn/fzf \
     blockf \
         OMZP::fzf/fzf.plugin.zsh \
     as"completion" blockf \

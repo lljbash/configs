@@ -134,13 +134,15 @@ zinit light zdharma-continuum/zinit-annex-bin-gem-node
 zt as "null" from"gh-r" nocompile light-mode for \
     mv"fd* -> fd" sbin"fd/fd" atload"unalias fd &>/dev/null" \
         @sharkdp/fd \
-    sbin"fzf" atload"export FZF_DEFAULT_COMMAND='fd --type f'" \
-        junegunn/fzf-bin \
     mv"delta* -> delta" sbin"delta/delta" \
     atclone"sed -e '1,/\`\`\`gitconfig/d' -e '/\`\`\`/,\$d' delta/README.md > gitconfig;
             git config --global include.path \$(pwd)/gitconfig" \
     atpull'%atclone' \
         dandavison/delta
+zt as "null" nocompile light-mode for \
+    atclone"sed --in-place=.orig -e 's/github.com\/junegunn\/fzf\/releases/download.fastgit.org\/junegunn\/fzf\/releases/' install; ./install --bin" reset atpull'%atclone' sbin"bin/fzf" \
+    atload'export FZF_DEFAULT_COMMAND="fd --type f"; export FZF_BASE=$(pwd)' \
+        junegunn/fzf
 ## With completions
 zt as"completion" blockf from"gh-r" nocompile light-mode for \
     cp"comp*/*.zsh -> _exa" sbin"bin/exa" \
@@ -176,8 +178,6 @@ zt as"null" light-mode nocompile for \
 
 ### Completions
 zt light-mode for \
-    as"null" atload'export FZF_BASE=$(pwd)' \
-        junegunn/fzf \
     blockf \
         OMZP::fzf/fzf.plugin.zsh \
     as"completion" blockf \
@@ -189,7 +189,7 @@ zt light-mode for \
     blockf compile'lib/*f*~*.zwc' nocompile'!' \
     atinit'zicompinit; zicdreplay; compdef _delta delta; compdef tmx2=tmux' \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
-    atclone"sed --in-place=.orig -e 's/COLUMNS=500 //' fzf-tab.zsh" atpull'%atclone' \
+    atclone"sed --in-place=.orig -e 's/COLUMNS=500 //' fzf-tab.zsh" reset atpull'%atclone' \
         Aloxaf/fzf-tab
 
 ### Highlighting
