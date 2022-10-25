@@ -20,6 +20,9 @@ Plug 'rafi/awesome-vim-colorschemes'
 " 基本设置
 Plug 'tpope/vim-sensible'
 
+" 项目特殊配置
+Plug 'embear/vim-localvimrc'
+
 " 状态栏
 Plug 'Lokaltog/vim-powerline', {'branch': 'develop'}
 
@@ -87,6 +90,9 @@ Plug 'junegunn/fzf'
 " 自动进入paste模式
 Plug 'ConradIrwin/vim-bracketed-paste'
 
+" git status
+Plug 'mhinz/vim-signify'
+
 " 支持多种版本管理系统的 diff 显示
 if has('nvim') || has('patch-8.0.902')
   Plug 'mhinz/vim-signify'
@@ -102,6 +108,9 @@ Plug 'voldikss/vim-floaterm'
 
 " 自动补全框架，需要 node, 用 CocInstall 安装插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" 基于 LSP 的 C++ 高亮
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 call plug#end()
@@ -274,6 +283,10 @@ let g:floaterm_keymap_prev   = '<F7>'
 let g:floaterm_keymap_next   = '<F8>'
 let g:floaterm_keymap_toggle = '<F5>'
 autocmd QuitPre * :FloatermKill!
+
+"" localvimrc 设置
+" Store and restore decisions only if the answer was given in upper case (Y/N/A).
+let g:localvimrc_persistent = 1
 
 "" ycm 设置
 "let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
