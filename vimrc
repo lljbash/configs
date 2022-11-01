@@ -90,9 +90,6 @@ Plug 'junegunn/fzf'
 " 自动进入paste模式
 Plug 'ConradIrwin/vim-bracketed-paste'
 
-" git status
-Plug 'mhinz/vim-signify'
-
 " 支持多种版本管理系统的 diff 显示
 if has('nvim') || has('patch-8.0.902')
   Plug 'mhinz/vim-signify'
@@ -151,6 +148,12 @@ nnoremap <Leader>kw <C-W>k
 nnoremap <Leader>jw <C-W>j
 " 定义快捷键在结对符之间跳转
 nmap <Leader>M %
+
+" Automatically change the working path to the path of the current file
+"autocmd BufNewFile,BufEnter * silent! lcd %:p:h
+" Instead, mapping for quick directory change
+nnoremap <leader><leader>. :lcd %:p:h<CR>:pwd<CR>
+nnoremap <leader>.. :lcd ..<CR>:pwd<CR>
 
 " 让配置变更立即生效
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
