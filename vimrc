@@ -163,14 +163,6 @@ nnoremap <leader>.. :lcd ..<CR>:pwd<CR>
 " 关闭兼容模式
 set nocompatible
 
-" 配色方案
-set background=dark
-"colorscheme solarized
-au ColorScheme molokai hi CocMenuSel ctermbg=237 guibg=#13354A
-"colorscheme molokai
-colorscheme molokayo
-"colorscheme phd
-
 " 禁止光标闪烁
 set gcr=a:block-blinkon0
 " 禁止显示滚动条
@@ -202,9 +194,21 @@ syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
 
+" 配色方案
+"set background=dark
+"colorscheme solarized
+colorscheme molokai
+"colorscheme molokayo
+"colorscheme phd
+
 " 自定义高亮配置应在此之后
 au ColorScheme * call Highlight()
 function! Highlight() abort
+    if (g:colors_name =~ "molokai")
+        hi! CocMenuSel ctermbg=237 guibg=#13354A
+        hi! CocPumSearch ctermfg=48 guifg=#00ff87
+        "hi! CocFloating guibg=#151515 guifg=#808080 ctermbg=233 ctermfg=244
+    endif
     exec 'hi SignifySignAdd guifg=green ctermfg=green' .
                 \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
                 \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
