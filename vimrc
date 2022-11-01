@@ -166,7 +166,9 @@ set nocompatible
 " 配色方案
 set background=dark
 "colorscheme solarized
-colorscheme molokai
+au ColorScheme molokai hi CocMenuSel ctermbg=237 guibg=#13354A
+"colorscheme molokai
+colorscheme molokayo
 "colorscheme phd
 
 " 禁止光标闪烁
@@ -201,15 +203,19 @@ syntax enable
 syntax on
 
 " 自定义高亮配置应在此之后
-exec 'hi SignifySignAdd guifg=green ctermfg=green' .
-            \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
-            \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
-exec 'hi SignifySignDelete guifg=red ctermfg=red' .
-            \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
-            \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
-exec 'hi SignifySignChange guifg=yellow ctermfg=yellow' .
-            \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
-            \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+au ColorScheme * call Highlight()
+function! Highlight() abort
+    exec 'hi SignifySignAdd guifg=green ctermfg=green' .
+                \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+                \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+    exec 'hi SignifySignDelete guifg=red ctermfg=red' .
+                \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+                \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+    exec 'hi SignifySignChange guifg=yellow ctermfg=yellow' .
+                \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+                \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+endfunction
+call Highlight()
 
 " 自适应不同语言的智能缩进
 filetype indent on
