@@ -98,6 +98,7 @@ zt light-mode for \
         OMZP::command-not-found/command-not-found.plugin.zsh \
         OMZP::safe-paste/safe-paste.plugin.zsh \
         OMZP::sudo/sudo.plugin.zsh \
+    atload'export HISTORY_START_WITH_GLOBAL=true' \
         OMZP::per-directory-history/per-directory-history.zsh \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
         hlissner/zsh-autopair \
