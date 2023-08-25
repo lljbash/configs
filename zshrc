@@ -135,7 +135,7 @@ zt as "null" from"gh-r" nocompile light-mode for \
     atpull'%atclone' \
         dandavison/delta
 zt as "null" nocompile light-mode for \
-    atclone"sed --in-place=.orig -e 's/github.com\/junegunn\/fzf\/releases/download.fastgit.org\/junegunn\/fzf\/releases/' install; ./install --bin" reset atpull'%atclone' sbin"bin/fzf" \
+    atclone"./install --bin" reset atpull'%atclone' sbin"bin/fzf" \
     atload'export FZF_DEFAULT_COMMAND="fd --type f"; export FZF_BASE=$(pwd)' \
         junegunn/fzf
 ## With completions
@@ -162,7 +162,7 @@ zt as"completion" blockf from"gh-r" nocompile light-mode for \
     mv"ripgrep* -> ripgrep" cp"ripgrep/comp*/_rg -> _rg" sbin"ripgrep/rg" \
     atclone"rm -rf ripgrep/comp*" atpull'%atclone' \
         BurntSushi/ripgrep \
-    atclone'./just --completions zsh > _just' atpull'%atclone' sbin \
+    atclone'./just --completions zsh > _just' atpull'%atclone' sbin"just" \
         casey/just \
     atclone'mv bat* bat; mv -f **/*.zsh _bat' atpull'%atclone' sbin"bat/bat" \
         @sharkdp/bat
