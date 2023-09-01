@@ -57,8 +57,8 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 ### Trigger-load
 zinit light-mode for \
-    trigger-load'!x' svn \
-        OMZP::extract \
+    trigger-load'!x' blockf \
+        Asumerodi/omz-extract \
     trigger-load'!man' \
         ael-code/zsh-colored-man-pages \
     trigger-load'!zhooks' \
@@ -75,8 +75,8 @@ zinit light-mode for \
 ### OMZ basics
 zinit light-mode for \
         OMZL::completion.zsh \
-        OMZL::history.zsh \
         OMZL::key-bindings.zsh \
+        OMZL::history.zsh \
     atload'export LSCOLORS="ExgxcxdxCxegedabagacad"' \
         OMZL::theme-and-appearance.zsh
 setopt CORRECT
@@ -197,3 +197,4 @@ zt as"null" light-mode for \
         zdharma-continuum/null
 
 #### PLUGIN  END  ####
+

@@ -3,7 +3,6 @@ hello:
 
 install-zsh-configs:
 	command -v git || sudo apt-get install git
-	command -v svn || sudo apt-get install subversion
 	cp zshrc ~/.zshrc
 	cp zshenv ~/.zshenv
 
