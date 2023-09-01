@@ -50,11 +50,6 @@ fi
 
 alias zt='zinit wait lucid depth=3'
 
-### Load first to make sure the plugin behaves as expected
-zinit light-mode for \
-    atload'export HISTORY_START_WITH_GLOBAL=true' \
-        OMZP::per-directory-history/per-directory-history.zsh
-
 ### Powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
