@@ -1,4 +1,4 @@
-set term=screen-256color
+set term=tmux-256color
 set mouse=a
 
 " 自动安装 vim-plug
@@ -98,7 +98,8 @@ else
 endif
 
 " 根据编码显示颜色
-Plug 'lilydjwg/colorizer'
+" coc-highlight 可以支持 (colors.enable)
+"Plug 'lilydjwg/colorizer'
 
 " Terminal
 Plug 'voldikss/vim-floaterm'
@@ -178,8 +179,10 @@ set guioptions-=T
 set number
 " 高亮显示当前行/列
 set cursorline
-hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-" set cursorcolumn
+"hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+" cursorline 与 coc-highlight 冲突了
+set cursorlineopt=number
+"set cursorcolumn
 " 高亮显示搜索结果
 set hlsearch
 
@@ -189,10 +192,20 @@ set hlsearch
 " 禁止折行
 "set nowrap
 
+" You might have to force true color when using regular vim inside tmux as the
+" colorscheme can appear to be grayscale with "termguicolors" option enabled.
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 " 开启语法高亮功能
 syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
+
+" 开启真彩色
+set termguicolors
 
 " 配色方案
 "set background=dark

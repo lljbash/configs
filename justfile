@@ -15,6 +15,7 @@ install-coc-configs:
 
 install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
+	tic -x tmux-256color
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 install-inputrc:
