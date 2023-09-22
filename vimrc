@@ -232,6 +232,10 @@ set tabstop=4
 set shiftwidth=4
 " 让 vim 把连续数量的空格视为一个制表符
 set softtabstop=4
+" C/C++ 使用 Google Style 缩进
+autocmd Filetype c,cpp setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+" 修改缩进设置时刷新缩进显示
+autocmd OptionSet shiftwidth execute 'IndentGuidesToggle' | execute 'IndentGuidesToggle'
 
 " 基于缩进或语法进行代码折叠
 "set foldmethod=indent
