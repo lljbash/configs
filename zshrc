@@ -96,7 +96,6 @@ zt light-mode for \
     atload"_zsh_autosuggest_start" \
         zsh-users/zsh-autosuggestions \
         OMZP::command-not-found/command-not-found.plugin.zsh \
-        OMZP::safe-paste/safe-paste.plugin.zsh \
         OMZP::sudo/sudo.plugin.zsh \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
         hlissner/zsh-autopair \
