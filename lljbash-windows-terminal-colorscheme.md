@@ -1,5 +1,7 @@
+Merge the following settings into `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json`.
+
+```json
 {
-    "__comment": "merge this file into %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json",
     "schemes": 
     [
         {
@@ -27,3 +29,4 @@
         }
     ]
 }
+```
