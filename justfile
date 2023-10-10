@@ -10,13 +10,14 @@ install-vim-configs:
 	cp vimrc ~/.vimrc
 
 install-coc-configs:
-    mkdir -p ~/.vim
+	mkdir -p ~/.vim
 	cp coc-settings.json ~/.vim/coc-settings.json
 	./install_coc_extensions.sh
 
 link-nvim-configs:
-    ln -s ${HOME}/.vimrc .config/nvim/init.vim
-    ln -s ${HOME}/.vim/coc-settings.json .config/nvim/coc-settings.json
+	mkdir -p ~/.config/nvim
+	ln -s ${HOME}/.vimrc ~/.config/nvim/init.vim
+	ln -s ${HOME}/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf

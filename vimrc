@@ -123,6 +123,9 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 
+" Justfile
+Plug 'NoahTheDuke/vim-just'
+
 " 自动补全框架，需要 node, 用 CocInstall 安装插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -277,6 +280,8 @@ set shiftwidth=4
 set softtabstop=4
 " Google Style 缩进
 autocmd Filetype c,cpp,cmake,vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+" Justfile 尽量兼容 Makefile
+autocmd Filetype just setlocal noexpandtab
 " 修改缩进设置时刷新缩进显示
 autocmd OptionSet shiftwidth execute 'IndentGuidesToggle' | execute 'IndentGuidesToggle'
 
@@ -314,8 +319,6 @@ let c_no_curly_error=1
 
 " Doxygen 识别为 C++
 au! BufNewFile,BufRead *.dox setf cpp
-" Justfile 识别为 Makefile
-au BufNewFile,BufRead justfile,Justfile setf make
 
 "" 显示缩进设置
 " 随 vim 自启动
