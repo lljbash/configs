@@ -1,21 +1,34 @@
-set term=tmux-256color
 set mouse=a
 
 " 自动安装 vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --insecure --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+let my_vim_home = has('nvim') ? stdpath('data') . "/site" : expand("~/.vim")
+let my_vimplug_path=my_vim_home . "/autoload/plug.vim"
+let my_vimplug_plug_dir=my_vim_home . "/plugged"
+" Install vim-plug if not found
+if !filereadable(my_vimplug_path)
+  silent execute '!curl -fLo ' . my_vimplug_path . ' --create-dirs
+    \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"'
+  if has('nvim')
+    exec 'source ' . my_vimplug_path
+  endif
 endif
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
 
 " vim-plug 插件列表
-call plug#begin('~/.vim/plugged')
+call plug#begin(my_vimplug_plug_dir)
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " 主题
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'tomasr/molokai'
 "Plug 'vim-scripts/phd'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'tomasiser/vim-code-dark'
+if has('nvim')
+  Plug 'sainnhe/sonokai'
+endif
 
 " 基本设置
 Plug 'tpope/vim-sensible'
@@ -27,7 +40,8 @@ Plug 'embear/vim-localvimrc'
 Plug 'Lokaltog/vim-powerline', {'branch': 'develop'}
 
 " C++ 语法高亮
-Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'bfrg/vim-cpp-modern'
 
 " 显示缩进
 "Plug 'nathanaelkane/vim-indent-guides'
@@ -104,11 +118,17 @@ endif
 " Terminal
 Plug 'voldikss/vim-floaterm'
 
+" 语义高亮 (nvim only)
+if has('nvim')
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+endif
+
 " 自动补全框架，需要 node, 用 CocInstall 安装插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " 基于 LSP 的 C++ 高亮
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+" 现在 coc + clangd 可以原生支持 (semanticTokens.enable)
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 call plug#end()
@@ -192,11 +212,13 @@ set hlsearch
 " 禁止折行
 "set nowrap
 
+if !has('nvim')
 " You might have to force true color when using regular vim inside tmux as the
 " colorscheme can appear to be grayscale with "termguicolors" option enabled.
-if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  endif
 endif
 
 " 开启语法高亮功能
@@ -208,29 +230,37 @@ syntax on
 set termguicolors
 
 " 配色方案
-"set background=dark
+set background=dark
 "colorscheme solarized
-colorscheme molokai
+"colorscheme molokai
 "colorscheme molokayo
 "colorscheme phd
+if has('nvim')
+  let g:sonokai_style = 'shusia'
+  let g:sonokai_disable_italic_comment = 0
+  let g:sonokai_enable_italic = 1
+  colorscheme sonokai
+else
+  colorscheme codedark
+endif
 
 " 自定义高亮配置应在此之后
 au ColorScheme * call Highlight()
 function! Highlight() abort
-    if (g:colors_name =~ "molokai")
-        hi! CocMenuSel ctermbg=237 guibg=#13354A
-        hi! CocPumSearch ctermfg=48 guifg=#00ff87
-        "hi! CocFloating guibg=#151515 guifg=#808080 ctermbg=233 ctermfg=244
-    endif
-    exec 'hi SignifySignAdd guifg=green ctermfg=green' .
-                \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
-                \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
-    exec 'hi SignifySignDelete guifg=red ctermfg=red' .
-                \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
-                \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
-    exec 'hi SignifySignChange guifg=yellow ctermfg=yellow' .
-                \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
-                \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+  if (g:colors_name =~ "molokai")
+    hi! CocMenuSel ctermbg=237 guibg=#13354A
+    hi! CocPumSearch ctermfg=48 guifg=#00ff87
+    "hi! CocFloating guibg=#151515 guifg=#808080 ctermbg=233 ctermfg=244
+  endif
+  exec 'hi SignifySignAdd guifg=green ctermfg=green' .
+    \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+    \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+  exec 'hi SignifySignDelete guifg=red ctermfg=red' .
+    \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+    \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+  exec 'hi SignifySignChange guifg=yellow ctermfg=yellow' .
+    \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+    \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
 endfunction
 call Highlight()
 
@@ -245,8 +275,8 @@ set tabstop=4
 set shiftwidth=4
 " 让 vim 把连续数量的空格视为一个制表符
 set softtabstop=4
-" C/C++ 使用 Google Style 缩进
-autocmd Filetype c,cpp setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+" Google Style 缩进
+autocmd Filetype c,cpp,cmake,vim setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " 修改缩进设置时刷新缩进显示
 autocmd OptionSet shiftwidth execute 'IndentGuidesToggle' | execute 'IndentGuidesToggle'
 

@@ -13,6 +13,10 @@ install-coc-configs:
 	./install_coc_config.sh
 	./install_coc_extensions.sh
 
+link-nvim-configs:
+    ln -s ${HOME}/.vimrc .config/nvim/init.vim
+    ln -s ${HOME}/.vim/coc-settings.json .config/nvim/coc-settings.json
+
 install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
 	tic -x tmux-256color
