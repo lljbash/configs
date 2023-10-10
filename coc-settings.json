@@ -1,34 +1,21 @@
 {
+    "colors.enable": true,
+    "codeLens.enable": true,
     "suggest.noselect": true,
     "yank.enableCompletion": false,
-    "languageserver": {
-        "ccls": {
-            "command": "ccls",
-            "filetypes": [
-                "c",
-                "cc",
-                "cpp",
-                "c++",
-                "objc",
-                "objcpp"
-            ],
-            "rootPatterns": [
-                ".ccls",
-                "compile_commands.json",
-                ".git/",
-                ".hg/"
-            ],
-            "initializationOptions": {
-                "cache": {
-                    "directory": REPLACE_WITH_HOME_CCLS_CACHE
-                },
-                "client": {
-                    "snippetSupport": true
-                },
-                "highlight": {
-                    "lsRanges": true
-                }
-            }
-        }
-    }
+    "clangd.arguments": [
+        "--compile-commands-dir=build",
+        "--all-scopes-completion",
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--function-arg-placeholders=0",
+        "--header-insertion=iwyu",
+        "-j=4",
+        "--pch-storage=memory"
+    ],
+    "semanticTokens.enable": true,
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--max-line-length=88"]
 }

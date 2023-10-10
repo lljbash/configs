@@ -10,7 +10,8 @@ install-vim-configs:
 	cp vimrc ~/.vimrc
 
 install-coc-configs:
-	./install_coc_config.sh
+    mkdir -p ~/.vim
+	cp coc-settings.json ~/.vim/coc-settings.json
 	./install_coc_extensions.sh
 
 link-nvim-configs:

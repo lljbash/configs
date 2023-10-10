@@ -1,0 +1,34 @@
+{
+    "suggest.noselect": true,
+    "yank.enableCompletion": false,
+    "languageserver": {
+        "ccls": {
+            "command": "ccls",
+            "filetypes": [
+                "c",
+                "cc",
+                "cpp",
+                "c++",
+                "objc",
+                "objcpp"
+            ],
+            "rootPatterns": [
+                ".ccls",
+                "compile_commands.json",
+                ".git/",
+                ".hg/"
+            ],
+            "initializationOptions": {
+                "cache": {
+                    "directory": REPLACE_WITH_HOME_CCLS_CACHE
+                },
+                "client": {
+                    "snippetSupport": true
+                },
+                "highlight": {
+                    "lsRanges": true
+                }
+            }
+        }
+    }
+}
