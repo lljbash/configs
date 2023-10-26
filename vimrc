@@ -119,9 +119,9 @@ endif
 Plug 'voldikss/vim-floaterm'
 
 " 语义高亮 (nvim only)
-if has('nvim')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-endif
+"if has('nvim')
+  "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"endif
 
 " Justfile
 Plug 'NoahTheDuke/vim-just'
@@ -396,6 +396,24 @@ let g:localvimrc_persistent = 1
 
 
 "" coc 设置
+
+" coc 插件列表
+let g:coc_global_extensions = [
+\ 'coc-lists',
+\ 'coc-dictionary',
+\ 'coc-word',
+\ 'coc-snippets',
+\ 'coc-highlight',
+\ 'coc-calc',
+\ 'coc-yank',
+\ 'coc-pyright',
+\ 'coc-clangd',
+\ 'coc-pairs',
+\ 'coc-json',
+\ 'coc-cmake',
+\ 'coc-fzf-preview',
+\ 'coc-typos'
+\ ]
 
 " TextEdit might fail if hidden is not set.
 set hidden
