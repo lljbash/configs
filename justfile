@@ -6,6 +6,18 @@ install-zsh-configs:
 	cp zshrc ~/.zshrc
 	cp zshenv ~/.zshenv
 
+install-zsh-configs-with-conda:
+	conda create -n app -c conda-forge \
+		zsh tmux vim git gh \
+		exa typos ripgrep git-delta fd-find just bat fzf \
+		clang clang-format clang-tools clangdev clangxx libclang libclang-cpp python-clang \
+		gcc gxx ctags include-what-you-use neovim nodejs \
+		&& \
+	cp zshrc-no-ghr ~/.zshrc && \
+	cp zshenv ~/.zshenv && \
+	conda init zsh && \
+	bash -ic 'conda activate app && sed -i -e "s|export PATH=|export PATH=$$CONDA_PREFIX/bin:|" ~/.zshenv'
+
 install-vim-configs:
 	cp vimrc ~/.vimrc
 
