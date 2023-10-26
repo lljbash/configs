@@ -8,10 +8,10 @@ install-zsh-configs:
 
 install-zsh-configs-with-conda:
 	conda create -n app -c conda-forge \
-		zsh tmux vim git gh \
+		zsh tmux vim python=3.10 git gh \
 		exa typos ripgrep git-delta fd-find just bat fzf \
 		clang clang-format clang-tools clangdev clangxx libclang libclang-cpp python-clang \
-		gcc gxx ctags include-what-you-use neovim nodejs \
+		gcc gxx cmake ctags include-what-you-use neovim nodejs=18 \
 		&& \
 	cp zshrc-no-ghr ~/.zshrc && \
 	cp zshenv ~/.zshenv && \
