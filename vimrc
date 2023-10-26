@@ -42,6 +42,8 @@ Plug 'Lokaltog/vim-powerline', {'branch': 'develop'}
 " C++ 语法高亮
 "Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'bfrg/vim-cpp-modern'
+" Justfile
+Plug 'NoahTheDuke/vim-just'
 
 " 显示缩进
 "Plug 'nathanaelkane/vim-indent-guides'
@@ -123,8 +125,10 @@ Plug 'voldikss/vim-floaterm'
   "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "endif
 
-" Justfile
-Plug 'NoahTheDuke/vim-just'
+" Copilot!
+" :Copilot setup
+" 补全重新绑定至 <C-J>
+Plug 'github/copilot.vim'
 
 " 自动补全框架，需要 node, 用 CocInstall 安装插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -346,6 +350,7 @@ let g:floaterm_keymap_prev   = '<F7>'
 let g:floaterm_keymap_next   = '<F8>'
 let g:floaterm_keymap_toggle = '<F5>'
 autocmd QuitPre * :FloatermKill!
+let g:floaterm_shell = 'zsh'
 
 "" localvimrc 设置
 " Store and restore decisions only if the answer was given in upper case (Y/N/A).
@@ -394,6 +399,9 @@ let g:localvimrc_persistent = 1
 "" 不显示项目树上额外的信息，例如帮助、提示什么的
 "let NERDTreeMinimalUI=1
 
+"" Copilot
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 "" coc 设置
 
