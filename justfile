@@ -56,3 +56,11 @@ set-login-shell:
 
 generate-ssh-key:
 	ssh-keygen -t rsa -b 4096
+
+update-nvim-nightly:
+	mkdir -p $HOME/download && \
+	cd $HOME/download && \
+	wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.tar.gz && \
+	tar xzvf nvim-linux64.tar.gz && \
+	rm nvim-linux64.tar.gz && \
+	echo $HOME/download
