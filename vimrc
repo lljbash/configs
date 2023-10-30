@@ -107,11 +107,12 @@ Plug 'junegunn/fzf'
 Plug 'ConradIrwin/vim-bracketed-paste'
 
 " 支持多种版本管理系统的 diff 显示
-if has('nvim') || has('patch-8.0.902')
-  Plug 'mhinz/vim-signify'
-else
-  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-endif
+" 如果只用 git 可以用 coc-git，功能更强大
+"if has('nvim') || has('patch-8.0.902')
+  "Plug 'mhinz/vim-signify'
+"else
+  "Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+"endif
 
 " 根据编码显示颜色
 " coc-highlight 可以支持 (colors.enable)
@@ -377,7 +378,8 @@ let g:coc_global_extensions = [
 \ 'coc-json',
 \ 'coc-cmake',
 \ 'coc-fzf-preview',
-\ 'coc-typos'
+\ 'coc-typos',
+\ 'coc-git'
 \ ]
 
 " TextEdit might fail if hidden is not set.
@@ -392,7 +394,7 @@ set cmdheight=1
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+set updatetime=100
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -580,3 +582,20 @@ nmap ]s <Plug>(coc-typos-next)
 nmap [s <Plug>(coc-typos-prev)
 " Fix typo at cursor position
 nmap z= <Plug>(coc-typos-fix)
+
+"" coc-git mappings
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap [c <Plug>(coc-git-prevconflict)
+nmap ]c <Plug>(coc-git-nextconflict)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
+" create text object for git chunks
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)
