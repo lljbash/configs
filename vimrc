@@ -356,49 +356,6 @@ let g:floaterm_shell = 'zsh'
 " Store and restore decisions only if the answer was given in upper case (Y/N/A).
 let g:localvimrc_persistent = 1
 
-"" ycm 设置
-"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-"let g:ycm_confirm_extra_conf = 0
-"let g:ycm_add_preview_to_completeopt = 0
-"let g:ycm_show_diagnostics_ui = 1
-"let g:ycm_server_log_level = 'info'
-"let g:ycm_min_num_of_chars_for_completion = 2
-"let g:ycm_min_num_identifier_candidate_chars = 2
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_complete_in_comments = 1
-"let g:ycm_complete_in_strings = 1
-"set completeopt=menu,menuone
-"let g:ycm_key_list_select_completion = ['<C-n>']
-"let g:ycm_key_list_previous_completion = ['<C-p>']
-"let g:ycm_key_list_stop_completion = ['<C-y>', '<UP>', '<DOWN>']
-"let g:SuperTabDefaultCompletionType = '<C-n>'
-" better key bindings for UltiSnipsExpandTrigger
-"let g:UltiSnipsExpandTrigger = "<tab>"
-"let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-"let g:ycm_seed_identifiers_with_syntax = 1
-"let g:ycm_collect_identifiers_from_tags_files = 1
-"let g:EclimCompletionMethod = 'omnifunc'
-"nnoremap <Leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"nnoremap <Leader>f :YcmCompleter FixIt<CR>
-"let g:ycm_semantic_triggers =  {
-"            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-"            \ 'cs,lua,javascript': ['re!\w{2}'],
-"            \ }
-
-"" 文件树设置
-"" <Leader>N 打开/关闭
-"nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-"" 当不带参数打开Vim时自动加载项目树
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"" 当所有文件关闭时关闭项目树窗格
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-"" 不显示这些文件
-"let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules'] "ignore files in NERDTree
-"" 不显示项目树上额外的信息，例如帮助、提示什么的
-"let NERDTreeMinimalUI=1
-
 "" Copilot
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
