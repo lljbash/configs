@@ -126,11 +126,6 @@ Plug 'machakann/vim-highlightedyank'
 " Terminal
 Plug 'voldikss/vim-floaterm'
 
-" 语义高亮 (nvim only)
-"if has('nvim')
-  "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"endif
-
 " Copilot!
 " :Copilot setup
 " 补全重新绑定至 <C-J>
@@ -143,11 +138,21 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 现在 coc + clangd 可以原生支持 (semanticTokens.enable)
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
 
+"" nvim only plugins
+if has('nvim')
+  " 语义高亮 (nvim only)
+  "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " 高亮/搜索 TODO 类型注释
+  Plug 'folke/todo-comments.nvim'
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 call plug#end()
 
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
+
+" Acid aaa
 
 " 开启文件类型侦测
 filetype on
@@ -615,3 +620,14 @@ omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
+
+"" nvim only configurations (Lua)
+if has('nvim')
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+endif
