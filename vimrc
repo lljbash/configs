@@ -106,6 +106,11 @@ Plug 'junegunn/fzf'
 " 自动进入paste模式
 Plug 'ConradIrwin/vim-bracketed-paste'
 
+" yank 历史记录，可配合 fzf-preview
+Plug 'LeafCage/yankround.vim'
+" yank 高亮
+Plug 'machakann/vim-highlightedyank'
+
 " 支持多种版本管理系统的 diff 显示
 " 如果只用 git 可以用 coc-git，功能更强大
 "if has('nvim') || has('patch-8.0.902')
@@ -361,6 +366,18 @@ let g:localvimrc_persistent = 1
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 
+"" yankround 设置
+" 用 p 粘贴文本后，使用 [p、]p 将粘贴的文本替换为上一个历史记录/下一个历史记录。
+" 移动光标将确认替换。
+nmap p <Plug>(yankround-p)
+xmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+xmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap [p <Plug>(yankround-prev)
+nmap ]p <Plug>(yankround-next)
+
 "" coc 设置
 
 " coc 插件列表
@@ -371,7 +388,6 @@ let g:coc_global_extensions = [
 \ 'coc-snippets',
 \ 'coc-highlight',
 \ 'coc-calc',
-\ 'coc-yank',
 \ 'coc-pyright',
 \ 'coc-clangd',
 \ 'coc-pairs',
