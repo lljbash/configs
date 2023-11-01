@@ -11,7 +11,7 @@ install-zsh-configs-with-conda:
 		zsh tmux vim python=3.10 git gh \
 		exa typos ripgrep git-delta fd-find just bat fzf \
 		clang clang-format clang-tools clangdev clangxx libclang libclang-cpp python-clang \
-		gcc gxx cmake ctags include-what-you-use neovim nodejs=18 \
+		gcc gxx cmake ctags include-what-you-use neovim nodejs=18 black cmake-format \
 		&& \
 	cp zshrc-no-ghr ~/.zshrc && \
 	cp zshenv ~/.zshenv && \

@@ -143,6 +143,7 @@ if has('nvim')
   " 语义高亮 (nvim only)
   "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   " 高亮/搜索 TODO 类型注释
+  Plug 'nvim-lua/plenary.nvim'  " dependency
   Plug 'folke/todo-comments.nvim'
 endif
 
@@ -168,7 +169,7 @@ nnoremap <Leader>y "+y
 " 设置快捷键将系统剪贴板内容粘贴至 vim
 nmap <Leader>p "+p
 " 定义快捷键关闭当前分割窗口
-nmap <Leader>q :q<CR>
+"nmap <Leader>q :q<CR>
 " 定义快捷键保存当前窗口内容
 nmap <Leader>w :w<CR>
 " 定义快捷键保存所有窗口内容并退出 vim
@@ -312,7 +313,7 @@ set pastetoggle=<F9>
 "set clipboard=exclude:.*
 " 默认使用系统剪贴板
 "set clipboard^=unnamed,unnamedplus
-nnoremap <leader>p :<c-u>put +<cr>
+"nnoremap <leader>p :<c-u>put +<cr>
 
 " 禁止鼠标中键功能
 map <MiddleMouse> <Nop>
@@ -459,7 +460,8 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+"nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> gr  :<C-u>CocCommand fzf-preview.CocReferences<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -528,34 +530,41 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
+" 部分替换为 fzf-preview
 " Call CocList.
 nnoremap <silent> <space><space>  :<C-u>CocList<cr>
 " Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>a  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<cr>
 " Manage extensions.
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>o  :<C-u>CocCommand fzf-preview.CocOutline<cr>
 " Search workspace symbols.
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Enhanced search
-nnoremap <silent> <space>/  :<C-u>CocList words<CR>
+"nnoremap <silent> <space>/  :<C-u>CocList words<CR>
+nnoremap <silent> <space>/  :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> <space>*  :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
 " Grep in current cwd.
-nnoremap <silent> <space>g  :<C-u>CocList grep<CR>
+"nnoremap <silent> <space>g  :<C-u>CocList grep<CR>
+nnoremap          <space>g  :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+xnoremap          <space>g  "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
 " Open file.
 nnoremap <silent> <space>n  :<C-u>CocList files<cr>
+nnoremap <silent> <space>N  :<C-u>CocCommand fzf-preview.ProjectFiles<cr>
 " Show buffers.
 nnoremap <silent> <space>b  :<C-u>CocList buffers<cr>
-" Mappings using coc-yank
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <space>B  :<C-u>CocCommand fzf-preview.AllBuffers<cr>
+
+" 更多 fzf-preview mappings
+" Show yank history
+nnoremap <silent> <space>y  :<C-u>CocCommand fzf-preview.Yankround<CR>
+" Goto latest changes
+nnoremap <silent> <space>'  :<C-u>CocCommand fzf-preview.Changes<CR>
 
 " grep word under cursor
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
@@ -568,33 +577,7 @@ endfunction
 
 " Keymapping for grep word under cursor with interactive mode
 nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-
-" auto fix by clangd
-nnoremap <leader>f :CocList --input=fix actions<cr>
-
-
-"" coc-fzf-preview mappings
-nmap <Leader>f [fzf-p]
-xmap <Leader>f [fzf-p]
-
-nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
-nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
-nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
-nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
-nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
-nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
-nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
-nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
-nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
-xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
-nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
-nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
-nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
-nnoremap <silent> [fzf-p]n     :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
-nnoremap <silent> [fzf-p]N     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
-nnoremap <silent> [fzf-p]gn     :<C-u>CocCommand fzf-preview.GitFiles<CR>
+nnoremap <silent> <Leader>gr :exe 'CocCommand fzf-preview.ProjectGrep -F '.expand('<cword>')<CR>
 
 "" coc-typos mappings
 " Move to next misspelled word after the cursor, 'wrapscan' applies.
@@ -624,10 +607,14 @@ xmap ag <Plug>(coc-git-chunk-outer)
 "" nvim only configurations (Lua)
 if has('nvim')
 lua << EOF
-  require("todo-comments").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
+require("todo-comments").setup {
+  highlight = {
+    keyword = "bg",
+    pattern = [[.*<(KEYWORDS)(\(.+\))?:]],
+  },
+  search = {
+    pattern = [[\b(KEYWORDS)(\(.+\))?:]],
+  },
+}
 EOF
 endif
