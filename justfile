@@ -1,54 +1,44 @@
 hello:
 	@echo 'Hello there.'
 
-install-zsh-configs:
-	command -v git || sudo apt-get install git
-	cp zshrc ~/.zshrc
+bootstrap: install-zsh-configs-with-conda install-nvim-configs install-tmux-configs install-inputrc
+
+reset-bootstrap:
+	conda remove --name app --all
+	rm -rf ${HOME}/download/nvim-linux64
+	rm -rf ~/.zshrc ~/.zshenv ~/.zinit
+	rm -rf ~/.config/nvim
+	rm -rf ~/.tmux.conf ~/.tmux
+	rm -rf ~/.inputrc
+
+conda-install-missing-apps:
+	conda env update -f app.yaml --prune
+
+update-nvim-nightly:
+	mkdir -p ${HOME}/download
+	cd ${HOME}/download
+	wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.tar.gz
+	tar xzvf nvim-linux64.tar.gz
+	rm nvim-linux64.tar.gz
+
+install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly
+	cp zshrc-no-ghr ~/.zshrc
 	cp zshenv ~/.zshenv
+	conda init zsh
 
-install-zsh-configs-with-conda:
-	conda create -n app -c conda-forge \
-		zsh tmux vim python=3.10 git gh \
-		exa typos ripgrep git-delta fd-find just bat fzf \
-		clang clang-format clang-tools clangdev clangxx libclang libclang-cpp python-clang \
-		gcc gxx cmake ctags include-what-you-use neovim nodejs=18 black cmake-format \
-		&& \
-	cp zshrc-no-ghr ~/.zshrc && \
-	cp zshenv ~/.zshenv && \
-	conda init zsh && \
-	bash -ic 'conda activate app && sed -i -e "s|export PATH=|export PATH=$$CONDA_PREFIX/bin:|" ~/.zshenv'
-
-install-vim-configs:
-	cp vimrc ~/.vimrc
-	mkdir -p ~/.vim
-	cp coc-settings.json ~/.vim/coc-settings.json
-
-install-coc-extensions:
-	./install_coc_extensions.sh
-
-link-nvim-configs:
+install-nvim-configs:
 	mkdir -p ~/.config/nvim
-	ln -s ${HOME}/.vimrc ~/.config/nvim/init.vim
-	ln -s ${HOME}/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
+	cp -r nvim ~/.config/nvim
 
 install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
 	/usr/bin/tic -x tmux-256color
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 install-inputrc:
 	cp inputrc ~/.inputrc
 
 install-gdbdashboard:
 	wget -P ~ git.io/.gdbinit
-
-get-llvm:
-	sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
-
-get-nodejs-12:
-	curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-	sudo apt-get update
-	sudo apt-get install nodejs
 
 set-login-shell:
 	cat /etc/shells
@@ -57,10 +47,22 @@ set-login-shell:
 generate-ssh-key:
 	ssh-keygen -t rsa -b 4096
 
-update-nvim-nightly:
-	mkdir -p $HOME/download && \
-	cd $HOME/download && \
-	wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.tar.gz && \
-	tar xzvf nvim-linux64.tar.gz && \
-	rm nvim-linux64.tar.gz && \
-	echo $HOME/download
+# NOTE: below scripts are deprecated
+
+install-zsh-configs:
+	command -v git || sudo apt-get install git
+	cp legacy/zshrc ~/.zshrc
+	cp legacy/zshenv ~/.zshenv
+
+install-vim-configs:
+	cp legacy/vimrc ~/.vimrc
+	mkdir -p ~/.vim
+	cp legacy/coc-settings.json ~/.vim/coc-settings.json
+
+install-coc-extensions:
+	legacy/install_coc_extensions.sh
+
+link-nvim-configs:
+	mkdir -p ~/.config/nvim
+	ln -s ${HOME}/.vimrc ~/.config/nvim/init.vim
+	ln -s ${HOME}/.vim/coc-settings.json ~/.config/nvim/coc-settings.json

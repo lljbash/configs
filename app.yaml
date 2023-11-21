@@ -1,0 +1,38 @@
+name: app
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - zsh
+  - tmux
+  - vim
+  - python=3.10
+  - pip
+  - git
+  - gh
+  - exa
+  - typos
+  - ripgrep
+  - git-delta
+  - fd-find
+  - just
+  - bat
+  - fzf
+  - clang
+  - clang-format
+  - clang-tools
+  - clangdev
+  - clangxx
+  - libclang
+  - libclang-cpp
+  - python-clang
+  - gcc
+  - gxx
+  - cmake
+  - universal-ctags
+  - include-what-you-use
+  - neovim
+  - nodejs=18
+  - rust
+  - shellcheck
+  - black

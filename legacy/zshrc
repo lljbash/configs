@@ -106,7 +106,7 @@ zt light-mode for \
         Tarrasch/zsh-autoenv \
     blockf \
         agkozak/zsh-z \
-    as'null' atload'export CCLS_INIT_CONFIG=$(pwd)/ccls-config;
+    as'null' atload'export CCLS_INIT_CONFIG=$(pwd)/legacy/for-ccls/ccls-config;
                     alias ccls-init='\''cp $CCLS_INIT_CONFIG .ccls'\''' \
         'https://github.com/lljbash/configs/blob/master/ccls-config'
 

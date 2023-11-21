@@ -105,10 +105,7 @@ zt light-mode for \
     pick'autoenv.zsh' nocompletions \
         Tarrasch/zsh-autoenv \
     blockf \
-        agkozak/zsh-z \
-    as'null' atload'export CCLS_INIT_CONFIG=$(pwd)/ccls-config;
-                    alias ccls-init='\''cp $CCLS_INIT_CONFIG .ccls'\''' \
-        'https://github.com/lljbash/configs/blob/master/ccls-config'
+        agkozak/zsh-z
 
 ### Aliases
 zt aliases light-mode for \
@@ -121,7 +118,7 @@ zt aliases light-mode for \
         OMZP::ubuntu/ubuntu.plugin.zsh \
         'https://github.com/lljbash/configs/blob/master/my_aliases.zsh'
 
-### Binaries
+### Applications (binaries maintained by conda-forge now)
 zinit light zdharma-continuum/zinit-annex-bin-gem-node
 zt as "null" nocompile light-mode for \
     atload'export FZF_DEFAULT_COMMAND="fd --type f"; export FZF_BASE=$(pwd)' \
@@ -130,7 +127,7 @@ zt as "null" from nocompile light-mode for \
     atclone"sed -e '1,/\`\`\`gitconfig/d' -e '/\`\`\`/,\$d' README.md > gitconfig;
             git config --global include.path \$(pwd)/gitconfig" \
     atpull'%atclone' \
-        "https://github.com/dandavison/delta/blob/master/README.md"
+        "https://github.com/dandavison/delta/blob/main/README.md"
 ## With completions
 zt as"completion" blockf nocompile light-mode for \
     atload"unalias fd &>/dev/null" \
@@ -153,7 +150,7 @@ zt as"completion" blockf nocompile light-mode for \
            alias llt='\''exa -lbFT --git $(_lljbash_exa_icons)'\''
            alias llta='\''exa -lbFTa --git --ignore-glob=.git $(_lljbash_exa_icons)'\''' \
         "https://github.com/ogham/exa/blob/master/completions/zsh/_exa" \
-        "https://github.com/BurntSushi/ripgrep/blob/master/complete/_rg" \
+        "https://github.com/BurntSushi/ripgrep/blob/12.1.1/complete/_rg" \
     mv'just.zsh -> _just' \
         "https://github.com/casey/just/blob/master/completions/just.zsh" \
     atclone"sed -e 's/{{PROJECT_EXECUTABLE}}/bat/g' bat.zsh.in > _bat" atpull'%atclone' \
@@ -189,4 +186,3 @@ zt as"null" light-mode for \
         zdharma-continuum/null
 
 #### PLUGIN  END  ####
-
