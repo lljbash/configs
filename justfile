@@ -16,9 +16,9 @@ conda-install-missing-apps:
 
 update-nvim-nightly:
 	mkdir -p ${HOME}/download
-	cd ${HOME}/download
-	wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.tar.gz
-	tar xzvf nvim-linux64.tar.gz
+	cd ${HOME}/download && \
+	wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.tar.gz && \
+	tar xzvf nvim-linux64.tar.gz && \
 	rm nvim-linux64.tar.gz
 
 install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly
@@ -28,11 +28,13 @@ install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly
 
 install-nvim-configs:
 	mkdir -p ~/.config/nvim
-	cp -r nvim ~/.config/nvim
+	cp -r nvim ~/.config
 
 install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
 	/usr/bin/tic -x tmux-256color
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	tmux new-session -s "InstallTmuxPlugins" "sleep 1; ~/.tmux/plugins/tpm/bin/install_plugins || sleep 10"
 
 install-inputrc:
 	cp inputrc ~/.inputrc

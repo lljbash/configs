@@ -25,6 +25,15 @@ dedup_pathvar LD_LIBRARY_PATH
 dedup_pathvar LIBRARY_PATH
 dedup_pathvar CPATH
 
+vim () {
+  if (( $+commands[nvim] )); then
+    /usr/bin/env nvim "$@"
+  else
+    /usr/bin/env vim "$@"
+  fi
+}
+alias vi=vim
+
 # Other configurations
 ## git editor
 export EDITOR=vim
