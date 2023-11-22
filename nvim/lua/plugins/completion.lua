@@ -128,6 +128,9 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
     },
+    build = function()
+      vim.cmd("UpdateRemotePlugins")
+    end,
     config = function()
       local wilder = require("wilder")
       wilder.setup({modes = { ":", "/", "?" }})

@@ -3,7 +3,7 @@ return {
   {
     "phaazon/hop.nvim",
     event = "VeryLazy",
-    dependencies = { " folke/which-key.nvim" }, -- for easier key-binding
+    dependencies = { "folke/which-key.nvim" }, -- for easier key-binding
     config = function()
       local hop = require("hop")
       local hint = require("hop.hint")
