@@ -184,7 +184,7 @@ return {
   {
     enabled = false,
     "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
+    event = "LspAttach",
     opts = {
       hint_prefix = " ",
       hint_inline = function() return vim.fn.has("nvim-0.10") == 1 end,
@@ -192,21 +192,33 @@ return {
     },
   },
 
+  -- Code action 提示
+  {
+    "kosayoda/nvim-lightbulb",
+    event = "LspAttach",
+    opts = {
+      sign = { enabled = false },
+      virtual_text = {
+        enabled = true,
+        text = "󱐋",
+      },
+      autocmd = { enabled = true },
+    }
+  },
+
   -- Code action 预览
   {
-    "aznhe21/actions-preview.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
+    "weilbith/nvim-code-action-menu",
     config = function()
-      require("actions-preview").setup {
-        telescope = require("telescope.themes").get_cursor({ previewer = false }),
-      }
+      vim.g.code_action_menu_window_border = 'rounded'
     end,
+    cmd = 'CodeActionMenu',
     keys = {
       {
         mode = { "n", "v" },
         "<Leader>ac",
-        "<cmd>lua require('actions-preview').code_actions()<cr>",
-        desc = "Code action preview",
+        "<cmd>CodeActionMenu<cr>",
+        desc = "Code action menu",
       },
     },
   },

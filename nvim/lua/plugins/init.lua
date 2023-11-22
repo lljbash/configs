@@ -52,19 +52,4 @@ return {
       },
     },
   },
-
-  -- 基于 LSP 的 symbol outline
-  {
-    "simrat39/symbols-outline.nvim",
-    opts = { auto_close = true },
-    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
-    keys = {
-      {
-        mode = { "n" },
-        "<Leader>o",
-        "<cmd>SymbolsOutline<cr>",
-        desc = "Toggle symbol outline",
-      },
-    },
-  },
 }

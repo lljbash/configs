@@ -1,4 +1,5 @@
 return {
+  -- 基础 git 操作，修改标记
   {
     "lewis6991/gitsigns.nvim",
     event = "VeryLazy",
@@ -15,7 +16,7 @@ return {
         ["]c"] = { "<cmd>Gitsigns next_hunk<CR>", "Next hunk" },
         -- Actions
         ["<Leader>g"] = {
-          name = "gitsigns",
+          name = "git",
           s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", mode = { "n", "v" } },
           r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", mode = { "n", "v" } },
           S = { "<cmd>Gitsigns stage_buffer<cr>", "Stage buffer" },
@@ -31,5 +32,17 @@ return {
         ["ih"] = { ":<C-U>Gitsigns select_hunk<cr>", "Select hunk", mode = { "x", "o" } },
       })
     end,
+  },
+  -- Github 操作
+  {
+    "pwntester/octo.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-web-devicons",
+      "folke/which-key.nvim", -- for easier key-binding
+    },
+    opts = {},
+    cmd = { "Octo" },
   },
 }
