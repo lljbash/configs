@@ -12,6 +12,9 @@ return {
   -- 高亮光标所在位置对应的符号
   "RRethy/vim-illuminate",
 
+  -- transparent pasting,
+  "ConradIrwin/vim-bracketed-paste",
+
   -- 快捷编辑环绕 cs/ds/ys/...
   { "kylechui/nvim-surround", opts = {} },
 
