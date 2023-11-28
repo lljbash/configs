@@ -17,7 +17,7 @@ NOTE: This procedure may mess up your current environment. Please refer to `just
 
 You have to use a [Nerd Font](https://www.nerdfonts.com/) patched font to correctly show the icons.
 
-I am using FiraCodeNF for normal text and SourceCodeProNF for italic text.
+I am using [FiraCodeNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip) for normal text and [SourceCodeProNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/SourceCodePro.zip) for italic text.
 
 If your terminal (e.g. Windows Terminal) does not allow seperated font settings for normal and italic text, consider use [fira-code-italic-fallback](https://github.com/lljbash/fira-code-italic-fallback), which is called FiraCodeNF-MediumItalic but is actually slightly-tweaked SourceCodeProNF-MediumItalic.
 
@@ -31,7 +31,7 @@ This would automatically configure `zsh`, `nvim` and `tmux`, as well as install 
 
 `zsh`, `nvim` and `tmux` will automatically complete their post-configurations upon their first execution.
 
-Note: These post-configurations need more prerequisites, which are auto-installed before and properly configured in `zshenv`. Thus it is recommended to first enter `zsh` and use `tmux` and `nvim` from there. The locations of auto-installed binaries (including `zsh`, `nvim` and `tmux`) are not in `$PATH` by default. If you wish to use them in another shell (e.g. `bash`), please refer to the first line of `zshenv`.
+NOTE: These post-configurations need more prerequisites, which are auto-installed before and properly configured in `zshenv`. Thus it is recommended to first enter `zsh` and use `tmux` and `nvim` from there. The locations of auto-installed binaries (including `zsh`, `nvim` and `tmux`) are not in `$PATH` by default. If you wish to use them in another shell (e.g. `bash`), please refer to the first line of `zshenv`.
 
 You may need to setup the login shell yourself if it was not `zsh`.
 
