@@ -12,7 +12,7 @@ reset-bootstrap:
 	rm -rf ~/.inputrc
 
 conda-install-missing-apps:
-	conda env update -f app.yaml --prune
+	conda env update -f app.yaml -p ${HOME}/.conda/envs/app --prune
 
 update-nvim-nightly:
 	mkdir -p ${HOME}/download
