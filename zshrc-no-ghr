@@ -171,7 +171,9 @@ zt light-mode for \
     blockf compile'lib/*f*~*.zwc' \
     atinit'zicompinit; zicdreplay; compdef _delta delta' \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
-        Aloxaf/fzf-tab
+        Aloxaf/fzf-tab \
+    as"completion" blockf \
+        conda-incubator/conda-zsh-completion
 
 ### Highlighting
 zt light-mode for \
