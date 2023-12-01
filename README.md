@@ -39,5 +39,5 @@ If you wish to change the login shell to the auto-installed `zsh` but don't have
 ```bash
 # At the end of ~/.bash_profile
 # Be careful, this is kinda dangerous
-exec ~/.conda/env/app/bin/zsh
+exec ~/.conda/envs/app/bin/zsh
 ```
