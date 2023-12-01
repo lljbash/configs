@@ -34,7 +34,7 @@ install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
 	/usr/bin/tic -x tmux-256color
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	tmux new-session -s "InstallTmuxPlugins" "sleep 1; ~/.tmux/plugins/tpm/bin/install_plugins || sleep 10"
+	~/.conda/envs/app/tmux new-session -s "InstallTmuxPlugins" "sleep 1; ~/.tmux/plugins/tpm/bin/install_plugins || sleep 10"
 
 install-inputrc:
 	cp inputrc ~/.inputrc
