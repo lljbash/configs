@@ -1,8 +1,13 @@
 local clangformat = function()
   return {
     exe = "clang-format",
-    args = { "-style=file" },
+    args = {
+      "-style=file",
+      "-assume-filename",
+      vim.fn.shellescape(vim.api.nvim_buf_get_name(0)),
+    },
     stdin = true,
+    try_node_modules = true,
     cwd = vim.fn.expand("%:p:h"), -- Run clang-format in cwd of the file.
   }
 end
