@@ -17,7 +17,7 @@ local dictionary_plug = {
     first_case_insensitive = true,
   },
   init = function ()
-    vim.opt.dictionary = vim.fn.expand("~/.config/nvim/dict/10k.dict")
+    vim.opt.dictionary = vim.fn.stdpath("config") .. "/dict/10k.dict"
   end,
 }
 

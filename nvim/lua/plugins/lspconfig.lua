@@ -60,17 +60,23 @@ return {
           return true
         end,
       })
+      -- typos
+      lspconfig.typos_lsp.setup {
+        capabilities = capabilities,
+        init_options = {
+          diagnosticSeverity = "Hint",
+        },
+      }
       -- bash
       lspconfig.bashls.setup {
         filetypes = { "sh", "zsh" },
         capabilities = capabilities,
       }
-      lspconfig.pyright.setup { capabilities = capabilities }   -- python
-      lspconfig.neocmake.setup { capabilities = capabilities }  -- cmake
-      lspconfig.jsonls.setup { capabilities = capabilities }    -- json
-      lspconfig.yamlls.setup { capabilities = capabilities }    -- yaml
-      lspconfig.marksman.setup { capabilities = capabilities }  -- markdown
-      lspconfig.typos_lsp.setup { capabilities = capabilities } -- typos
+      lspconfig.pyright.setup { capabilities = capabilities }  -- python
+      lspconfig.neocmake.setup { capabilities = capabilities } -- cmake
+      lspconfig.jsonls.setup { capabilities = capabilities }   -- json
+      lspconfig.yamlls.setup { capabilities = capabilities }   -- yaml
+      lspconfig.marksman.setup { capabilities = capabilities } -- markdown
 
       -- rounded border on :LspInfo
       require("lspconfig.ui.windows").default_options.border = "rounded"
