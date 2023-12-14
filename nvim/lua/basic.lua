@@ -25,6 +25,6 @@ vim.opt.cino:append("N-s")    -- namespace 下一行的缩进
 vim.g.mapleader = ";"
 
 -- spellcheck
-vim.opt.spell = true
-vim.opt.spelllang = { "en_us", "cjk" }
-vim.opt.spellcapcheck = ""
+-- vim.opt.spell = true
+-- vim.opt.spelllang = { "en_us", "cjk" }
+-- vim.opt.spellcapcheck = ""

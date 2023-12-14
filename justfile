@@ -21,7 +21,14 @@ update-nvim-nightly:
 	tar xzvf nvim-linux64.tar.gz && \
 	rm nvim-linux64.tar.gz
 
-install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly
+build-typos-lsp:
+	export PATH="${HOME}/.conda/envs/app/bin:${PATH}"
+	rm -rf ${HOME}/download/typos-vscode
+	git clone https://github.com/tekumara/typos-vscode ${HOME}/download/typos-vscode
+	cd ${HOME}/download/typos-vscode && \
+	cargo build --release
+
+install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly build-typos-lsp
 	cp zshrc-no-ghr ~/.zshrc
 	cp zshenv ~/.zshenv
 	conda init zsh

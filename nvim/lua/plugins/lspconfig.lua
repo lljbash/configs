@@ -3,9 +3,9 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",             -- for capabilities setting
-      "folke/which-key.nvim",             -- for easier key-binding
-      "williamboman/mason-lspconfig.nvim" -- for automatic installation
+      "hrsh7th/cmp-nvim-lsp",                  -- for capabilities setting
+      "folke/which-key.nvim",                  -- for easier key-binding
+      "williamboman/mason-tool-installer.nvim" -- for automatic installation
     },
     config = function()
       local lspconfig = require("lspconfig")
@@ -65,11 +65,12 @@ return {
         filetypes = { "sh", "zsh" },
         capabilities = capabilities,
       }
-      lspconfig.pyright.setup { capabilities = capabilities }  -- python
-      lspconfig.neocmake.setup { capabilities = capabilities } -- cmake
-      lspconfig.jsonls.setup { capabilities = capabilities }   -- json
-      lspconfig.yamlls.setup { capabilities = capabilities }   -- yaml
-      lspconfig.marksman.setup { capabilities = capabilities } -- markdown
+      lspconfig.pyright.setup { capabilities = capabilities }   -- python
+      lspconfig.neocmake.setup { capabilities = capabilities }  -- cmake
+      lspconfig.jsonls.setup { capabilities = capabilities }    -- json
+      lspconfig.yamlls.setup { capabilities = capabilities }    -- yaml
+      lspconfig.marksman.setup { capabilities = capabilities }  -- markdown
+      lspconfig.typos_lsp.setup { capabilities = capabilities } -- typos
 
       -- rounded border on :LspInfo
       require("lspconfig.ui.windows").default_options.border = "rounded"

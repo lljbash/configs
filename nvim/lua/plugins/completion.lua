@@ -9,13 +9,25 @@ local luasnip_plug = {
   end,
 }
 
+-- dictionary
+local dictionary_plug = {
+  "uga-rosa/cmp-dictionary",
+  opts = {
+    exact = 2,
+    first_case_insensitive = true,
+  },
+  init = function ()
+    vim.opt.dictionary = vim.fn.expand("~/.config/nvim/dict/10k.dict")
+  end,
+}
+
 return {
   -- 代码自动补全
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      "onsails/lspkind.nvim",  -- for menu icons
+      "onsails/lspkind.nvim", -- for menu icons
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
@@ -24,7 +36,7 @@ return {
       { "saadparwaiz1/cmp_luasnip", dependencies = { luasnip_plug } },
       "hrsh7th/cmp-calc",
       "andersevenrud/cmp-tmux",
-      "f3fora/cmp-spell",
+      dictionary_plug,
       "hrsh7th/cmp-nvim-lua",
     },
     name = "cmp",
@@ -53,7 +65,7 @@ return {
           { name = "luasnip" },
           { name = "calc" },
           { name = "tmux" },
-          { name = "spell" },
+          { name = "dictionary", keyword_length = 2 },
           { name = "nvim_lua" },
         },
         formatting = {
@@ -68,7 +80,7 @@ return {
               bufname = "",
               calc = "",
               tmux = "",
-              spell = "󰓆",
+              dictionary = "󰓆",
               nvim_lua = "",
             })
           }),
@@ -77,8 +89,8 @@ return {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
-            -- that way you will only jump inside the snippet region
+              -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+              -- that way you will only jump inside the snippet region
             elseif luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
             elseif has_words_before() then
@@ -133,29 +145,31 @@ return {
     end,
     config = function()
       local wilder = require("wilder")
-      wilder.setup({modes = { ":", "/", "?" }})
+      wilder.setup({ modes = { ":", "/", "?" } })
       wilder.set_option("pipeline", {
         wilder.branch(
           wilder.python_file_finder_pipeline({
             file_command = function(ctx, arg)
               if string.find(arg, ".") ~= nil then
-                return {"fd", "-tf", "-H"}
+                return { "fd", "-tf", "-H" }
               else
-                return {"fd", "-tf"}
+                return { "fd", "-tf" }
               end
             end,
-            dir_command = {"fd", "-td"},
+            dir_command = { "fd", "-td" },
           }),
           {
             wilder.check(function(ctx, x) return x == "" end),
             wilder.history()
           },
-          {  -- 条件开启历史记录匹配
+          { -- 条件开启历史记录匹配
             wilder.check(function(ctx, x) return x:find("%s", 1, true) == 1 end),
-            wilder.subpipeline(function(ctx, x) return {
-              wilder.history(),
-              function(ctx, h) return wilder.python_fuzzy_filt(ctx, {}, h, x) end,
-            }end)
+            wilder.subpipeline(function(ctx, x)
+              return {
+                wilder.history(),
+                function(ctx, h) return wilder.python_fuzzy_filt(ctx, {}, h, x) end,
+              }
+            end)
           },
           wilder.cmdline_pipeline({
             -- sets the language to use, "vim" and "python" are supported
@@ -184,7 +198,7 @@ return {
           -- "single", "double", "rounded" or "solid"
           -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
           border = "rounded",
-          pumblend = 20,  -- transparency of the popupmenu
+          pumblend = 20, -- transparency of the popupmenu
           highlighter = wilder.basic_highlighter(),
           left = { " ", wilder.popupmenu_devicons() },
           right = { " ", wilder.popupmenu_scrollbar() },

@@ -1,5 +1,5 @@
 return {
-  -- 使用 mason 管理 lsp 服务器
+  -- 使用 Mason 管理 LSP 等工具
   {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
@@ -9,32 +9,23 @@ return {
       },
     },
   },
-  -- 自动安装 LSP
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    opts = {
-      ensure_installed = {
-        -- "clangd",  -- NOTE: use conda clangd due to GLIBC problem
-        "lua_ls",
-        "bashls",
-        "pyright",
-        "neocmake",
-        "jsonls",
-        "yamlls",
-        "marksman",
-      },
-    },
-  },
-  -- 自动安装 Formatter
+  -- 自动安装 Mason 管理的工具
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     dependencies = { "williamboman/mason.nvim" },
     opts = {
       ensure_installed = {
+        -- LSP
+        -- "clangd",  -- NOTE: use conda clangd due to GLIBC issue
+        "lua-language-server",
+        "bash-language-server",
+        "pyright",
+        "neocmakelsp",
+        "json-lsp",
+        "yaml-language-server",
+        "marksman",
+        -- "typos-lsp", -- NOTE: build from source due to GLIBC issue
+        -- Formatter
         "clang-format",
         "black",
         "cmakelang",
