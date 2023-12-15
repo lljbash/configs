@@ -22,9 +22,9 @@ update-nvim-nightly:
 	rm nvim-linux64.tar.gz
 
 build-typos-lsp:
-	export PATH="${HOME}/.conda/envs/app/bin:${PATH}"
 	rm -rf ${HOME}/download/typos-vscode
 	git clone https://github.com/tekumara/typos-vscode ${HOME}/download/typos-vscode
+	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
 	cd ${HOME}/download/typos-vscode && \
 	cargo build --release
 
@@ -41,7 +41,7 @@ install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
 	/usr/bin/tic -x tmux-256color
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	export PATH="${HOME}/.conda/envs/app/bin:${PATH}"
+	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
 	tmux new-session -s "InstallTmuxPlugins" "sleep 1; ~/.tmux/plugins/tpm/bin/install_plugins || sleep 10"
 
 install-inputrc:
