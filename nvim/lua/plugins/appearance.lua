@@ -83,6 +83,9 @@ return {
         lsp = {
           hover = { enabled = false },
         },
+        popupmenu = {
+          enabled = false,
+        },
         views = {
           mini = {
             timeout = 5000,

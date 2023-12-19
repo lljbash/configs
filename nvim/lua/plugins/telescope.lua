@@ -7,6 +7,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-telescope/telescope-ui-select.nvim",
       "gbprod/yanky.nvim",                        -- for yank history
       "gbrlsnchs/telescope-lsp-handlers.nvim",    -- hijack lsp commands
       "folke/which-key.nvim",                     -- for easier key-binding
@@ -40,6 +41,9 @@ return {
           diagnostics = { theme = "dropdown" },
         },
         extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown {}
+          },
           lsp_handlers = {
             disable = {
               ['textDocument/codeAction'] = true,
@@ -61,6 +65,7 @@ return {
       }
 
       telescope.load_extension("fzf")
+      telescope.load_extension("ui-select")
       telescope.load_extension("yank_history")
       telescope.load_extension("lsp_handlers")
 
