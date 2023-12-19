@@ -5,6 +5,7 @@ return {
     main = "nvim-treesitter.configs",
     opts = {
       ensure_installed = {
+        "awk",
         "bash",
         "bibtex",
         "c",
