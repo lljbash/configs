@@ -36,6 +36,26 @@ return {
             { desc = "Switch source/header" })
         end
       }
+      -- python
+      lspconfig.pyright.setup {
+        capabilities = capabilities,
+        root_dir = function(fname)
+          local util = require "lspconfig.util"
+          local root_files = {
+            "pyproject.toml",
+            "setup.py",
+            "setup.cfg",
+            "requirements.txt",
+            "Pipfile",
+            "pyrightconfig.json",
+            ".git",
+          }
+          return util.root_pattern(unpack(root_files))(fname)
+              or util.find_git_ancestor(fname)
+              or vim.fn.fnamemodify(fname, ":p:h")
+        end,
+        single_file_support = false,
+      }
       -- lua with neovim runtime support
       lspconfig.lua_ls.setup({
         on_init = function(client)
@@ -72,7 +92,6 @@ return {
         filetypes = { "sh", "zsh" },
         capabilities = capabilities,
       }
-      lspconfig.pyright.setup { capabilities = capabilities }  -- python
       lspconfig.neocmake.setup { capabilities = capabilities } -- cmake
       lspconfig.jsonls.setup { capabilities = capabilities }   -- json
       lspconfig.yamlls.setup { capabilities = capabilities }   -- yaml

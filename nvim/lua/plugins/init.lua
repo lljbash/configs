@@ -6,7 +6,7 @@ return {
   -- readline keybindings in insert mode and command line
   "tpope/vim-rsi",
 
-  -- 打标签：mx  跳转："x  最后一次更改：".  来回跳：""
+  -- 打标签：mx  跳转：'x  最后一次更改：'.  来回跳：''
   "kshenoy/vim-signature",
 
   -- 高亮光标所在位置对应的符号
