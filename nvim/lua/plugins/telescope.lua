@@ -26,6 +26,10 @@ return {
               ["<esc>"] = actions.close,
               ["<C-u>"] = false,
               ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
+              ["<RightMouse>"] = actions.close,
+              ["<LeftMouse>"] = actions.select_default,
+              ["<ScrollWheelDown>"] = actions.move_selection_next,
+              ["<ScrollWheelUp>"] = actions.move_selection_previous,
             },
           },
         },
@@ -42,7 +46,7 @@ return {
         },
         extensions = {
           ["ui-select"] = {
-            require("telescope.themes").get_dropdown {}
+            themes.get_dropdown {}
           },
           lsp_handlers = {
             disable = {

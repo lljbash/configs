@@ -16,7 +16,7 @@ local dictionary_plug = {
     exact = 2,
     first_case_insensitive = true,
   },
-  init = function ()
+  init = function()
     vim.opt.dictionary = vim.fn.stdpath("config") .. "/dict/10k.dict"
   end,
 }
@@ -38,6 +38,7 @@ return {
       "andersevenrud/cmp-tmux",
       dictionary_plug,
       "hrsh7th/cmp-nvim-lua",
+      "rcarriga/cmp-dap",
     },
     name = "cmp",
     config = function()
@@ -50,6 +51,10 @@ return {
       local lspkind = require("lspkind")
       local luasnip = require("luasnip")
       cmp.setup({
+        enabled = function()
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+              or require("cmp_dap").is_dap_buffer()
+        end,
         sources = {
           { name = "nvim_lsp" },
           {
@@ -128,6 +133,12 @@ return {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
+        },
+      })
+
+      cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+        sources = {
+          { name = "dap" },
         },
       })
     end,

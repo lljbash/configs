@@ -1,6 +1,9 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      { "LiadOz/nvim-dap-repl-highlights", opts = {} }
+    },
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
     opts = {
@@ -62,6 +65,7 @@ return {
         "query",
         "xml",
         "yaml",
+        "dap_repl", -- from nvim-dap-repl-highlights
       },
       sync_install = false,
       auto_install = false,

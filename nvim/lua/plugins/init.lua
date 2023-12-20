@@ -21,6 +21,9 @@ return {
   -- 注释插件 gcc/gbc/gco/gcO/gciw/...
   { "numToStr/Comment.nvim", opts = {} },
 
+  -- 支持鼠标点击的 statuscolumn
+  { "luukvbaal/statuscol.nvim", opts = {}, branch = "0.10" },
+
   -- 项目特殊配置
   {
     "embear/vim-localvimrc",
