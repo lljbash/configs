@@ -15,6 +15,10 @@ return {
   -- transparent pasting,
   "ConradIrwin/vim-bracketed-paste",
 
+  -- Vim sugar for the UNIX shell commands that need it the most
+  -- :Remove :Delete :Move :Chmod :Mkdir ...
+  "tpope/vim-eunuch",
+
   -- 快捷编辑环绕 cs/ds/ys/...
   { "kylechui/nvim-surround", opts = {} },
 
