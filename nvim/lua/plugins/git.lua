@@ -6,10 +6,14 @@ return {
     dependencies = { "folke/which-key.nvim" }, -- for easier key-binding
     config = function()
       require("gitsigns").setup({
+        signs = {
+          untracked = { text = '┃' },
+        },
         preview_config = {
           border = "rounded",
         },
       })
+      vim.api.nvim_set_hl(0, "GitSignsUntracked", { link = "LspInlayHint" })
       require("which-key").register({
         -- Navigation
         ["[c"] = { "<cmd>Gitsigns prev_hunk<CR>", "Prev hunk" },
@@ -35,6 +39,7 @@ return {
   },
   -- Github 操作
   {
+    enabled = false,
     "pwntester/octo.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",

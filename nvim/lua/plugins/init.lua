@@ -20,10 +20,10 @@ return {
   "tpope/vim-eunuch",
 
   -- 快捷编辑环绕 cs/ds/ys/...
-  { "kylechui/nvim-surround", opts = {} },
+  { "kylechui/nvim-surround",   opts = {} },
 
   -- 注释插件 gcc/gbc/gco/gcO/gciw/...
-  { "numToStr/Comment.nvim", opts = {} },
+  { "numToStr/Comment.nvim",    opts = {} },
 
   -- 支持鼠标点击的 statuscolumn
   { "luukvbaal/statuscol.nvim", opts = {}, branch = "0.10" },
@@ -42,7 +42,7 @@ return {
   -- <CR> 快捷选择范围
   {
     "sustech-data/wildfire.nvim",
-    keys = {"<CR>"},
+    keys = { "<CR>" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {},
   },
