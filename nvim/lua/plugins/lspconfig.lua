@@ -34,7 +34,22 @@ return {
         on_attach = function()
           vim.keymap.set("n", "<Leader>sw", "<cmd>ClangdSwitchSourceHeader<cr>",
             { desc = "Switch source/header" })
-        end
+        end,
+        root_dir = function(fname)
+          local util = require "lspconfig.util"
+          local root_files = {
+            "build/compile_commands.json",
+            "compile_commands.json",
+            ".clangd",
+            ".clang-tidy",
+            ".clang-format",
+            "compile_flags.txt",
+            "configure.ac",
+          }
+          return util.root_pattern(unpack(root_files))(fname)
+              or util.find_git_ancestor(fname)
+              or util.path.dirname(fname)
+        end,
       }
       -- python
       lspconfig.pyright.setup {
