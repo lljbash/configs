@@ -32,6 +32,7 @@ dependencies:
   - universal-ctags
   - include-what-you-use
   - neovim
+  - sqlite
   - nodejs=18
   - rust
   - shellcheck
