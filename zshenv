@@ -1,6 +1,6 @@
 # Important environment variables
 export PATH=$HOME/.conda/envs/app/bin:$HOME/download/nvim-linux64/bin:$HOME/download/typos-vscode/target/release:$PATH
-export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH:$HOME/.conda/envs/app/lib
 export LIBRARY_PATH=$LIBRARY_PATH
 export CPATH=$CPATH:/usr/local/include
 
