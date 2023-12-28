@@ -8,9 +8,9 @@ return {
       "nvim-tree/nvim-web-devicons",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
-      "gbprod/yanky.nvim",                        -- for yank history
-      "gbrlsnchs/telescope-lsp-handlers.nvim",    -- hijack lsp commands
-      "folke/which-key.nvim",                     -- for easier key-binding
+      "gbprod/yanky.nvim",                     -- for yank history
+      "gbrlsnchs/telescope-lsp-handlers.nvim", -- hijack lsp commands
+      "folke/which-key.nvim",                  -- for easier key-binding
     },
     config = function()
       local telescope = require("telescope")
@@ -18,7 +18,7 @@ return {
       local builtin = require("telescope.builtin")
       local themes = require("telescope.themes")
 
-      telescope.setup{
+      telescope.setup {
         defaults = {
           mappings = {
             i = {
@@ -34,9 +34,14 @@ return {
           },
         },
         pickers = {
-          fd = { theme = "dropdown" },
+          fd = {
+            theme = "dropdown",
+            -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+          },
           buffers = { theme = "dropdown" },
           live_grep = { theme = "dropdown" },
+          grep_string = { theme = "dropdown" },
           oldfiles = { theme = "dropdown" },
           commands = { theme = "ivy" },
           command_history = { theme = "ivy" },
@@ -80,6 +85,7 @@ return {
           n = { builtin.fd, "Find files" },
           b = { builtin.buffers, "Buffers" },
           g = { builtin.live_grep, "Live grep" },
+          ["*"] = { builtin.grep_string, "Grep string" },
           o = { builtin.oldfiles, "Open recent files" },
           c = { builtin.commands, "Commands" },
           C = { builtin.command_history, "Command history" },
@@ -88,7 +94,8 @@ return {
           a = { builtin.diagnostics, "Diagnostics" },
           y = {
             function()
-              vim.cmd(":rshada")
+              --- not needed since yanky.nvim now uses sqlite as storage
+              -- vim.cmd(":rshada")
               telescope.extensions.yank_history.yank_history(
                 themes.get_dropdown({})
               )
