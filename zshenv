@@ -36,7 +36,7 @@ alias vi=vim
 
 # Other configurations
 ## git editor
-export EDITOR=vim
+(( $+commands[nvim] )) && export EDITOR=nvim
 ## proxy server
 #export ALL_PROXY=socks5://localhost:1080
 ## using ccache for cmake
