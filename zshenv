@@ -39,3 +39,7 @@ alias vi=vim
 export EDITOR=vim
 ## proxy server
 #export ALL_PROXY=socks5://localhost:1080
+## using ccache for cmake
+export CMAKE_C_COMPILER_LAUNCHER=ccache
+export CMAKE_CXX_COMPILER_LAUNCHER=ccache
+export CMAKE_CUDA_COMPILER_LAUNCHER=ccache

@@ -29,6 +29,7 @@ dependencies:
   - gcc
   - gxx
   - cmake
+  - ccache
   - universal-ctags
   - include-what-you-use
   - neovim
