@@ -30,13 +30,10 @@ return {
 
   -- 项目特殊配置
   {
-    "embear/vim-localvimrc",
-    lazy = false,
-    init = function()
-      vim.cmd([[
-        let g:localvimrc_persistent = 1
-      ]])
-    end
+    "jenterkin/vim-autosource",
+    config = function()
+      vim.g.autosource_conf_names = { ".lvimrc", ".lvimrc.lua" }
+    end,
   },
 
   -- <CR> 快捷选择范围
