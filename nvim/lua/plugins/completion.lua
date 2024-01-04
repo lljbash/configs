@@ -12,6 +12,7 @@ local luasnip_plug = {
 -- dictionary
 local dictionary_plug = {
   "uga-rosa/cmp-dictionary",
+  lazy = false,
   opts = {
     exact = 2,
     first_case_insensitive = true,
