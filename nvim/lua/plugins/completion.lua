@@ -10,16 +10,13 @@ local luasnip_plug = {
 }
 
 -- dictionary
+vim.opt.dictionary = vim.fn.stdpath("config") .. "/dict/10k.dict"
 local dictionary_plug = {
   "uga-rosa/cmp-dictionary",
-  lazy = false,
   opts = {
     exact = 2,
     first_case_insensitive = true,
   },
-  init = function()
-    vim.opt.dictionary = vim.fn.stdpath("config") .. "/dict/10k.dict"
-  end,
 }
 
 return {
@@ -36,7 +33,9 @@ return {
       "FelipeLema/cmp-async-path",
       { "saadparwaiz1/cmp_luasnip", dependencies = { luasnip_plug } },
       "hrsh7th/cmp-calc",
-      "andersevenrud/cmp-tmux",
+      -- cmp-tmux must be loaded after cmp
+      -- https://github.com/andersevenrud/cmp-tmux/issues/29
+      -- "andersevenrud/cmp-tmux",
       dictionary_plug,
       "hrsh7th/cmp-nvim-lua",
       "rcarriga/cmp-dap",
@@ -70,7 +69,13 @@ return {
           { name = "async_path" },
           { name = "luasnip" },
           { name = "calc" },
-          { name = "tmux" },
+          {
+            name = "tmux",
+            option = {
+              label = "",
+              trigger_characters = {},
+            },
+          },
           { name = "dictionary", keyword_length = 2 },
           { name = "nvim_lua" },
         },
@@ -143,6 +148,14 @@ return {
         },
       })
     end,
+  },
+
+  -- cmp-tmux must be loaded after cmp
+  -- https://github.com/andersevenrud/cmp-tmux/issues/29
+  {
+    "andersevenrud/cmp-tmux",
+    dependencies = { "hrsh7th/nvim-cmp" },
+    event = "InsertEnter",
   },
 
   -- 命令自动补全
