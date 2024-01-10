@@ -23,7 +23,7 @@ return {
   -- 代码自动补全
   {
     "hrsh7th/nvim-cmp",
-    -- event = "InsertEnter",
+    event = "InsertEnter",
     dependencies = {
       "onsails/lspkind.nvim", -- for menu icons
       "hrsh7th/cmp-nvim-lsp",
@@ -33,9 +33,7 @@ return {
       "FelipeLema/cmp-async-path",
       { "saadparwaiz1/cmp_luasnip", dependencies = { luasnip_plug } },
       "hrsh7th/cmp-calc",
-      -- cmp-tmux must be loaded after cmp
-      -- https://github.com/andersevenrud/cmp-tmux/issues/29
-      -- "andersevenrud/cmp-tmux",
+      "andersevenrud/cmp-tmux",
       dictionary_plug,
       "hrsh7th/cmp-nvim-lua",
       "rcarriga/cmp-dap",
@@ -69,13 +67,7 @@ return {
           { name = "async_path" },
           { name = "luasnip" },
           { name = "calc" },
-          {
-            name = "tmux",
-            option = {
-              label = "",
-              trigger_characters = {},
-            },
-          },
+          { name = "tmux", keyword_length = 2, trigger_characters = {} },
           { name = "dictionary", keyword_length = 2 },
           { name = "nvim_lua" },
         },
@@ -93,7 +85,11 @@ return {
               tmux = "",
               dictionary = "󰓆",
               nvim_lua = "",
-            })
+            }),
+            before = function(entry, vim_item)
+              vim_item.menu = nil
+              return vim_item
+            end,
           }),
         },
         mapping = cmp.mapping.preset.insert({
@@ -148,14 +144,6 @@ return {
         },
       })
     end,
-  },
-
-  -- cmp-tmux must be loaded after cmp
-  -- https://github.com/andersevenrud/cmp-tmux/issues/29
-  {
-    "andersevenrud/cmp-tmux",
-    dependencies = { "hrsh7th/nvim-cmp" },
-    event = "InsertEnter",
   },
 
   -- 命令自动补全
