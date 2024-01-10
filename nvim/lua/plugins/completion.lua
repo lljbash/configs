@@ -23,7 +23,7 @@ return {
   -- 代码自动补全
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    -- event = "InsertEnter",
     dependencies = {
       "onsails/lspkind.nvim", -- for menu icons
       "hrsh7th/cmp-nvim-lsp",
