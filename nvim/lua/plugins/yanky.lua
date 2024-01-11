@@ -1,7 +1,10 @@
 return {
   {
     "gbprod/yanky.nvim",
-    dependencies = { "kkharji/sqlite.lua" },
+    dependencies = {
+      "kkharji/sqlite.lua",
+      "tpope/vim-unimpaired", -- override [p, ]p
+    },
     config = function()
       local yanky = require("yanky")
       local history = require("yanky.history")

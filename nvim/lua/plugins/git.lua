@@ -16,8 +16,8 @@ return {
       vim.api.nvim_set_hl(0, "GitSignsUntracked", { link = "LspInlayHint" })
       require("which-key").register({
         -- Navigation
-        ["[c"] = { "<cmd>Gitsigns prev_hunk<CR>", "Prev hunk" },
-        ["]c"] = { "<cmd>Gitsigns next_hunk<CR>", "Next hunk" },
+        ["[g"] = { "<cmd>Gitsigns prev_hunk<CR>", "Prev hunk" },
+        ["]g"] = { "<cmd>Gitsigns next_hunk<CR>", "Next hunk" },
         -- Actions
         ["<Leader>g"] = {
           name = "git",
