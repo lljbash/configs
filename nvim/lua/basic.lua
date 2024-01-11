@@ -24,6 +24,9 @@ vim.opt.cino:append("N-s")    -- namespace 下一行的缩进
 -- 设置快捷键 <Leader>
 vim.g.mapleader = ";"
 
+-- 设置 python3 的路径
+vim.g.python3_host_prog = os.getenv("HOME") .. "/.conda/envs/app/bin/python3"
+
 -- spellcheck
 -- vim.opt.spell = true
 -- vim.opt.spelllang = { "en_us", "cjk" }
