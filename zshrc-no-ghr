@@ -168,12 +168,17 @@ zt light-mode for \
         "https://github.com/jonathanpoelen/dotfiles/blob/master/.zshcompletions/_delta" \
     blockf \
         zsh-users/zsh-completions \
-    blockf compile'lib/*f*~*.zwc' \
-    atinit'zicompinit; zicdreplay; compdef _delta delta' \
-    atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
-        Aloxaf/fzf-tab \
     as"completion" blockf \
-        conda-incubator/conda-zsh-completion
+        conda-incubator/conda-zsh-completion \
+    atinit'zicompinit; zicdreplay; compdef _delta delta' \
+    atload"zstyle ':completion:*' fzf-completion-opts --bind=tab:down,btab:up" \
+        "https://github.com/lincheney/fzf-tab-completion/blob/master/zsh/fzf-zsh-completion.sh"
+
+    ## use fzf-tab-completion as an alternative due to zsh crashes
+    ## https://github.com/Aloxaf/fzf-tab/issues/176
+    # blockf compile'lib/*f*~*.zwc' \
+    # atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(fzf-tab)' \
+    #     Aloxaf/fzf-tab
 
 ### Highlighting
 zt light-mode for \
