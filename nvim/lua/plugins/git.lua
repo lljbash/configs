@@ -37,6 +37,24 @@ return {
       })
     end,
   },
+  -- :DiffviewOpen/Close/...
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "folke/which-key.nvim" }, -- for easier key-binding
+    event = "VeryLazy",
+    config = function()
+      require("which-key").register({
+        ["<Leader>gv"] = {
+          name = "diffview",
+          v = { "<cmd>DiffviewOpen<cr>", "DiffviewOpen" },
+          c = { "<cmd>DiffviewClose<cr>", "DiffviewClose" },
+          t = { "<cmd>DiffviewToggleFiles<cr>", "DiffviewToggleFiles" },
+          r = { "<cmd>DiffviewRefresh<cr>", "DiffviewRefresh" },
+          f = { "<cmd>DiffviewFocusFiles<cr>", "DiffviewFocusFiles" },
+        },
+      })
+    end,
+  },
   -- Github 操作
   {
     enabled = false,

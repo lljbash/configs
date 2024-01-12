@@ -2,13 +2,17 @@ return {
   {
     "voldikss/vim-floaterm",
     init = function()
-      vim.cmd([[
-        let g:floaterm_keymap_new    = "<F6>"
-        let g:floaterm_keymap_prev   = "<F7>"
-        let g:floaterm_keymap_next   = "<F8>"
-        let g:floaterm_keymap_toggle = "<F5>"
-        let g:floaterm_shell = "zsh"
-      ]])
+      vim.g.floaterm_shell         = "zsh"
+      vim.g.floaterm_title         = "─ floaterm ($1|$2) "
+      vim.g.floaterm_width         = 0.6
+      vim.g.floaterm_height        = 0.8
+      vim.g.floaterm_position      = "right"
+      vim.g.floaterm_borderchars   = "─│─│╭╮╯╰";
+      vim.g.floaterm_opener        = "vsplit"
+      vim.g.floaterm_keymap_new    = "<F6>"
+      vim.g.floaterm_keymap_prev   = "<F7>"
+      vim.g.floaterm_keymap_next   = "<F8>"
+      vim.g.floaterm_keymap_toggle = "<F5>"
     end,
     config = function()
       vim.api.nvim_create_autocmd("QuitPre", {
