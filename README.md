@@ -31,7 +31,7 @@ This would automatically configure `zsh`, `nvim` and `tmux`, as well as install 
 
 `zsh`, `nvim` and `tmux` will automatically complete their post-configurations upon their first execution.
 
-NOTE: These post-configurations need more prerequisites, which are auto-installed before and properly configured in `zshenv`. Thus it is recommended to first enter `zsh` and use `tmux` and `nvim` from there. The locations of auto-installed binaries (including `zsh`, `nvim` and `tmux`) are not in `$PATH` by default. If you wish to use them in another shell (e.g. `bash`), please refer to the first line of `zshenv`.
+NOTE: These post-configurations need more prerequisites, which are auto-installed before and properly configured in `zshenv`. Thus it is recommended to first enter `zsh` and use `tmux` and `nvim` from there. The locations of auto-installed binaries (including `zsh`, `nvim` and `tmux`) are not in `$PATH` by default. If you wish to use them in another shell (e.g. `bash`), please refer to the "mungle PATH" part of `zshenv`.
 
 You may need to setup the login shell yourself if it was not `zsh`.
 
