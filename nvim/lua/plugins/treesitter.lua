@@ -89,4 +89,17 @@ return {
     "nvim-treesitter/playground",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
+
+  -- Virtual text context for neovim treesitter
+  {
+    "andersevenrud/nvim_context_vt",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      prefix = "",
+      highlight = "LspInlayHint",
+      min_rows_ft = {
+        python = 50,
+      }
+    },
+  }
 }
