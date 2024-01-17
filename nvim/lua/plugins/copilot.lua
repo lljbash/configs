@@ -10,6 +10,9 @@ return {
           accept_line = "<C-L>",
         },
       },
+      filetypes = {
+        ["*"] = true,
+      },
     },
   },
 }
