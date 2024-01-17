@@ -8,14 +8,15 @@ return {
       vim.g.floaterm_height        = 0.8
       vim.g.floaterm_position      = "right"
       vim.g.floaterm_borderchars   = "─│─│╭╮╯╰";
-      vim.g.floaterm_opener        = "vsplit"
+      vim.g.floaterm_opener        = "tabe"
       vim.g.floaterm_keymap_new    = "<F6>"
       vim.g.floaterm_keymap_prev   = "<F7>"
       vim.g.floaterm_keymap_next   = "<F8>"
       vim.g.floaterm_keymap_toggle = "<F5>"
+      vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
     end,
     config = function()
-      vim.api.nvim_create_autocmd("QuitPre", {
+      vim.api.nvim_create_autocmd("VimLeave", {
         group = vim.api.nvim_create_augroup("floaterm_kill", {}),
         pattern = "*",
         command = "FloatermKill!",
