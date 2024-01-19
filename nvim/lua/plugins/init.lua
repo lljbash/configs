@@ -22,9 +22,8 @@ return {
   -- :Remove :Delete :Move :Chmod :Mkdir ...
   "tpope/vim-eunuch",
 
-  -- :BD :BW :BUN :BB :BF :BA
-  -- ;bd ;bw ;bun ;bb ;bf ;ba
-  { "qpkorr/vim-bufkill",       event = "VeryLazy", keys = { { "<Leader>q", "<cmd>BW<cr>", desc = "Wipe buffer" } } },
+  -- smart :KillBuffer
+  { "bit101/bufkill",       event = "VeryLazy", keys = { { "<Leader>q", "<cmd>KillBuffer<cr>", desc = "Delete buffer" } } },
 
   -- 快捷编辑环绕 cs/ds/ys/...
   { "kylechui/nvim-surround",   opts = {} },
