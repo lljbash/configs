@@ -22,6 +22,10 @@ return {
   -- :Remove :Delete :Move :Chmod :Mkdir ...
   "tpope/vim-eunuch",
 
+  -- :BD :BW :BUN :BB :BF :BA
+  -- ;bd ;bw ;bun ;bb ;bf ;ba
+  { "qpkorr/vim-bufkill",       event = "VeryLazy", keys = { { "<Leader>q", "<cmd>BW<cr>", desc = "Wipe buffer" } } },
+
   -- 快捷编辑环绕 cs/ds/ys/...
   { "kylechui/nvim-surround",   opts = {} },
 
@@ -29,7 +33,7 @@ return {
   { "numToStr/Comment.nvim",    opts = {} },
 
   -- 支持鼠标点击的 statuscolumn
-  { "luukvbaal/statuscol.nvim", opts = {}, branch = "0.10" },
+  { "luukvbaal/statuscol.nvim", opts = {},          branch = "0.10" },
 
   -- 项目特殊配置
   {
