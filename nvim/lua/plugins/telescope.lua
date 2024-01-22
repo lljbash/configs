@@ -24,7 +24,8 @@ return {
             i = {
               ["<C-h>"] = "which_key",
               ["<esc>"] = actions.close,
-              ["<C-u>"] = false,
+              ["<C-u>"] = actions.preview_scrolling_up,
+              ["<C-f>"] = actions.preview_scrolling_down,
               ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
               ["<RightMouse>"] = actions.close,
               ["<LeftMouse>"] = actions.select_default,
