@@ -86,10 +86,6 @@ return {
               dictionary = "󰓆",
               nvim_lua = "",
             }),
-            before = function(entry, vim_item)
-              vim_item.menu = nil
-              return vim_item
-            end,
           }),
         },
         mapping = cmp.mapping.preset.insert({
