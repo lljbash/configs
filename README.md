@@ -17,9 +17,11 @@ NOTE: This procedure may mess up your current environment. Please refer to `just
 
 You have to use a [Nerd Font](https://www.nerdfonts.com/) patched font to correctly show the icons.
 
-I am using [FiraCodeNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip) for normal text and [SourceCodeProNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/SourceCodePro.zip) for italic text.
+~~I am using [FiraCodeNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip) for normal text and [SourceCodeProNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/SourceCodePro.zip) for italic text.~~
 
-If your terminal (e.g. Windows Terminal) does not allow seperated font settings for normal and italic text, consider use [fira-code-italic-fallback](https://github.com/lljbash/fira-code-italic-fallback), which is called FiraCodeNF-MediumItalic but is actually slightly-tweaked SourceCodeProNF-MediumItalic.
+~~If your terminal (e.g. Windows Terminal) does not allow seperated font settings for normal and italic text, consider use [fira-code-italic-fallback](https://github.com/lljbash/fira-code-italic-fallback), which is called FiraCodeNF-MediumItalic but is actually slightly-tweaked SourceCodeProNF-MediumItalic.~~
+
+I am using [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz) now.
 
 ### Setup
 
