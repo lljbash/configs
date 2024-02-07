@@ -39,6 +39,7 @@ return {
     "jenterkin/vim-autosource",
     config = function()
       vim.g.autosource_conf_names = { ".lvimrc", ".lvimrc.lua" }
+      vim.g.autosource_search_from_root = true
     end,
   },
 
