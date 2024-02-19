@@ -21,6 +21,9 @@ vim.opt.cino:append("g0.5s")  -- public: 前的缩进
 vim.opt.cino:append("h0.5s")  -- public: 下一行的缩进
 vim.opt.cino:append("N-s")    -- namespace 下一行的缩进
 
+-- 自定义光标
+vim.opt.guicursor = "n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25,r-cr-o:hor20"
+
 -- 设置快捷键 <Leader>
 vim.g.mapleader = ";"
 

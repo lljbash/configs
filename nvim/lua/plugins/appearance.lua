@@ -23,12 +23,89 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
       "sainnhe/sonokai",
+      "stevearc/aerial.nvim",
     },
-    opts = {
-      options = {
-        theme = "sonokai",
-      },
-    },
+    config = function()
+      --- @param min_width number
+      local function width_not_less_than(min_width)
+        return function()
+          return vim.fn.winwidth(0) >= min_width
+        end
+      end
+
+      ---shortens path by turning apple/orange -> a/orange
+      ---@param max_len integer maximum length of the full filename string
+      local function shorten_path(max_len)
+        local sep = package.config:sub(1, 1)
+        return function(path)
+          local len = #path
+          if len <= max_len then
+            return path
+          end
+          local segments = vim.split(path, sep)
+          for idx = 1, #segments - 1 do
+            if len <= max_len then
+              break
+            end
+            local segment = segments[idx]
+            local shortened = segment:sub(1, vim.startswith(segment, '.') and 2 or 1)
+            segments[idx] = shortened
+            len = len - (#segment - #shortened)
+          end
+          return table.concat(segments, sep)
+        end
+      end
+
+
+      require("lualine").setup {
+        options = {
+          theme = "sonokai",
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = {
+            { "branch", cond = width_not_less_than(140) },
+            { "diff",   cond = width_not_less_than(140) },
+            {
+              "diagnostics",
+              on_click = function() vim.cmd("Telescope diagnostics") end,
+            }
+          },
+          lualine_c = {
+            {
+              "filetype",
+              icon_only = true,
+              separator = "",
+              padding = { left = 1, right = 0 },
+            },
+            {
+              "filename",
+              newfile_status = true,
+              path = 1,
+              separator = "%#lualine_c_aerial_LLNonText_normal#⟩%#lualine_c_normal#",
+              fmt = shorten_path(40),
+              on_click = function()
+                require("telescope").extensions.file_browser.file_browser {
+                  path = vim.fn.expand("%:p:h"),
+                  select_buffer = true,
+                }
+              end,
+            },
+            {
+              "aerial",
+              on_click = function() vim.cmd("Telescope aerial") end,
+            }
+          },
+          lualine_x = {
+            { "encoding",   cond = width_not_less_than(160) },
+            { "fileformat", cond = width_not_less_than(160) },
+            "filetype"
+          },
+          lualine_y = { "progress" },
+          lualine_z = { "location" }
+        },
+      }
+    end,
   },
 
   -- 缩进提示

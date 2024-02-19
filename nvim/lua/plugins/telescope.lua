@@ -8,6 +8,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
       "gbprod/yanky.nvim",                     -- for yank history
       "gbrlsnchs/telescope-lsp-handlers.nvim", -- hijack lsp commands
       "folke/which-key.nvim",                  -- for easier key-binding
@@ -36,14 +37,14 @@ return {
         },
         pickers = {
           fd = {
-            theme = "dropdown",
+            theme = "ivy",
             -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
             find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
           },
-          buffers = { theme = "dropdown" },
+          buffers = { theme = "ivy" },
           live_grep = { theme = "dropdown" },
           grep_string = { theme = "dropdown" },
-          oldfiles = { theme = "dropdown" },
+          oldfiles = { theme = "ivy" },
           commands = { theme = "ivy" },
           command_history = { theme = "ivy" },
           jumplist = { theme = "dropdown" },
@@ -71,11 +72,18 @@ return {
               no_results_message = 'No calls found',
             },
           },
+          file_browser = {
+            theme = "ivy",
+            hidden = { file_browser = true, folder_browser = true },
+            respect_gitignore = false,
+            hijack_netrw = false,
+          },
         }
       }
 
       telescope.load_extension("fzf")
       telescope.load_extension("ui-select")
+      telescope.load_extension("file_browser")
       telescope.load_extension("yank_history")
       telescope.load_extension("lsp_handlers")
 
@@ -93,6 +101,15 @@ return {
           j = { builtin.jumplist, "Jump list" },
           ["/"] = { builtin.current_buffer_fuzzy_find, "Current buffer fuzzy find" },
           a = { builtin.diagnostics, "Diagnostics" },
+          m = {
+            function()
+              telescope.extensions.file_browser.file_browser {
+                path=vim.fn.expand("%:p:h"),
+                select_buffer=true,
+              }
+            end,
+            "File browser",
+          },
           y = {
             function()
               --- not needed since yanky.nvim now uses sqlite as storage

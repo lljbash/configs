@@ -12,9 +12,6 @@ return {
   -- 打标签：mx  跳转：'x  最后一次更改：'.  来回跳：''
   "kshenoy/vim-signature",
 
-  -- 高亮光标所在位置对应的符号
-  "RRethy/vim-illuminate",
-
   -- transparent pasting,
   "ConradIrwin/vim-bracketed-paste",
 
@@ -23,16 +20,16 @@ return {
   "tpope/vim-eunuch",
 
   -- smart :KillBuffer
-  { "bit101/bufkill",       event = "VeryLazy", keys = { { "<Leader>q", "<cmd>KillBuffer<cr>", desc = "Delete buffer" } } },
+  { "bit101/bufkill", event = "VeryLazy", keys = { { "<Leader>q", "<cmd>KillBuffer<cr>", desc = "Delete buffer" } } },
 
   -- 快捷编辑环绕 cs/ds/ys/...
-  { "kylechui/nvim-surround",   opts = {} },
+  { "kylechui/nvim-surround", opts = {} },
 
   -- 注释插件 gcc/gbc/gco/gcO/gciw/...
-  { "numToStr/Comment.nvim",    opts = {} },
+  { "numToStr/Comment.nvim", opts = {} },
 
   -- 支持鼠标点击的 statuscolumn
-  { "luukvbaal/statuscol.nvim", opts = {},          branch = "0.10" },
+  { "luukvbaal/statuscol.nvim", opts = {}, branch = "0.10" },
 
   -- 项目特殊配置
   {
@@ -65,5 +62,21 @@ return {
         desc = "Create a selection for selected text or word under the cursor",
       },
     },
+  },
+
+  -- 高亮光标所在位置对应的符号
+  {
+    "RRethy/vim-illuminate",
+    config = function()
+      require("illuminate").configure({
+        filetypes_denylist = {
+          "aerial",
+          "aerial-nav",
+          "dirbuf",
+          "dirvish",
+          "fugitive",
+        },
+      })
+    end,
   },
 }

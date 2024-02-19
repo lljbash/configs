@@ -1,19 +1,81 @@
--- 基于 LSP/treesitter 的 symbol outline
 return {
+  -- 基于 LSP/treesitter 的 symbol outline
   {
     "stevearc/aerial.nvim",
-    keys = {
-      {
-        mode = { "n" },
-        "<Leader>o",
-        "<cmd>AerialOpen<cr>",
-        desc = "Open/focus symbol outline",
-      },
-    },
-    opts = {
-      backends = { "lsp", "treesitter", "markdown", "man" },
-      filter_kind = false, -- display all symbols
-      autojump = true,
-    },
+    dependencies = { "folke/which-key.nvim" }, -- for easier key-binding
+    event = "VeryLazy",
+    config = function()
+      local aerial = require("aerial")
+      aerial.setup {
+        backends = { "lsp", "treesitter", "markdown", "man" },
+        -- filter_kind = false, -- display all symbols
+        filter_kind = {
+          "Class",
+          "Constructor",
+          "Enum",
+          "Function",
+          "Interface",
+          "Module",
+          "Method",
+          "Namespace",
+          "Struct",
+        },
+        autojump = true,
+        nav = {
+          win_opts = {
+            winhl = "NormalFloat:Normal,FloatBorder:TelescopeBorder",
+            cursorline = true,
+            winblend = 0,
+          },
+          autojump = false,
+          preview = false,
+          keymaps = {
+            ["<CR>"] = "actions.jump",
+            ["<2-LeftMouse>"] = "actions.jump",
+            ["<C-v>"] = "actions.jump_vsplit",
+            ["<C-s>"] = "actions.jump_split",
+            h = "actions.left",
+            l = "actions.right",
+            ["<C-c>"] = "actions.close",
+            ["<Left>"] = "actions.left",
+            ["<Right>"] = "actions.right",
+            q = "actions.close",
+            ["<ESC>"] = "actions.close",
+          },
+        },
+      }
+
+      -- hide cursor when entering aerial
+      local augroup = vim.api.nvim_create_augroup("aerial", {})
+      vim.api.nvim_create_autocmd({ "WinEnter", "WinNew" }, {
+        group = augroup,
+        callback = function(opts)
+          local ft = vim.bo[opts.buf].filetype
+          if ft == "aerial" or ft == "aerial-nav" then
+            vim.cmd("hi Cursor blend=100")
+          end
+        end,
+      })
+      vim.api.nvim_create_autocmd("WinLeave", {
+        group = augroup,
+        callback = function(opts)
+          local ft = vim.bo[opts.buf].filetype
+          if ft == "aerial" or ft == "aerial-nav" then
+            vim.cmd("hi Cursor blend=0")
+          end
+        end,
+      })
+
+      -- keybindings
+      require("which-key").register({
+        ["<Leader>"] = {
+          o = { aerial.toggle, "Open/focus symbol outline" },
+          s = { aerial.nav_toggle, "Symbol navigation" },
+        },
+        ["[s"] = { aerial.prev, "Previous symbol" },
+        ["]s"] = { aerial.next, "Next symbol" },
+        ["<Space>s"] = { "<cmd>Telescope aerial<cr>", "Symbols" },
+      })
+    end,
   },
 }

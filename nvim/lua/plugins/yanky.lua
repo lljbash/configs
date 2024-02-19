@@ -19,6 +19,9 @@ return {
         textobj = {
           enabled = true,
         },
+        preserve_cursor_position = {
+          enabled = false,
+        },
       }
       vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
       vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")

@@ -16,10 +16,29 @@ return {
       vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
     end,
     config = function()
+      local augroup = vim.api.nvim_create_augroup("floaterm", {})
       vim.api.nvim_create_autocmd("VimLeave", {
-        group = vim.api.nvim_create_augroup("floaterm_kill", {}),
+        group = augroup,
         pattern = "*",
         command = "FloatermKill!",
+      })
+      vim.api.nvim_create_autocmd("WinEnter", {
+        group = augroup,
+        pattern = "term://*",
+        callback = function(opts)
+          if vim.bo[opts.buf].filetype == "floaterm" then
+            vim.opt_local.winblend = 0
+          end
+        end,
+      })
+      vim.api.nvim_create_autocmd("WinLeave", {
+        group = augroup,
+        pattern = "term://*",
+        callback = function(opts)
+          if vim.bo[opts.buf].filetype == "floaterm" then
+            vim.opt_local.winblend = 30
+          end
+        end,
       })
     end,
     keys = { "<F5>", "<F6>", "<F7>", "<F8>" },

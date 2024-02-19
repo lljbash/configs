@@ -12,7 +12,7 @@ return {
         ["<Leader>"] = {
           w = { "<cmd>w<cr>", "Save buffer" },
           W = { "<cmd>wa<cr>", "Save all" },
-          Q = { "<cmd>q!<cr>", "Force quit" },
+          Q = { "<cmd>qa!<cr>", "Force quit" },
           ["."] = {
             name = "cwd",
             ["<cr>"] = { "<cmd>lcd %:p:h<cr><cmd>pwd<cr>", "Set cwd to buffer" },

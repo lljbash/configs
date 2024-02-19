@@ -3,9 +3,9 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",                  -- for capabilities setting
-      "folke/which-key.nvim",                  -- for easier key-binding
-      "williamboman/mason-tool-installer.nvim" -- for automatic installation
+      "hrsh7th/cmp-nvim-lsp",                   -- for capabilities setting
+      "folke/which-key.nvim",                   -- for easier key-binding
+      "williamboman/mason-tool-installer.nvim", -- for automatic installation
     },
     config = function()
       local lspconfig = require("lspconfig")
@@ -249,18 +249,42 @@ return {
 
   -- Code action 预览
   {
-    "weilbith/nvim-code-action-menu",
-    config = function()
-      vim.g.code_action_menu_window_border = 'rounded'
+    "aznhe21/actions-preview.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    opts = function()
+      return {
+        highlight_command = {
+          require("actions-preview.highlight").delta(),
+          require("actions-preview.highlight").diff_so_fancy(),
+          require("actions-preview.highlight").diff_highlight(),
+        },
+        telescope = require("telescope.themes").get_dropdown {},
+      }
     end,
-    cmd = 'CodeActionMenu',
     keys = {
       {
         mode = { "n", "v" },
-        "<Leader>ac",
-        "<cmd>CodeActionMenu<cr>",
-        desc = "Code action menu",
+        "<Leader>a",
+        function() require("actions-preview").code_actions() end,
+        desc = "Code actions",
       },
     },
   },
+  -- {
+  --   "weilbith/nvim-code-action-menu",
+  --   config = function()
+  --     vim.g.code_action_menu_window_border = 'rounded'
+  --   end,
+  --   cmd = 'CodeActionMenu',
+  --   keys = {
+  --     {
+  --       mode = { "n", "v" },
+  --       "<Leader>ac",
+  --       "<cmd>CodeActionMenu<cr>",
+  --       desc = "Code action menu",
+  --     },
+  --   },
+  -- },
 }
