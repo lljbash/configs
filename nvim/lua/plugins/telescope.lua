@@ -41,7 +41,7 @@ return {
             -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
             find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
           },
-          buffers = { theme = "ivy" },
+          buffers = { theme = "ivy", sort_lastused = true, ignore_current_buffer = true },
           live_grep = { theme = "dropdown" },
           grep_string = { theme = "dropdown" },
           oldfiles = { theme = "ivy" },
@@ -60,15 +60,15 @@ return {
               ['textDocument/codeAction'] = true,
             },
             location = {
-              telescope = themes.get_dropdown({}),
+              telescope = themes.get_ivy({}),
               no_results_message = 'No references found',
             },
             symbol = {
-              telescope = themes.get_dropdown({}),
+              telescope = themes.get_ivy({}),
               no_results_message = 'No symbols found',
             },
             call_hierarchy = {
-              telescope = themes.get_dropdown({}),
+              telescope = themes.get_ivy({}),
               no_results_message = 'No calls found',
             },
           },
