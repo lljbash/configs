@@ -14,7 +14,7 @@ vim.opt.dictionary = vim.fn.stdpath("config") .. "/dict/10k.dict"
 local dictionary_plug = {
   "uga-rosa/cmp-dictionary",
   opts = {
-    exact = 2,
+    exact_length = 2,
     first_case_insensitive = true,
   },
 }

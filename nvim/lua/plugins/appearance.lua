@@ -24,6 +24,7 @@ return {
       { "nvim-tree/nvim-web-devicons", opts = {} },
       "sainnhe/sonokai",
       "stevearc/aerial.nvim",
+      "AndreM222/copilot-lualine",
     },
     config = function()
       --- @param min_width number
@@ -97,6 +98,7 @@ return {
             }
           },
           lualine_x = {
+            { "copilot",    cond = width_not_less_than(160), show_colors = true },
             { "encoding",   cond = width_not_less_than(160) },
             { "fileformat", cond = width_not_less_than(160) },
             "filetype"
