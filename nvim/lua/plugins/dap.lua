@@ -74,10 +74,9 @@ return {
     "mfussenegger/nvim-dap-python",
     ft = "python",
     dependencies = { "mfussenegger/nvim-dap" },
-    build =
-    ":! [ \\! -d ~/.virtualenvs/debugpy ] && mkdir ~/.virtualenvs && cd ~/.virtualenvs && python -m venv debugpy && debugpy/bin/python -m pip install debugpy",
+    build = "pip3 install debugpy --user --upgrade",
     config = function()
-      require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
+      require("dap-python").setup()
       local configs = require("dap").configurations.python
       -- these configs are copied from nvim-dap-python, but with justMyCode = false
       table.insert(configs, {
