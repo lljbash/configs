@@ -18,6 +18,7 @@ dependencies:
   - just
   - bat
   - fzf
+  - htop
   - clang
   - clang-format
   - clang-tools
