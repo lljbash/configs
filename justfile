@@ -28,7 +28,10 @@ build-typos-lsp:
 	cd ${HOME}/download/typos-vscode && \
 	cargo build --release
 
-install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly build-typos-lsp
+build-tree-sitter:
+	cargo install tree-sitter-cli
+
+install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly build-typos-lsp build-tree-sitter
 	cp zshrc-no-ghr ~/.zshrc
 	cp zshenv ~/.zshenv
 	conda init zsh

@@ -32,6 +32,7 @@ dedup_var PATH
 add_to_var PATH "$HOME/.conda/envs/app/bin"
 add_to_var PATH "$HOME/download/nvim-linux64/bin"
 add_to_var PATH "$HOME/download/typos-vscode/target/release"
+add_to_var PATH "$HOME/.cargo/bin"
 ## munge LD_LIBRARY_PATH
 dedup_var LD_LIBRARY_PATH
 add_to_var LD_LIBRARY_PATH "$HOME/.conda/envs/app/lib" after
