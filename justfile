@@ -29,6 +29,7 @@ build-typos-lsp:
 	cargo build --release
 
 build-tree-sitter:
+	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
 	cargo install tree-sitter-cli
 
 install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly build-typos-lsp build-tree-sitter
