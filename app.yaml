@@ -26,8 +26,6 @@ dependencies:
   - libclang
   - libclang-cpp
   - python-clang
-  - gcc
-  - gxx
   - cmake
   - ccache
   - universal-ctags
