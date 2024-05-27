@@ -15,6 +15,50 @@ return {
     end,
   },
 
+  -- tab bar
+  {
+    "romgrk/barbar.nvim",
+    dependencies = {
+      "lewis6991/gitsigns.nvim",     -- OPTIONAL: for git status
+      "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+      "folke/which-key.nvim",        -- for convenient keymap
+    },
+    init = function() vim.g.barbar_auto_setup = false end,
+    config = function()
+      require("barbar").setup {}
+      require("which-key").register({
+        ["<A-,>"] = { "<cmd>BufferPrevious<cr>", "Previous buffer" },
+        ["<A-.>"] = { "<cmd>BufferNext<cr>", "Next buffer" },
+        ["<A-<>"] = { "<cmd>BufferMovePrevious<cr>", "Move buffer left" },
+        ["<A->>"] = { "<cmd>BufferMoveNext<cr>", "Move buffer right" },
+        ["<A-1>"] = { "<cmd>BufferGoto 1<cr>", "Goto buffer 1" },
+        ["<A-2>"] = { "<cmd>BufferGoto 2<cr>", "Goto buffer 2" },
+        ["<A-3>"] = { "<cmd>BufferGoto 3<cr>", "Goto buffer 3" },
+        ["<A-4>"] = { "<cmd>BufferGoto 4<cr>", "Goto buffer 4" },
+        ["<A-5>"] = { "<cmd>BufferGoto 5<cr>", "Goto buffer 5" },
+        ["<A-6>"] = { "<cmd>BufferGoto 6<cr>", "Goto buffer 6" },
+        ["<A-7>"] = { "<cmd>BufferGoto 7<cr>", "Goto buffer 7" },
+        ["<A-8>"] = { "<cmd>BufferGoto 8<cr>", "Goto buffer 8" },
+        ["<A-9>"] = { "<cmd>BufferGoto 9<cr>", "Goto buffer 9" },
+        ["<A-0>"] = { "<cmd>BufferLast<cr>", "Goto last buffer" },
+        ["<A-n>"] = { "<cmd>BufferPin<cr>", "Pin buffer" },
+        ["<A-w>"] = { "<cmd>BufferClose<cr>", "Close buffer" },
+        ["<A-q>"] = { "<cmd>BufferWipeout<cr>", "Wipeout buffer" },
+        ["<A-t>"] = { "<cmd>BufferRestore<cr>", "Restore buffer" },
+        ["<Leader>b"] = { "<cmd>BufferPick<cr>", "Pick buffer" },
+        ["<A-b>"] = {
+          name = "Sort tabbar",
+          b = { "<cmd>BufferOrderByBufferNumber<cr>", "By buffer number" },
+          n = { "<cmd>BufferOrderByName<cr>", "By name" },
+          d = { "<cmd>BufferOrderByDirectory<cr>", "By directory" },
+          l = { "<cmd>BufferOrderByLanguage<cr>", "By language" },
+          w = { "<cmd>BufferOrderByWindowNumber<cr>", "By window number" },
+        }
+      })
+    end,
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  },
+
   -- 状态栏
   {
     "nvim-lualine/lualine.nvim",

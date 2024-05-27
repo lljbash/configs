@@ -17,10 +17,12 @@ return {
 
   -- Vim sugar for the UNIX shell commands that need it the most
   -- :Remove :Delete :Move :Chmod :Mkdir ...
-  "tpope/vim-eunuch",
+  -- Now provided by telescope-file-browser.nvim
+  -- "tpope/vim-eunuch",
 
   -- smart :KillBuffer
-  { "bit101/bufkill", event = "VeryLazy", keys = { { "<Leader>q", "<cmd>KillBuffer<cr>", desc = "Delete buffer" } } },
+  -- Now provided by barbar.nvim
+  -- { "bit101/bufkill", event = "VeryLazy", keys = { { "<Leader>q", "<cmd>KillBuffer<cr>", desc = "Delete buffer" } } },
 
   -- 快捷编辑环绕 cs/ds/ys/...
   { "kylechui/nvim-surround", opts = {} },
