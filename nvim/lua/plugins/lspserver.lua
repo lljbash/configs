@@ -29,6 +29,7 @@ return {
         "clang-format",
         "black",
         "cmakelang",
+        "shfmt",
         "prettier",
       },
     },
