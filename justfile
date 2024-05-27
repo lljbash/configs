@@ -6,6 +6,7 @@ bootstrap: install-zsh-configs-with-conda install-nvim-configs install-tmux-conf
 reset-bootstrap:
 	conda remove --name app --all
 	rm -rf ${HOME}/download/nvim-linux64
+	rm -rf ${HOME}/download/typos-vscode
 	rm -rf ~/.zshrc ~/.zshenv ~/.zinit
 	rm -rf ~/.config/nvim
 	rm -rf ~/.tmux.conf ~/.tmux
@@ -13,6 +14,13 @@ reset-bootstrap:
 
 conda-install-missing-apps:
 	conda env update -f app.yaml -p ${HOME}/.conda/envs/app --prune
+
+update-nvim-stable:
+	mkdir -p ${HOME}/download
+	cd ${HOME}/download && \
+	wget https://github.com/neovim/neovim-releases/releases/download/stable/nvim-linux64.tar.gz && \
+	tar xzvf nvim-linux64.tar.gz && \
+	rm nvim-linux64.tar.gz
 
 update-nvim-nightly:
 	mkdir -p ${HOME}/download
@@ -32,7 +40,7 @@ build-tree-sitter:
 	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
 	cargo install tree-sitter-cli
 
-install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-nightly build-typos-lsp build-tree-sitter
+install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-stable build-typos-lsp build-tree-sitter
 	cp zshrc-no-ghr ~/.zshrc
 	cp zshenv ~/.zshenv
 	conda init zsh
