@@ -26,7 +26,8 @@ return {
       vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
       vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
       vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
-      vim.keymap.set({ "n", "x" }, ";p", function()
+      vim.keymap.set({ "n", "x" }, "<leader>y", "\"+<Plug>(YankyYank)", { desc = "Yank to system clipboard" })
+      vim.keymap.set({ "n", "x" }, "<leader>p", function()
         require("yanky.textobj").last_put()
       end, { desc = "Put last put text" })
       for type, type_text in pairs({
