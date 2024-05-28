@@ -33,18 +33,22 @@ add_to_var PATH "$HOME/.conda/envs/app/bin"
 add_to_var PATH "$HOME/.cargo/bin"
 add_to_var PATH "$HOME/download/nvim-linux64/bin"
 add_to_var PATH "$HOME/download/typos-vscode/target/release"
-add_to_var PATH "$HOME/download/xclip/install/bin" after
+add_to_var PATH "$HOME/download/linux_binaries/less/bin"
+add_to_var PATH "$HOME/download/linux_binaries/xclip/bin" after
 ## munge LD_LIBRARY_PATH
 dedup_var LD_LIBRARY_PATH
 add_to_var LD_LIBRARY_PATH "$HOME/.conda/envs/app/lib" after
 add_to_var LD_LIBRARY_PATH /usr/local/lib
 add_to_var LD_LIBRARY_PATH /usr/local/lib64
+## enable mouse in less
+export LESS="--mouse --wheel-lines=3"
 ## define other useful variables
 export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/local/include
 export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 ## undef utilities
 unset -f get_var set_var dedup_var add_to_var
 
+# vim -> nvim
 vim () {
   if (( $+commands[nvim] )); then
     /usr/bin/env nvim "$@"

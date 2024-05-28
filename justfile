@@ -40,13 +40,12 @@ build-tree-sitter:
 	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
 	cargo install tree-sitter-cli
 
-build-xsel:
-	WORKDIR=${HOME}/download/xclip && \
+download-prebuilt-utils:
+	WORKDIR=${HOME}/download/linux_binaries && \
 	rm -rf ${WORKDIR} && \
-	git clone -b 0.13 --depth 1 https://github.com/astrand/xclip ${WORKDIR} && \
-	cd ${WORKDIR} && ./bootstrap && ./configure --prefix=${WORKDIR}/install && make && make install
+	git clone https://github.com/lljbash/linux_binaries ${WORKDIR}
 
-install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-stable build-typos-lsp build-tree-sitter build-xsel
+install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-stable build-typos-lsp build-tree-sitter download-prebuilt-utils
 	cp zshrc-no-ghr ~/.zshrc
 	cp zshenv ~/.zshenv
 	conda init zsh
