@@ -68,10 +68,8 @@ return {
 
       -- keybindings
       require("which-key").register({
-        ["<Leader>"] = {
-          o = { aerial.toggle, "Open/focus symbol outline" },
-          s = { aerial.nav_toggle, "Symbol navigation" },
-        },
+        ["<Leader>o"] = { aerial.toggle, "Open/focus symbol outline" },
+        ["gs"] = { aerial.nav_toggle, "Symbol navigation" },
         ["[s"] = { aerial.prev, "Previous symbol" },
         ["]s"] = { aerial.next, "Next symbol" },
         ["<Space>s"] = { "<cmd>Telescope aerial<cr>", "Symbols" },
