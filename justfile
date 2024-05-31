@@ -7,6 +7,7 @@ reset-bootstrap:
 	conda remove --name app --all
 	rm -rf ${HOME}/download/nvim-linux64
 	rm -rf ${HOME}/download/typos-vscode
+	rm -rf ${HOME}/download/linux_binaries
 	rm -rf ~/.zshrc ~/.zshenv ~/.zinit
 	rm -rf ~/.config/nvim
 	rm -rf ~/.tmux.conf ~/.tmux
