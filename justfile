@@ -31,20 +31,18 @@ update-nvim-nightly:
 	rm nvim-linux64.tar.gz
 
 build-typos-lsp:
-	WORKDIR=${HOME}/download/typos-vscode && \
-	rm -rf ${WORKDIR} && \
-	git clone https://github.com/tekumara/typos-vscode ${WORKDIR} && \
+	rm -rf ${HOME}/download/typos-vscode && \
+	git clone https://github.com/tekumara/typos-vscode ${HOME}/download/typos-vscode && \
 	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
-	cd ${WORKDIR} && cargo build --release
+	cd ${HOME}/download/typos-vscode && cargo build --release
 
 build-tree-sitter:
 	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
 	cargo install tree-sitter-cli
 
 download-prebuilt-utils:
-	WORKDIR=${HOME}/download/linux_binaries && \
-	rm -rf ${WORKDIR} && \
-	git clone https://github.com/lljbash/linux_binaries ${WORKDIR}
+	rm -rf ${HOME}/download/linux_binaries && \
+	git clone https://github.com/lljbash/linux_binaries ${HOME}/download/linux_binaries
 
 install-zsh-configs-with-conda: conda-install-missing-apps update-nvim-stable build-typos-lsp build-tree-sitter download-prebuilt-utils
 	cp zshrc-no-ghr ~/.zshrc
