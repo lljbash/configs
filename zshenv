@@ -31,6 +31,7 @@ add_to_var () {
 dedup_var PATH
 add_to_var PATH "$HOME/.conda/envs/app/bin"
 add_to_var PATH "$HOME/.cargo/bin"
+add_to_var PATH "$HOME/.local/bin"
 add_to_var PATH "$HOME/download/nvim-linux64/bin"
 add_to_var PATH "$HOME/download/typos-vscode/target/release"
 add_to_var PATH "$HOME/download/linux_binaries/less/bin"
