@@ -16,5 +16,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- load plugins in lua/plugins
-local lazy_opts = { ui = { border = "rounded" } }
+local lazy_opts = { concurrency = 8, ui = { border = "rounded" } }
 require("lazy").setup("plugins", lazy_opts)

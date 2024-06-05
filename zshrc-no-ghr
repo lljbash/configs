@@ -152,7 +152,7 @@ zt as"completion" blockf nocompile light-mode for \
         "https://github.com/ogham/exa/blob/master/completions/zsh/_exa" \
         "https://github.com/BurntSushi/ripgrep/blob/12.1.1/complete/_rg" \
     mv'just.zsh -> _just' \
-        "https://github.com/casey/just/blob/master/completions/just.zsh" \
+        "https://github.com/casey/just/blob/v0.9.4/completions/just.zsh" \
     atclone"sed -e 's/{{PROJECT_EXECUTABLE}}/bat/g' bat.zsh.in > _bat" atpull'%atclone' \
         "https://github.com/sharkdp/bat/blob/master/assets/completions/bat.zsh.in"
 ## Actually scripts
