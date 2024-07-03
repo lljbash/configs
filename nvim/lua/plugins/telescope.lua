@@ -86,6 +86,7 @@ return {
       telescope.load_extension("file_browser")
       telescope.load_extension("yank_history")
       telescope.load_extension("lsp_handlers")
+      telescope.load_extension("session-lens")
 
       require("which-key").register({
         ["<Space>"] = {
