@@ -10,10 +10,10 @@ local luasnip_plug = {
 }
 
 -- dictionary
-vim.opt.dictionary = vim.fn.stdpath("config") .. "/dict/10k.dict"
 local dictionary_plug = {
   "uga-rosa/cmp-dictionary",
   opts = {
+    paths = { vim.fn.stdpath("config") .. "/dict/10k.dict" },
     exact_length = 2,
     first_case_insensitive = true,
   },
