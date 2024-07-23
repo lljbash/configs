@@ -34,28 +34,26 @@ return {
         'DapBreakpoint'
       })
 
-      wk.register({
-        ["<Leader>d"] = {
-          name = "Debug",
-          b = { dap.toggle_breakpoint, "Toggle breakpoint" },
-          r = { function()
+      wk.add({
+        { "<Leader>d", group = "Debug" },
+        { "<Leader>db", dap.toggle_breakpoint, desc = "Toggle breakpoint" },
+        { "<Leader>dr", function()
             if dap.session() then
               dap.restart()
             else
               dap.continue()
             end
-          end, "Start session" },
-          s = { dap.step_into, "Step into" },
-          n = { dap.step_over, "Step over" },
-          o = { dap.step_out, "Step out" },
-          c = { dap.continue, "Continue" },
-          q = { function()
+          end, desc = "Start session" },
+        { "<Leader>ds", dap.step_into, desc = "Step into" },
+        { "<Leader>dn", dap.step_over, desc = "Step over" },
+        { "<Leader>do", dap.step_out, desc = "Step out" },
+        { "<Leader>dc", dap.continue, desc = "Continue" },
+        { "<Leader>dq", function()
             if dap.session() then
               dap.disconnect()
               dap.close()
             end
-          end, "Quit session" },
-        },
+          end, desc = "Quit session" },
       })
     end,
   },

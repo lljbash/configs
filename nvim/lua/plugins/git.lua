@@ -14,26 +14,24 @@ return {
         },
       })
       vim.api.nvim_set_hl(0, "GitSignsUntracked", { link = "LspInlayHint" })
-      require("which-key").register({
+      require("which-key").add({
         -- Navigation
-        ["[g"] = { "<cmd>Gitsigns prev_hunk<CR>", "Prev hunk" },
-        ["]g"] = { "<cmd>Gitsigns next_hunk<CR>", "Next hunk" },
+        { "[g", "<cmd>Gitsigns prev_hunk<CR>", desc = "Prev hunk" },
+        { "]g", "<cmd>Gitsigns next_hunk<CR>", desc = "Next hunk" },
         -- Actions
-        ["<Leader>g"] = {
-          name = "git",
-          s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", mode = { "n", "v" } },
-          r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", mode = { "n", "v" } },
-          S = { "<cmd>Gitsigns stage_buffer<cr>", "Stage buffer" },
-          u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
-          R = { "<cmd>Gitsigns reset_buffer<cr>", "Reset buffer" },
-          p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk" },
-          b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle blame" },
-          d = { "<cmd>Gitsigns diffthis<cr>", "Diff this" },
-          D = { '<cmd>lua require"gitsigns".diffthis("~")<cr>', "Diff head" },
-          ["td"] = { "<cmd>Gitsigns toggle_deleted<cr>", "Toggle deleted" },
-        },
+        { "<Leader>g", group = "git" },
+        { "<Leader>gs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage hunk", mode = { "n", "v" } },
+        { "<Leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset hunk", mode = { "n", "v" } },
+        { "<Leader>gS", "<cmd>Gitsigns stage_buffer<cr>", desc = "Stage buffer" },
+        { "<Leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo stage hunk" },
+        { "<Leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset buffer" },
+        { "<Leader>gp", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview hunk" },
+        { "<Leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle blame" },
+        { "<Leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff this" },
+        { "<Leader>gD", '<cmd>lua require"gitsigns".diffthis("~")<cr>', desc = "Diff head" },
+        { "<Leader>gt", "<cmd>Gitsigns toggle_deleted<cr>", desc = "Toggle deleted" },
         -- Motions
-        ["ih"] = { ":<C-U>Gitsigns select_hunk<cr>", "Select hunk", mode = { "x", "o" } },
+        { "ih", ":<C-U>Gitsigns select_hunk<cr>", desc = "Select hunk", mode = { "o", "x" } },
       })
     end,
   },
@@ -43,15 +41,13 @@ return {
     dependencies = { "folke/which-key.nvim" }, -- for easier key-binding
     event = "VeryLazy",
     config = function()
-      require("which-key").register({
-        ["<Leader>gv"] = {
-          name = "diffview",
-          v = { "<cmd>DiffviewOpen<cr>", "DiffviewOpen" },
-          c = { "<cmd>DiffviewClose<cr>", "DiffviewClose" },
-          t = { "<cmd>DiffviewToggleFiles<cr>", "DiffviewToggleFiles" },
-          r = { "<cmd>DiffviewRefresh<cr>", "DiffviewRefresh" },
-          f = { "<cmd>DiffviewFocusFiles<cr>", "DiffviewFocusFiles" },
-        },
+      require("which-key").add({
+        { "<Leader>gv", group = "diffview" },
+        { "<Leader>gvv", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen" },
+        { "<Leader>gvc", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
+        { "<Leader>gvt", "<cmd>DiffviewToggleFiles<cr>", desc = "DiffviewToggleFiles" },
+        { "<Leader>gvr", "<cmd>DiffviewRefresh<cr>", desc = "DiffviewRefresh" },
+        { "<Leader>gvf", "<cmd>DiffviewFocusFiles<cr>", desc = "DiffviewFocusFiles" },
       })
     end,
   },

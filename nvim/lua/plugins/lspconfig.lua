@@ -192,17 +192,14 @@ return {
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
-          require("which-key").register({
-            K = { vim.lsp.buf.hover, "Hover" },
-            ["<C-k>"] = { vim.lsp.buf.signature_help, "Signature help" },
-            ["<leader>rn"] = { vim.lsp.buf.rename, "Rename symbol" },
-            g = {
-              d = { vim.lsp.buf.definition, "Goto definition" },
-              D = { vim.lsp.buf.declaration, "Goto declaration" },
-              i = { vim.lsp.buf.implementation, "Goto implementation" },
-              r = { vim.lsp.buf.references, "Goto references" },
-            },
-          }, {
+          require("which-key").add({
+            { "K", vim.lsp.buf.hover, desc = "Hover" },
+            { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature help" },
+            { "<leader>r", vim.lsp.buf.rename, desc = "Rename symbol" },
+            { "gd", vim.lsp.buf.definition, desc = "Goto definition" },
+            { "gD", vim.lsp.buf.declaration, desc = "Goto declaration" },
+            { "gi", vim.lsp.buf.implementation, desc = "Goto implementation" },
+            { "gr", vim.lsp.buf.references, desc = "Goto references" },
             buffer = ev.buf,
           })
         end,

@@ -88,40 +88,32 @@ return {
       telescope.load_extension("lsp_handlers")
       telescope.load_extension("session-lens")
 
-      require("which-key").register({
-        ["<Space>"] = {
-          name = "Telescope",
-          ["<Space>"] = { builtin.builtin, "Builtin lists" },
-          n = { builtin.fd, "Find files" },
-          b = { builtin.buffers, "Buffers" },
-          g = { builtin.live_grep, "Live grep" },
-          ["*"] = { builtin.grep_string, "Grep string" },
-          o = { builtin.oldfiles, "Open recent files" },
-          c = { builtin.commands, "Commands" },
-          C = { builtin.command_history, "Command history" },
-          j = { builtin.jumplist, "Jump list" },
-          ["/"] = { builtin.current_buffer_fuzzy_find, "Current buffer fuzzy find" },
-          a = { builtin.diagnostics, "Diagnostics" },
-          m = {
-            function()
-              telescope.extensions.file_browser.file_browser {
-                path=vim.fn.expand("%:p:h"),
-                select_buffer=true,
-              }
-            end,
-            "File browser",
-          },
-          y = {
-            function()
-              --- not needed since yanky.nvim now uses sqlite as storage
-              -- vim.cmd(":rshada")
-              telescope.extensions.yank_history.yank_history(
-                themes.get_dropdown({})
-              )
-            end,
-            "Yank history",
-          },
-        },
+      require("which-key").add({
+        { "<Space>", group = "Telescope" },
+        { "<Space><Space>", builtin.builtin, desc = "Builtin lists" },
+        { "<Space>n", builtin.fd, desc = "Find files" },
+        { "<Space>b", builtin.buffers, desc = "Buffers" },
+        { "<Space>g", builtin.live_grep, desc = "Live grep" },
+        { "<Space>*", builtin.grep_string, desc = "Grep string" },
+        { "<Space>o", builtin.oldfiles, desc = "Open recent files" },
+        { "<Space>c", builtin.commands, desc = "Commands" },
+        { "<Space>C", builtin.command_history, desc = "Command history" },
+        { "<Space>j", builtin.jumplist, desc = "Jump list" },
+        { "<Space>/", builtin.current_buffer_fuzzy_find, desc = "Current buffer fuzzy find" },
+        { "<Space>a", builtin.diagnostics, desc = "Diagnostics" },
+        { "<Space>m", function()
+            telescope.extensions.file_browser.file_browser {
+              path = vim.fn.expand("%:p:h"),
+              select_buffer = true,
+            }
+          end, desc = "File browser" },
+        { "<Space>y", function()
+            --- not needed since yanky.nvim now uses sqlite as storage
+            -- vim.cmd(":rshada")
+            telescope.extensions.yank_history.yank_history(
+              themes.get_dropdown({})
+            )
+          end, desc = "Yank history" },
       })
     end,
   },
