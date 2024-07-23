@@ -31,7 +31,7 @@ return {
   { "numToStr/Comment.nvim", opts = {} },
 
   -- 支持鼠标点击的 statuscolumn
-  { "luukvbaal/statuscol.nvim", opts = {}, branch = "0.10" },
+  { "luukvbaal/statuscol.nvim", opts = {} },
 
   -- 项目特殊配置
   {
