@@ -34,5 +34,6 @@ dependencies:
   - sqlite
   - nodejs=18
   - rust
+  - rust-src
   - shellcheck
   - black

@@ -92,7 +92,6 @@ return {
           end,
         },
         sh = { shfmt },
-        bash = { shfmt },
         zsh = { shfmt },
         typescriptreact = { prettier },
         javascriptreact = { prettier },

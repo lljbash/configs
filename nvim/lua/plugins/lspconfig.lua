@@ -107,10 +107,10 @@ return {
         filetypes = { "sh", "zsh" },
         capabilities = capabilities,
       }
-      lspconfig.neocmake.setup { capabilities = capabilities } -- cmake
-      lspconfig.jsonls.setup { capabilities = capabilities }   -- json
-      lspconfig.yamlls.setup { capabilities = capabilities }   -- yaml
-      lspconfig.marksman.setup { capabilities = capabilities } -- markdown
+      lspconfig.neocmake.setup { capabilities = capabilities }      -- cmake
+      lspconfig.jsonls.setup { capabilities = capabilities }        -- json
+      lspconfig.yamlls.setup { capabilities = capabilities }        -- yaml
+      lspconfig.marksman.setup { capabilities = capabilities }      -- markdown
 
       -- rounded border on :LspInfo
       require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -129,7 +129,7 @@ return {
           source = "if_many",
         },
         float = {
-          source = "always",
+          source = true,
           border = "rounded",
         },
         severity_sort = true,
@@ -193,13 +193,13 @@ return {
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
           require("which-key").add({
-            { "K", vim.lsp.buf.hover, desc = "Hover" },
-            { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature help" },
-            { "<leader>r", vim.lsp.buf.rename, desc = "Rename symbol" },
-            { "gd", vim.lsp.buf.definition, desc = "Goto definition" },
-            { "gD", vim.lsp.buf.declaration, desc = "Goto declaration" },
-            { "gi", vim.lsp.buf.implementation, desc = "Goto implementation" },
-            { "gr", vim.lsp.buf.references, desc = "Goto references" },
+            { "K",         vim.lsp.buf.hover,          desc = "Hover" },
+            { "<C-k>",     vim.lsp.buf.signature_help, desc = "Signature help" },
+            { "<leader>r", vim.lsp.buf.rename,         desc = "Rename symbol" },
+            { "gd",        vim.lsp.buf.definition,     desc = "Goto definition" },
+            { "gD",        vim.lsp.buf.declaration,    desc = "Goto declaration" },
+            { "gi",        vim.lsp.buf.implementation, desc = "Goto implementation" },
+            { "gr",        vim.lsp.buf.references,     desc = "Goto references" },
             buffer = ev.buf,
           })
         end,
@@ -215,6 +215,12 @@ return {
         end
       end
     end,
+  },
+
+  -- rust
+  {
+    "mrcjkb/rustaceanvim",
+    filetype = "rust",
   },
 
   -- 函数签名提示
@@ -269,19 +275,4 @@ return {
       },
     },
   },
-  -- {
-  --   "weilbith/nvim-code-action-menu",
-  --   config = function()
-  --     vim.g.code_action_menu_window_border = 'rounded'
-  --   end,
-  --   cmd = 'CodeActionMenu',
-  --   keys = {
-  --     {
-  --       mode = { "n", "v" },
-  --       "<Leader>ac",
-  --       "<cmd>CodeActionMenu<cr>",
-  --       desc = "Code action menu",
-  --     },
-  --   },
-  -- },
 }

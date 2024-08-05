@@ -127,6 +127,7 @@ return {
             c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
           }),
         }),
+        preselect = cmp.PreselectMode.None,
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
