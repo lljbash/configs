@@ -8,7 +8,7 @@ local clangformat = function()
     },
     stdin = true,
     try_node_modules = true,
-    cwd = vim.fn.expand("%:p:h"), -- Run clang-format in cwd of the file.
+    cwd = vim.fn.expand("%:p:h"), -- Run format in cwd of the file.
   }
 end
 
@@ -23,6 +23,14 @@ local prettier = function()
     },
     stdin = true,
     try_node_modules = true,
+  }
+end
+
+local shfmt = function()
+  return {
+    exe = "shfmt",
+    args = { "-i", "2", "-ci", "-bn" },
+    stdin = true,
   }
 end
 
@@ -64,6 +72,7 @@ return {
               exe = "cmake-format",
               args = { "--in-place" },
               stdin = false,
+              cwd = vim.fn.expand("%:p:h"), -- Run format in cwd of the file.
             }
           end,
         },
@@ -72,6 +81,19 @@ return {
             vim.lsp.buf.format()
           end,
         },
+        rust = {
+          function()
+            return {
+              exe = "rustfmt",
+              args = { "--emit=stdout" },
+              stdin = true,
+              cwd = vim.fn.expand("%:p:h"), -- Run format in cwd of the file.
+            }
+          end,
+        },
+        sh = { shfmt },
+        bash = { shfmt },
+        zsh = { shfmt },
         typescriptreact = { prettier },
         javascriptreact = { prettier },
         javascript = { prettier },
