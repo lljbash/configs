@@ -41,6 +41,12 @@ dedup_var LD_LIBRARY_PATH
 add_to_var LD_LIBRARY_PATH "$HOME/.conda/envs/app/lib" after
 add_to_var LD_LIBRARY_PATH /usr/local/lib
 add_to_var LD_LIBRARY_PATH /usr/local/lib64
+# enable 256 color
+if [ -n "$TMUX" ]; then
+  export TERM="tmux-256color"
+else
+  export TERM="xterm-256color"
+fi
 ## enable mouse in less
 export LESS="--mouse --wheel-lines=3"
 ## define other useful variables
