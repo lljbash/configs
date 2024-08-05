@@ -49,6 +49,11 @@ export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 ## undef utilities
 unset -f get_var set_var dedup_var add_to_var
 
+# mkdir + cd
+mcd () {
+  mkdir -p "$@" && cd "${@:$#}" || return 1
+}
+
 # vim -> nvim
 vim () {
   if (( $+commands[nvim] )); then
