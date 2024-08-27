@@ -127,7 +127,7 @@ zt as "null" from nocompile light-mode for \
 ## With completions
 zt as"completion" blockf nocompile light-mode for \
     atload"unalias fd &>/dev/null" \
-        OMZP::fd/_fd \
+        "https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd" \
     atload'_lljbash_exa_icons() {
                if [[ $POWERLEVEL9K_LEFT_PROMPT_ELEMENTS[(r)os_icon] == os_icon ]]; then
                    echo "--icons"
