@@ -150,9 +150,7 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
     },
-    build = function()
-      vim.cmd("UpdateRemotePlugins")
-    end,
+    build = ":UpdateRemotePlugins",
     config = function()
       local wilder = require("wilder")
       wilder.setup({ modes = { ":", "/", "?" } })
@@ -160,7 +158,7 @@ return {
         wilder.branch(
           wilder.python_file_finder_pipeline({
             file_command = function(ctx, arg)
-              if string.find(arg, ".") ~= nil then
+              if string.match(arg, "^%.") then
                 return { "fd", "-tf", "-H" }
               else
                 return { "fd", "-tf" }
