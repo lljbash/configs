@@ -1,6 +1,6 @@
 -x
 c++
--std=c++17
+-std=c++23
 -Wall
 -Wextra
 -Wconversion
