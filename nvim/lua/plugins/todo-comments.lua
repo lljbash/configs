@@ -5,11 +5,10 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       highlight = {
-        keyword = "bg",
-        pattern = [[.*<(KEYWORDS)(\(.+\))?:]],
+        pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]],
       },
       search = {
-        pattern = [[\b(KEYWORDS)(\(.+\))?:]],
+        pattern = [[\b(KEYWORDS)(\(\w*\))*:]],
       },
     },
   },
