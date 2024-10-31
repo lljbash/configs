@@ -55,7 +55,6 @@ install-nvim-configs:
 
 install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
-	/usr/bin/tic -x tmux-256color
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	export PATH="${HOME}/.conda/envs/app/bin:${PATH}" && \
 	tmux new-session -s "InstallTmuxPlugins" "sleep 1; ~/.tmux/plugins/tpm/bin/install_plugins || sleep 10"
