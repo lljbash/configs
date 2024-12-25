@@ -11,6 +11,10 @@ vim.opt.signcolumn = "yes"  -- always show the signcolumn
 vim.opt.termguicolors = true
 vim.opt.updatetime = 100    -- default 4000ms is too long
 
+-- Split 设置
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Tab 设置
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
