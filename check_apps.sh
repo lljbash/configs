@@ -2,6 +2,8 @@
 
 set -e
 
+export PATH=/opt/nvim-linux64/bin:$PATH
+
 for APP in \
   python \
   curl wget git snap tar unzip gunzip \
