@@ -26,7 +26,7 @@ make bootstrap
 
 This will first check the prerequisites (see `check_apps.sh`). If any are missing, you may need to install them manually. Running `make bootstrap-root` will install most prerequisites globally on Ubuntu, provided you have root permissions. The `make install-miniconda` command will install Miniconda3 in your home directory, providing `python`.
 
-Once the prerequisites are in place, the setup will automatically configure everything. `zsh`, `nvim` and `tmux` will complete their post-configurations automatically upon first execution.
+Once the prerequisites are in place, the setup will automatically configure everything. `zsh`, `nvim` and `tmux` will complete their post-configurations automatically upon first execution (you may need to restart them to complete their post-configurations).
 
 If zsh isn’t set as your login shell, you may need to configure it manually by running `make set-login-shell`.
 

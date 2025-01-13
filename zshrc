@@ -142,7 +142,9 @@ zt as"null" from"gh-r" nocompile light-mode for \
            alias lta='\''eza -TaF --ignore-glob=.git $(_lljbash_eza_icons)'\''
            alias llt='\''eza -lbTF --git $(_lljbash_eza_icons)'\''
            alias llta='\''eza -lbTaF --git --ignore-glob=.git $(_lljbash_eza_icons)'\''' \
-        eza-community/eza
+        eza-community/eza \
+    mv"nvim* -> nvim" sbin"nvim/bin/nvim" \
+        neovim/neovim
 ## With completions
 zt as"completion" blockf from"gh-r" nocompile light-mode for \
     sbin"fd" atload"unalias fd &>/dev/null" \
@@ -221,3 +223,7 @@ alias creconfd="rm -rf build; cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug"
 alias cbuild="cmake --build build --"
 alias crebuild="cmake --build build --clean-first --"
 alias cclean="cmake --build build --target clean"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

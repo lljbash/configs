@@ -1,20 +1,19 @@
 hello:
 	@echo 'Hello there.'
 
-bootstrap-root: ubuntu-install-apps install-nvim-globally
+bootstrap-root: ubuntu-install-apps
 
 check-apps:
 	bash ./check_apps.sh || (echo 'maybe run "make bootstrap-root" or "make install-miniconda" first' && false)
 
-bootstrap: check-apps prepare-rust install-zsh-configs install-nvim-configs install-tmux-configs install-inputrc
+bootstrap: check-apps install-user-apps install-zsh-configs install-nvim-configs install-tmux-configs install-inputrc
 
 reset-bootstrap:
 	rm -rf ~/.zshrc ~/.zshenv ~/.zinit
 	rm -rf ~/.config/nvim ~/.local/share/nvim
 	rm -rf ~/.tmux.conf ~/.tmux
-	rm -rf ~/.rustup ~/.cargo ~/.npm
-	rm -rf ~/.inputrc
-	rm -rf ~/.p10k.zsh
+	rm -rf ~/.rustup ~/.cargo
+	rm -rf ~/.nvm ~/.npm
 
 ubuntu-install-apps:
 	sudo apt update
@@ -23,19 +22,14 @@ ubuntu-install-apps:
 	                    xsel fzf \
 	                    gcc g++ cmake ccache universal-ctags ninja-build \
 	                    sqlite3 libsqlite3-dev
-	sudo snap install rustup --classic
-	sudo snap install node --classic
 
-install-nvim-globally:
-	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-	sudo rm -rf /opt/nvim
-	sudo tar -C /opt -xzf nvim-linux64.tar.gz
-	rm nvim-linux64.tar.gz
-
-prepare-rust:
-	rustup default stable
-	rustup component add rust-analyzer
-	rustup component add rust-src
+install-user-apps:
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+	~/.cargo/bin/rustup default stable
+	~/.cargo/bin/rustup component add rust-analyzer
+	~/.cargo/bin/rustup component add rust-src
+	PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
+	bash -c 'source ~/.nvm/nvm.sh; nvm install 18'
 
 install-zsh-configs:
 	cp zshrc ~/.zshrc
