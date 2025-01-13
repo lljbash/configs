@@ -152,11 +152,7 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
     },
-    -- build = ":UpdateRemotePlugins",
-    build = function()
-      vim.cmd("!pip install pynvim neovim --user --upgrade")
-      vim.cmd("UpdateRemotePlugins")
-    end,
+    build = ":UpdateRemotePlugins",
     config = function()
       local wilder = require("wilder")
       wilder.setup({ modes = { ":", "/", "?" } })
