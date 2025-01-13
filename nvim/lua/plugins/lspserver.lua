@@ -16,7 +16,7 @@ return {
     opts = {
       ensure_installed = {
         -- LSP
-        -- "clangd",  -- NOTE: use conda clangd due to GLIBC issue
+        "clangd",
         "lua-language-server",
         "bash-language-server",
         "pyright",
@@ -24,10 +24,13 @@ return {
         "json-lsp",
         "yaml-language-server",
         "marksman",
-        -- "typos-lsp", -- NOTE: build from source due to GLIBC issue
+        "shellcheck",
+        "typos-lsp",
         -- Formatter
         "clang-format",
+        "stylua",
         "black",
+        "isort",
         "cmakelang",
         "shfmt",
         "prettier",

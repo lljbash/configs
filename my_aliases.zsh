@@ -1,5 +1,17 @@
-# vim
-(( $+commands[vi] )) || alias vi='vim'
+# mkdir + cd
+mcd () {
+  mkdir -p "$@" && cd "${@:$#}" || return 1
+}
+
+# vim -> nvim
+vim () {
+  if (( $+commands[nvim] )); then
+    /usr/bin/env nvim "$@"
+  else
+    /usr/bin/env vim "$@"
+  fi
+}
+alias vi=vim
 
 # cmake
 alias cconf="cmake -H. -Bbuild"

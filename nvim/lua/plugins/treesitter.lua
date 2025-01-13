@@ -8,8 +8,10 @@ return {
     main = "nvim-treesitter.configs",
     opts = {
       ensure_installed = {
+        "bash",
         "doxygen",
         "markdown_inline",
+        "regex",
         "dap_repl", -- from nvim-dap-repl-highlights
       },
       sync_install = false,

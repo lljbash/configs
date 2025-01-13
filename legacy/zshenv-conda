@@ -1,39 +1,43 @@
 # Important environment variables
 ## define utilities
-get_var() {
+get_var () {
   eval 'printf "%s\n" "${'"$1"'}"'
 }
-set_var() {
+set_var () {
   eval "$1=\"\$2\""
 }
-dedup_var() {
+dedup_var () {
   var_name="$1"
   var_value="$(get_var "$var_name")"
   deduped_var="$(perl -e 'print join(":",grep { not $seen{$_}++  } split(/:/, $ARGV[0]))' "$var_value")"
   set_var "$var_name" "$deduped_var"
 }
-add_to_var() {
+add_to_var () {
   var_name="$1"
   var_value="$(get_var "$var_name")"
   case ":$var_value:" in
-  *:"$2":*) ;;
-  *)
-    if [ "$3" = "after" ]; then
-      new_var=$var_value:$2
-    else
-      new_var=$2:$var_value
-    fi
-    set_var "$var_name" "$new_var"
-    ;;
+    *:"$2":*)
+      ;;
+    *)
+      if [ "$3" = "after" ] ; then
+        new_var=$var_value:$2
+      else
+        new_var=$2:$var_value
+      fi
+      set_var "$var_name" "$new_var"
   esac
 }
 ## munge PATH
 dedup_var PATH
+add_to_var PATH "$HOME/.conda/envs/app/bin"
 add_to_var PATH "$HOME/.cargo/bin"
 add_to_var PATH "$HOME/.local/bin"
-add_to_var PATH "/opt/nvim-linux64/bin"
+add_to_var PATH "$HOME/download/nvim-linux64/bin"
+add_to_var PATH "$HOME/download/typos-vscode/target/release"
+add_to_var PATH "$HOME/download/linux_binaries/xclip/bin" after
 ## munge LD_LIBRARY_PATH
 dedup_var LD_LIBRARY_PATH
+add_to_var LD_LIBRARY_PATH "$HOME/.conda/envs/app/lib" after
 add_to_var LD_LIBRARY_PATH /usr/local/lib
 add_to_var LD_LIBRARY_PATH /usr/local/lib64
 # enable 256 color
@@ -50,11 +54,24 @@ export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 ## undef utilities
 unset -f get_var set_var dedup_var add_to_var
 
+# mkdir + cd
+mcd () {
+  mkdir -p "$@" && cd "${@:$#}" || return 1
+}
+
+# vim -> nvim
+vim () {
+  if (( $+commands[nvim] )); then
+    /usr/bin/env nvim "$@"
+  else
+    /usr/bin/env vim "$@"
+  fi
+}
+alias vi=vim
+
 # Other configurations
 ## git editor
-if command -v nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
-fi
+(( $+commands[nvim] )) && export EDITOR=nvim
 ## proxy server
 #export ALL_PROXY=socks5://localhost:1080
 ## using ccache for cmake

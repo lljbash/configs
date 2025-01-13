@@ -43,7 +43,9 @@ return {
       local has_words_before = function()
         unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+        return col ~= 0
+          and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s")
+            == nil
       end
       local cmp = require("cmp")
       local lspkind = require("lspkind")
@@ -51,7 +53,7 @@ return {
       cmp.setup({
         enabled = function()
           return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-              or require("cmp_dap").is_dap_buffer()
+            or require("cmp_dap").is_dap_buffer()
         end,
         sources = {
           { name = "nvim_lsp" },
@@ -60,7 +62,7 @@ return {
             option = {
               get_bufnrs = function()
                 return vim.api.nvim_list_bufs()
-              end
+              end,
             },
           },
           { name = "bufname" },
@@ -76,7 +78,7 @@ return {
             mode = "symbol",
             maxwidth = 60,
             ellipsis_char = "...",
-            menu = ({
+            menu = {
               nvim_lsp = "",
               nvim_lsp_signature_help = "",
               buffer = "󰦨",
@@ -85,7 +87,7 @@ return {
               tmux = "",
               dictionary = "󰓆",
               nvim_lua = "",
-            }),
+            },
           }),
         },
         mapping = cmp.mapping.preset.insert({
@@ -150,7 +152,11 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons", opts = {} },
     },
-    build = ":UpdateRemotePlugins",
+    -- build = ":UpdateRemotePlugins",
+    build = function()
+      vim.cmd("!pip install pynvim neovim --user --upgrade")
+      vim.cmd("UpdateRemotePlugins")
+    end,
     config = function()
       local wilder = require("wilder")
       wilder.setup({ modes = { ":", "/", "?" } })
@@ -167,17 +173,23 @@ return {
             dir_command = { "fd", "-td" },
           }),
           {
-            wilder.check(function(ctx, x) return x == "" end),
-            wilder.history()
+            wilder.check(function(ctx, x)
+              return x == ""
+            end),
+            wilder.history(),
           },
           { -- 条件开启历史记录匹配
-            wilder.check(function(ctx, x) return x:find("%s", 1, true) == 1 end),
+            wilder.check(function(ctx, x)
+              return x:find("%s", 1, true) == 1
+            end),
             wilder.subpipeline(function(ctx, x)
               return {
                 wilder.history(),
-                function(ctx, h) return wilder.python_fuzzy_filt(ctx, {}, h, x) end,
+                function(ctx, h)
+                  return wilder.python_fuzzy_filt(ctx, {}, h, x)
+                end,
               }
-            end)
+            end),
           },
           wilder.cmdline_pipeline({
             -- sets the language to use, "vim" and "python" are supported
@@ -198,8 +210,9 @@ return {
           })
         ),
       })
-      wilder.set_option("renderer", wilder.popupmenu_renderer(
-        wilder.popupmenu_border_theme({
+      wilder.set_option(
+        "renderer",
+        wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
           highlights = {
             border = "Normal", -- highlight to use for the border
           },
@@ -210,8 +223,8 @@ return {
           highlighter = wilder.basic_highlighter(),
           left = { " ", wilder.popupmenu_devicons() },
           right = { " ", wilder.popupmenu_scrollbar() },
-        })
-      ))
+        }))
+      )
     end,
   },
 }
