@@ -4,14 +4,9 @@ My linux cli workspace configurations (e.g. dot files, useful snippets, color sc
 
 ## Bootstrap
 
-If you want a one-step-setup to reproduce my current workspace, there is a bootstrap procedure.
+If you want a one-step setup to reproduce my current workspace, there is a bootstrap procedure available.
 
-NOTE: This procedure may mess up your current environment. Please refer to `justfile` for more information.
-
-### Prerequisites
-
-- `make` (or `just`)
-- `conda` properly initialized for your current shell
+**NOTE**: This procedure may mess up your current environment. Please refer to `justfile` for more details.
 
 ### Fonts
 
@@ -19,7 +14,7 @@ You have to use a [Nerd Font](https://www.nerdfonts.com/) patched font to correc
 
 ~~I am using [FiraCodeNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip) for normal text and [SourceCodeProNF](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/SourceCodePro.zip) for italic text.~~
 
-~~If your terminal (e.g. Windows Terminal) does not allow seperated font settings for normal and italic text, consider use [fira-code-italic-fallback](https://github.com/lljbash/fira-code-italic-fallback), which is called FiraCodeNF-MediumItalic but is actually slightly-tweaked SourceCodeProNF-MediumItalic.~~
+~~If your terminal (e.g. Windows Terminal) does not allow separated font settings for normal and italic text, consider use [fira-code-italic-fallback](https://github.com/lljbash/fira-code-italic-fallback), which is called FiraCodeNF-MediumItalic but is actually slightly-tweaked SourceCodeProNF-MediumItalic.~~
 
 I am using [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz) now.
 
@@ -29,17 +24,16 @@ I am using [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/rel
 make bootstrap
 ```
 
-This would automatically configure `zsh`, `nvim` and `tmux`, as well as install some binaries via `conda` (see `app.yaml`).
+This will first check the prerequisites (see `check_apps.sh`). If any are missing, you may need to install them manually. Running `sudo make bootstrap-root` will install most prerequisites globally on Ubuntu, provided you have root permissions. The `make install-miniconda` command will install Miniconda3 in your home directory, providing `python`.
 
-`zsh`, `nvim` and `tmux` will automatically complete their post-configurations upon their first execution.
+Once the prerequisites are in place, the setup will automatically configure everything. `zsh`, `nvim` and `tmux` will complete their post-configurations automatically upon first execution.
 
-NOTE: These post-configurations need more prerequisites, which are auto-installed before and properly configured in `zshenv`. Thus it is recommended to first enter `zsh` and use `tmux` and `nvim` from there. The locations of auto-installed binaries (including `zsh`, `nvim` and `tmux`) are not in `$PATH` by default. If you wish to use them in another shell (e.g. `bash`), please refer to the "mungle PATH" part of `zshenv`.
+If zsh isn’t set as your login shell, you may need to configure it manually by running `make set-login-shell`.
 
-You may need to setup the login shell yourself if it was not `zsh`.
+If you want to switch to a manually installed `zsh` but lack permission to modify `/etc/shells`, consider using the following workaround:
 
-If you wish to change the login shell to the auto-installed `zsh` but don't have the permission to modify `/etc/shells`, consider use this trick:
 ```bash
 # At the end of ~/.bash_profile
 # Be careful, this is kinda dangerous
-exec ~/.conda/envs/app/bin/zsh
+exec PATH_TO_YOUR_ZSH
 ```
