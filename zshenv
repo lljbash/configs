@@ -53,9 +53,7 @@ unset -f get_var set_var dedup_var add_to_var
 
 # Other configurations
 ## git editor
-if command -v nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
-fi
+export EDITOR=nvim
 ## proxy server
 #export ALL_PROXY=socks5://localhost:1080
 ## using ccache for cmake
