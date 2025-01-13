@@ -37,3 +37,8 @@ If you want to switch to a manually installed `zsh` but lack permission to modif
 # Be careful, this is kinda dangerous
 exec PATH_TO_YOUR_ZSH
 ```
+
+## Utilities
+
+- colorscheme: [Windows Terminal](/lljbash-windows-terminal-colorscheme.md)/[iTerm2](/lljbash.itermcolors)
+- [newhome.sh](/newhome.sh): move storage-intensive cache files from the home directory to an alternate location.
