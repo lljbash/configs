@@ -4,7 +4,7 @@ hello:
 bootstrap-root: ubuntu-install-apps install-nvim-globally
 
 check-apps:
-	bash ./check_apps.sh || (echo 'maybe run "sudo make bootstrap-root" or "make install-miniconda" first' && false)
+	bash ./check_apps.sh || (echo 'maybe run "make bootstrap-root" or "make install-miniconda" first' && false)
 
 bootstrap: check-apps prepare-rust install-zsh-configs install-nvim-configs install-tmux-configs install-inputrc
 
