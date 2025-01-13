@@ -29,6 +29,7 @@ add_to_var() {
 }
 ## munge PATH
 dedup_var PATH
+add_to_var PATH "/snap/bin" after
 add_to_var PATH "$HOME/.cargo/bin"
 add_to_var PATH "$HOME/.local/bin"
 add_to_var PATH "/opt/nvim-linux64/bin"

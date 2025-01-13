@@ -6,7 +6,7 @@ for APP in \
   python \
   curl wget git snap tar unzip gunzip \
   zsh tmux \
-  xsel fzf gh \
+  xsel fzf \
   gcc g++ cmake ccache ninja \
   sqlite3 \
   nvim npm cargo; do

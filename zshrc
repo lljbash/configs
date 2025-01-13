@@ -153,7 +153,9 @@ zt as"completion" blockf from"gh-r" nocompile light-mode for \
     atclone'./just --completions zsh > _just' atpull'%atclone' sbin"just" \
         casey/just \
     atclone'mv bat* bat; mv -f bat/autocomplete/bat.zsh _bat' atpull'%atclone' sbin"bat/bat" \
-        @sharkdp/bat
+        @sharkdp/bat \
+    atclone'mv gh* gh; gh/bin/gh completion -s zsh > _gh' atpull'%atclone' sbin"gh/bin/gh" \
+        cli/cli
 ## Actually scripts
 zt as"null" light-mode nocompile for \
     sbin"bin/git-ignore" \

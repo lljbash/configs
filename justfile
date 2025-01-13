@@ -20,7 +20,7 @@ ubuntu-install-apps:
 	sudo apt update
 	sudo apt install -y curl wget git snapd tar gzip zip \
 	                    zsh tmux ncurses-term \
-	                    xsel fzf gh \
+	                    xsel fzf \
 	                    gcc g++ cmake ccache universal-ctags ninja-build \
 	                    sqlite3 libsqlite3-dev
 	sudo snap install rustup --classic
