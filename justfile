@@ -28,8 +28,7 @@ install-user-apps:
 	~/.cargo/bin/rustup default stable
 	~/.cargo/bin/rustup component add rust-analyzer
 	~/.cargo/bin/rustup component add rust-src
-	PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
-	bash -c 'source ~/.nvm/nvm.sh; nvm install 18'
+	./install_node.sh
 
 install-zsh-configs:
 	cp zshrc ~/.zshrc
