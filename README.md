@@ -41,4 +41,4 @@ exec PATH_TO_YOUR_ZSH
 ## Utilities
 
 - colorscheme: [Windows Terminal](/lljbash-windows-terminal-colorscheme.md)/[iTerm2](/lljbash.itermcolors)
-- [newhome.sh](/newhome.sh): move storage-intensive cache files from the home directory to an alternate location.
+- [fakehome.sh](/fakehome.sh): move storage-intensive cache files from the home directory to an alternate location.

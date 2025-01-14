@@ -3,7 +3,7 @@
 set -e
 
 if [ -z "$1" ]; then
-  echo "Usage: $0 <new_home>"
+  echo "Usage: $0 <fake_home>"
   exit 1
 fi
 
@@ -24,6 +24,7 @@ declare -a cache=(
 for i in "${cache[@]}"; do
   if [ -L "$HOME/$i" ]; then
     echo "skip symlink $HOME/$i"
+    continue
   fi
   if [ ! -d "$HOME/$i" ]; then
     echo "mkdir $HOME/$i"
