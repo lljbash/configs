@@ -19,13 +19,15 @@ return {
   {
     "romgrk/barbar.nvim",
     dependencies = {
-      "lewis6991/gitsigns.nvim",     -- OPTIONAL: for git status
+      "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
       "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
-      "folke/which-key.nvim",        -- for convenient keymap
+      "folke/which-key.nvim", -- for convenient keymap
     },
-    init = function() vim.g.barbar_auto_setup = false end,
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
     config = function()
-      require("barbar").setup {}
+      require("barbar").setup({})
       require("which-key").add({
         { "<A-,>", "<cmd>BufferPrevious<cr>", desc = "Previous buffer" },
         { "<A-.>", "<cmd>BufferNext<cr>", desc = "Next buffer" },
@@ -54,7 +56,7 @@ return {
         { "<Leader>b", "<cmd>BufferPick<cr>", desc = "Pick buffer" },
       })
     end,
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+    version = "^1.0.0", -- optional: only update when a new 1.x version is released
   },
 
   -- 状态栏
@@ -91,7 +93,7 @@ return {
               break
             end
             local segment = segments[idx]
-            local shortened = segment:sub(1, vim.startswith(segment, '.') and 2 or 1)
+            local shortened = segment:sub(1, vim.startswith(segment, ".") and 2 or 1)
             segments[idx] = shortened
             len = len - (#segment - #shortened)
           end
@@ -99,8 +101,7 @@ return {
         end
       end
 
-
-      require("lualine").setup {
+      require("lualine").setup({
         options = {
           theme = "sonokai",
         },
@@ -108,11 +109,13 @@ return {
           lualine_a = { "mode" },
           lualine_b = {
             { "branch", cond = width_not_less_than(140) },
-            { "diff",   cond = width_not_less_than(140) },
+            { "diff", cond = width_not_less_than(140) },
             {
               "diagnostics",
-              on_click = function() vim.cmd("Telescope diagnostics") end,
-            }
+              on_click = function()
+                vim.cmd("Telescope diagnostics")
+              end,
+            },
           },
           lualine_c = {
             {
@@ -128,27 +131,29 @@ return {
               separator = "%#lualine_c_aerial_LLNonText_normal#⟩%#lualine_c_normal#",
               fmt = shorten_path(40),
               on_click = function()
-                require("telescope").extensions.file_browser.file_browser {
+                require("telescope").extensions.file_browser.file_browser({
                   path = vim.fn.expand("%:p:h"),
                   select_buffer = true,
-                }
+                })
               end,
             },
             {
               "aerial",
-              on_click = function() vim.cmd("Telescope aerial") end,
-            }
+              on_click = function()
+                vim.cmd("Telescope aerial")
+              end,
+            },
           },
           lualine_x = {
-            { "copilot",    cond = width_not_less_than(160), show_colors = true },
-            { "encoding",   cond = width_not_less_than(160) },
+            { "copilot", cond = width_not_less_than(160), show_colors = true },
+            { "encoding", cond = width_not_less_than(160) },
             { "fileformat", cond = width_not_less_than(160) },
-            "filetype"
+            "filetype",
           },
           lualine_y = { "progress" },
-          lualine_z = { "location" }
+          lualine_z = { "location" },
         },
-      }
+      })
     end,
   },
 
@@ -177,7 +182,7 @@ return {
   -- NOTE: 为简洁起见，用 mini 代替 nvim-notify 接管通知
   {
     "folke/noice.nvim",
-    lazy = false,
+    event = "VeryLazy",
     priority = 90,
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -192,7 +197,7 @@ return {
       "nvim-telescope/telescope.nvim", -- telescope integration
     },
     config = function()
-      require("noice").setup {
+      require("noice").setup({
         cmdline = {
           view = "cmdline",
           format = {
@@ -212,14 +217,16 @@ return {
             timeout = 5000,
           },
         },
-      }
+      })
       -- telescope integration
       require("telescope").load_extension("noice")
       -- NOTE: 使用 <Space>e 查看历史通知
       vim.keymap.set(
-        "n", "<Space>e", "<cmd>Telescope noice theme=dropdown<cr>",
+        "n",
+        "<Space>e",
+        "<cmd>Telescope noice theme=dropdown<cr>",
         { desc = "Noice history" }
       )
-    end
+    end,
   },
 }

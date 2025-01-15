@@ -20,6 +20,7 @@ return {
   {
     -- Plugin for Copilot Chat integration
     "CopilotC-Nvim/CopilotChat.nvim",
+    event = "VeryLazy",
     dependencies = {
       "zbirenbaum/copilot.lua",
       { "nvim-lua/plenary.nvim", branch = "master" },
@@ -34,12 +35,12 @@ return {
           ccp[key] = value .. "\nSpeak Chinese by default."
         end
       end
-      cc.setup {
+      cc.setup({
         system_prompt = ccp.COPILOT_INSTRUCTIONS,
         window = {
           width = 0.45,
         },
-      }
+      })
       local wk = require("which-key")
       wk.add({
         mode = { "n", "v" },
@@ -47,7 +48,7 @@ return {
         {
           "<leader>cc",
           cc.toggle,
-          desc = "Toggle"
+          desc = "Toggle",
         },
         {
           "<leader>cq",
@@ -57,7 +58,7 @@ return {
               cc.ask(input, { selection = require("CopilotChat.select").buffer })
             end
           end,
-          desc = "Quick chat"
+          desc = "Quick chat",
         },
         {
           "<leader>cp",
@@ -65,7 +66,7 @@ return {
             local actions = require("CopilotChat.actions")
             require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
           end,
-          desc = "Prompt actions"
+          desc = "Prompt actions",
         },
       })
     end,
