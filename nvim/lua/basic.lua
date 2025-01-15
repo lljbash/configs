@@ -32,7 +32,7 @@ vim.opt.guicursor = "n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25,r-cr-o:hor20"
 vim.g.mapleader = ";"
 
 -- 设置 python3 的路径
-vim.g.python3_host_prog = os.getenv("CONDA_PYTHON_EXE")
+vim.g.python3_host_prog = "~/.config/nvim/.venv/bin/python"
 
 -- spellcheck
 -- vim.opt.spell = true

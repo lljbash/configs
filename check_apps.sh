@@ -3,7 +3,6 @@
 set -e
 
 for APP in \
-  python \
   curl wget git snap tar unzip gunzip \
   zsh tmux \
   xsel fzf \

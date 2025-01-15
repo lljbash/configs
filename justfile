@@ -4,14 +4,19 @@ hello:
 bootstrap-root: ubuntu-install-apps
 
 check-apps:
-	bash ./check_apps.sh || (echo 'maybe run "make bootstrap-root" or "make install-miniconda" first' && false)
+	bash ./check_apps.sh || (echo 'maybe run "make bootstrap-root"' && false)
 
 bootstrap: check-apps install-user-apps install-zsh-configs install-nvim-configs install-tmux-configs install-inputrc
 
 reset-bootstrap:
+	sed -i "/dandavison---delta\/gitconfig/d" ~/.gitconfig
+	uv cache clean
+	rm -rf "$(uv python dir)"
+	rm -rf "$(uv tool dir)"
 	rm -rf ~/.zshrc ~/.zshenv ~/.zinit
 	rm -rf ~/.config/nvim ~/.local/share/nvim
 	rm -rf ~/.tmux.conf ~/.tmux
+	rm -rf ~/.local
 	rm -rf ~/.rustup ~/.cargo
 	rm -rf ~/.nvm ~/.npm
 
@@ -24,6 +29,7 @@ ubuntu-install-apps:
 	                    sqlite3 libsqlite3-dev
 
 install-user-apps:
+	command -v uv || (curl -LsSf https://astral.sh/uv/install.sh | sh)
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 	~/.cargo/bin/rustup default stable
 	~/.cargo/bin/rustup component add rust-analyzer
@@ -33,12 +39,10 @@ install-user-apps:
 install-zsh-configs:
 	cp zshrc ~/.zshrc
 	cp zshenv ~/.zshenv
-	command -v conda > /dev/null && conda init zsh
-
 
 install-nvim-configs:
-	pip install pynvim neovim debugpy --user --upgrade
 	mkdir -p ~/.config/nvim
+	cd ~/.config/nvim && ~/.local/bin/uv venv && ~/.local/bin/uv pip install neovim
 	cp -r nvim ~/.config
 
 install-tmux-configs:

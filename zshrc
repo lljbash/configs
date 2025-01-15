@@ -95,7 +95,7 @@ zt light-mode for \
         OMZP::sudo/sudo.plugin.zsh \
     atload'ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(autopair-insert)' \
         hlissner/zsh-autopair \
-    atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'%atclone' \
+    atclone'dircolors -b LS_COLORS > lscolors.zsh' atpull'%atclone' nocompile! \
     nocompletions pick'lscolors.zsh' \
         trapd00r/LS_COLORS \
     pick'autoenv.zsh' nocompletions \
@@ -165,9 +165,11 @@ zt as"null" light-mode nocompile for \
 
 ### Completions
 zt as"completion" blockf light-mode for \
-    conda-incubator/conda-zsh-completion \
     "https://github.com/jonathanpoelen/dotfiles/blob/master/.zshcompletions/_delta" \
-    "https://github.com/eza-community/eza/blob/main/completions/zsh/_eza"
+    "https://github.com/eza-community/eza/blob/main/completions/zsh/_eza" \
+    id-as'uv-completion' atclone"uv generate-shell-completion zsh > _uv" \
+    atpull'%atclone' nocompile run-atpull \
+      zdharma-continuum/null
 zt light-mode for \
     blockf \
         OMZP::fzf/fzf.plugin.zsh \

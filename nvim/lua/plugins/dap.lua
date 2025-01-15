@@ -87,39 +87,15 @@ return {
     ft = "python",
     dependencies = { "mfussenegger/nvim-dap" },
     config = function()
-      require("dap-python").setup(os.getenv("CONDA_PYTHON_EXE") or "python")
+      require("dap-python").setup("uv")
       local configs = require("dap").configurations.python
       -- these configs are copied from nvim-dap-python, but with justMyCode = false
-      table.insert(configs, {
-        type = "python",
-        request = "launch",
-        name = "Launch file (justMyCode = false)",
-        program = "${file}",
-        justMyCode = false,
-      })
-      table.insert(configs, {
-        type = "python",
-        request = "launch",
-        name = "Launch file with arguments (justMyCode = false)",
-        program = "${file}",
-        args = function()
-          local args_string = vim.fn.input("Arguments: ")
-          return vim.split(args_string, " +")
-        end,
-        justMyCode = false,
-      })
-      table.insert(configs, {
-        type = "python",
-        request = "attach",
-        name = "Attach remote (justMyCode = false)",
-        connect = function()
-          local host = vim.fn.input("Host [127.0.0.1]: ")
-          host = host ~= "" and host or "127.0.0.1"
-          local port = tonumber(vim.fn.input("Port [5678]: ")) or 5678
-          return { host = host, port = port }
-        end,
-        justMyCode = false,
-      })
+      local new_configs = vim.deepcopy(configs)
+      for _, new_conf in ipairs(new_configs) do
+        new_conf.name = new_conf.name.." (justMyCode = false)"
+        new_conf.justMyCode = false
+        table.insert(configs, new_conf)
+      end
     end,
   },
 }
