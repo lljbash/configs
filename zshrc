@@ -226,6 +226,15 @@ alias cbuild="cmake --build build --"
 alias crebuild="cmake --build build --clean-first --"
 alias cclean="cmake --build build --target clean"
 
+# uv
+uva () {
+  if [ $# -eq 0 ]; then
+    source .venv/bin/activate
+  else
+    source "$1/bin/activate"
+  fi
+}
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
