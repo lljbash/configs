@@ -7,8 +7,7 @@ return {
     },
     config = function()
       local yanky = require("yanky")
-      local history = require("yanky.history")
-      yanky.setup {
+      yanky.setup({
         ring = {
           storage = "sqlite",
           storage_path = vim.fn.stdpath("data") .. "/databases/yanky.db",
@@ -22,33 +21,38 @@ return {
         preserve_cursor_position = {
           enabled = false,
         },
-      }
-      vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
-      vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+      })
       vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
-      vim.keymap.set({ "n", "x" }, "<leader>y", "\"+<Plug>(YankyYank)", { desc = "Yank to system clipboard" })
-      vim.keymap.set({ "n", "x" }, "<leader>p", function()
+      vim.keymap.set(
+        { "n", "x" },
+        "<leader>y",
+        '"+<Plug>(YankyYank)',
+        { desc = "Yank to system clipboard" }
+      )
+      vim.keymap.set({ "o", "x" }, "iP", function()
         require("yanky.textobj").last_put()
-      end, { desc = "Put last put text" })
-      for type, type_text in pairs({
-        p = "PutAfter",
-        P = "PutBefore",
-        gp = "GPutAfter",
-        gP = "GPutBefore",
-        ["]p"] = "PutIndentAfter",
-        ["[p"] = "PutIndentBefore",
-      }) do
-        for mode, is_visual in pairs({
-          n = false,
-          x = true,
-        }) do
-          vim.keymap.set(mode, type, function()
-            local reg = history.first()
-            vim.fn.setreg('"', reg.regcontents, reg.regtype)
-            yanky.put(type, is_visual)
-          end, { desc = type_text })
-        end
-      end
+      end, { desc = "Last put text" })
+
+      vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+      vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+      vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+      vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+
+      vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
+      vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
+
+      vim.keymap.set("n", "]p", "<Plug>(YankyPutIndentAfterLinewise)")
+      vim.keymap.set("n", "[p", "<Plug>(YankyPutIndentBeforeLinewise)")
+      vim.keymap.set("n", "]P", "<Plug>(YankyPutIndentAfterLinewise)")
+      vim.keymap.set("n", "[P", "<Plug>(YankyPutIndentBeforeLinewise)")
+
+      vim.keymap.set("n", ">p", "<Plug>(YankyPutIndentAfterShiftRight)")
+      vim.keymap.set("n", "<p", "<Plug>(YankyPutIndentAfterShiftLeft)")
+      vim.keymap.set("n", ">P", "<Plug>(YankyPutIndentBeforeShiftRight)")
+      vim.keymap.set("n", "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)")
+
+      vim.keymap.set("n", "=p", "<Plug>(YankyPutAfterFilter)")
+      vim.keymap.set("n", "=P", "<Plug>(YankyPutBeforeFilter)")
 
       --- only for shada storage
       -- vim.keymap.set({ "n", "x" }, "p", "<cmd>rshada<cr><Plug>(YankyPutAfter)")
