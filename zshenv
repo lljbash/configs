@@ -32,7 +32,6 @@ dedup_var PATH
 add_to_var PATH "/snap/bin" after
 add_to_var PATH "$HOME/.cargo/bin"
 add_to_var PATH "$HOME/.local/bin"
-add_to_var PATH "/opt/nvim-linux64/bin"
 ## munge LD_LIBRARY_PATH
 dedup_var LD_LIBRARY_PATH
 add_to_var LD_LIBRARY_PATH /usr/local/lib
@@ -60,3 +59,5 @@ export EDITOR=nvim
 export CMAKE_C_COMPILER_LAUNCHER=ccache
 export CMAKE_CXX_COMPILER_LAUNCHER=ccache
 export CMAKE_CUDA_COMPILER_LAUNCHER=ccache
+export CMAKE_GENERATOR=Ninja
+export CMAKE_EXPORT_COMPILE_COMMANDS=ON
