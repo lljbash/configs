@@ -51,21 +51,14 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-### Trigger-load
+### Trigger-load (not trigger-load now)
 zinit light-mode for \
-    trigger-load'!x' blockf \
+    blockf \
         Asumerodi/omz-extract \
-    trigger-load'!man' \
         ael-code/zsh-colored-man-pages \
-    trigger-load'!zhooks' \
         agkozak/zhooks \
-    trigger-load'!ccat;!cless' \
-        OMZP::colorize/colorize.plugin.zsh \
-    trigger-load'!alias-finder' \
         OMZP::alias-finder/alias-finder.plugin.zsh \
-    trigger-load'!\=' \
         arzzen/calc.plugin.zsh \
-    trigger-load'!cpv' \
         OMZP::cp/cp.plugin.zsh
 
 ### OMZ basics
@@ -112,7 +105,8 @@ zt aliases light-mode for \
         OMZP::rsync/rsync.plugin.zsh \
     blockf \
         OMZP::ubuntu/ubuntu.plugin.zsh \
-        'https://github.com/lljbash/configs/blob/master/my_aliases.zsh'
+    atload"export ZSH_PLUGINS_ALIAS_TIPS_REVEAL=1" \
+        djui/alias-tips
 
 ### Applications
 zinit light zdharma-continuum/zinit-annex-bin-gem-node
@@ -175,7 +169,7 @@ zt light-mode for \
         OMZP::fzf/fzf.plugin.zsh \
     blockf \
         zsh-users/zsh-completions \
-    atinit'zicompinit; zicdreplay; compdef _delta delta' \
+    atinit'zicompinit; zicdreplay; compdef _delta delta; compdef _extract x' \
     atload"zstyle ':completion:*' fzf-completion-opts --bind=tab:down,btab:up" \
         "https://github.com/lincheney/fzf-tab-completion/blob/master/zsh/fzf-zsh-completion.sh"
 
@@ -206,14 +200,14 @@ mcd () {
 }
 
 # vim -> nvim
-vim () {
-  if command -v nvim > /dev/null 2>&1; then
-    /usr/bin/env nvim "$@"
-  else
-    /usr/bin/env vim "$@"
-  fi
-}
-alias vi=vim
+# vim () {
+#   if command -v nvim > /dev/null 2>&1; then
+#     /usr/bin/env nvim "$@"
+#   else
+#     /usr/bin/env vim "$@"
+#   fi
+# }
+alias vi=nvim
 
 # cmake
 alias cconf="cmake -H. -Bbuild"
