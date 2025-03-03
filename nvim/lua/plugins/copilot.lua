@@ -29,7 +29,7 @@ return {
     build = "make tiktoken",
     config = function()
       local cc = require("CopilotChat")
-      local ccp = require("CopilotChat.prompts")
+      local ccp = require("CopilotChat.config.prompts")
       for key, value in pairs(ccp) do
         if type(value) == "string" then
           ccp[key] = value .. "\nSpeak Chinese by default."
