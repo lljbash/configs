@@ -29,14 +29,14 @@ return {
     build = "make tiktoken",
     config = function()
       local cc = require("CopilotChat")
-      local ccp = require("CopilotChat.prompts")
+      local ccp = require("CopilotChat.config.prompts")
       for key, value in pairs(ccp) do
         if type(value) == "string" then
           ccp[key] = value .. "\nSpeak Chinese by default."
         end
       end
       cc.setup({
-        system_prompt = ccp.COPILOT_INSTRUCTIONS,
+        system_prompt = ccp.COPILOT_INSTRUCTIONS.system_prompt,
         window = {
           width = 0.45,
         },
