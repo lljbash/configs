@@ -71,6 +71,17 @@ return {
         end,
       })
 
+      -- close aerial when closing window (compatible with auto-session)
+      vim.api.nvim_create_autocmd("QuitPre", {
+        group = augroup,
+        callback = function(opts)
+          local ft = vim.bo[opts.buf].filetype
+          if ft ~= "aerial" or ft ~= "aerial-nav" then
+            vim.cmd("AerialClose")
+          end
+        end,
+      })
+
       -- keybindings
       require("which-key").add({
         { "<Leader>o", aerial.toggle, desc = "Open/focus symbol outline" },
