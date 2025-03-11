@@ -6,7 +6,7 @@ return {
     event = "VeryLazy",
     config = function()
       local aerial = require("aerial")
-      aerial.setup {
+      aerial.setup({
         backends = { "lsp", "treesitter", "markdown", "man" },
         -- filter_kind = false, -- display all symbols
         filter_kind = {
@@ -43,7 +43,12 @@ return {
             ["<ESC>"] = "actions.close",
           },
         },
-      }
+        lsp = {
+          priority = {
+            marksman = -1,
+          },
+        },
+      })
 
       -- hide cursor when entering aerial
       local augroup = vim.api.nvim_create_augroup("aerial", {})
