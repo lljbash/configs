@@ -20,7 +20,7 @@ return {
         "clangd",
         "lua-language-server",
         "bash-language-server",
-        "pyright",
+        "basedpyright",
         "neocmakelsp",
         "json-lsp",
         "yaml-language-server",
