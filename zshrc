@@ -137,7 +137,7 @@ zt as"null" from"gh-r" nocompile light-mode for \
            alias llt='\''eza -lbTF --git $(_lljbash_eza_icons)'\''
            alias llta='\''eza -lbTaF --git --ignore-glob=.git $(_lljbash_eza_icons)'\''' \
         eza-community/eza \
-    mv"nvim* -> nvim" sbin"nvim/bin/nvim" \
+    bpick"*tar*" mv"nvim* -> nvim" sbin"nvim/bin/nvim" \
         neovim/neovim
 ## With completions
 zt as"completion" blockf from"gh-r" nocompile light-mode for \
