@@ -22,7 +22,7 @@ reset-bootstrap:
 
 ubuntu-install-apps:
 	sudo apt update
-	sudo apt install -y curl wget git snapd tar gzip zip \
+	sudo apt install -y curl wget git tar gzip zip \
 	                    zsh tmux ncurses-term \
 	                    xsel fzf \
 	                    gcc g++ cmake ccache universal-ctags ninja-build \
