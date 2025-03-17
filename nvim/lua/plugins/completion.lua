@@ -20,8 +20,153 @@ local dictionary_plug = {
 }
 
 return {
-  -- 代码自动补全
   {
+    "saghen/blink.cmp",
+    version = "*",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      {
+        "Kaiser-Yang/blink-cmp-dictionary",
+        dependencies = { "nvim-lua/plenary.nvim" },
+      },
+      "bydlw98/blink-cmp-env",
+      "disrupted/blink-cmp-conventional-commits",
+    },
+    config = function()
+      require("blink-cmp").setup({
+        keymap = {
+          preset = "enter",
+          ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+          ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+        },
+        completion = {
+          list = { selection = { preselect = false, auto_insert = true } },
+          menu = {
+            draw = {
+              columns = {
+                { "kind_icon" },
+                { "label", "label_description", gap = 1 },
+                { "source_icon" },
+              },
+              components = {
+                label = {},
+                source_icon = {
+                  ellipsis = false,
+                  text = function(ctx)
+                    local icons = {
+                      LSP = "󰮄",
+                      Path = "󰙅",
+                      Snippets = "",
+                      Buffer = "󱎸",
+                      Dict = "󰖽",
+                      Tmux = "",
+                      Env = "",
+                      CC = "󰊢",
+                    }
+                    return icons[ctx.source_name] or ""
+                  end,
+                  highlight = "BlinkCmpSource",
+                },
+              },
+            },
+          },
+          documentation = { auto_show = true, auto_show_delay_ms = 250 },
+        },
+        signature = {
+          enabled = true,
+          trigger = { show_on_insert = true },
+        },
+        sources = {
+          default = {
+            "lsp",
+            "path",
+            "snippets",
+            "buffer",
+            "dictionary",
+            "env",
+            "conventional_commits",
+          },
+          providers = {
+            lsp = { fallbacks = {} },
+            path = { opts = { trailing_slash = false } },
+            buffer = { fallbacks = { "ripgrep" } },
+            dictionary = {
+              module = "blink-cmp-dictionary",
+              name = "Dict",
+              min_keyword_length = 3,
+              score_offset = -3,
+              opts = {
+                dictionary_files = { vim.fn.stdpath("config") .. "/dict/10k.dict" },
+                kind_icons = {
+                  Dict = "󰓆",
+                },
+              },
+            },
+            env = {
+              name = "Env",
+              module = "blink-cmp-env",
+              min_keyword_length = 2,
+              enabled = function()
+                return vim.bo.filetype == "sh" or vim.bo.filetype == "zsh"
+              end,
+              opts = {
+                item_kind = require("blink.cmp.types").CompletionItemKind.Variable,
+                show_braces = false,
+                show_documentation_window = true,
+              },
+            },
+            conventional_commits = {
+              name = "CC",
+              module = "blink-cmp-conventional-commits",
+              enabled = function()
+                return vim.bo.filetype == "gitcommit"
+              end,
+            },
+          },
+        },
+        appearance = {
+          nerd_font_variant = "normal",
+          kind_icons = {
+            Text = "󰉿",
+            Method = "󰆧",
+            Function = "󰊕",
+            Constructor = "",
+            Field = "󰜢",
+            Variable = "󰀫",
+            Class = "󰠱",
+            Interface = "",
+            Module = "",
+            Property = "󰜢",
+            Unit = "󰑭",
+            Value = "󰎠",
+            Enum = "",
+            Keyword = "󰌋",
+            Snippet = "󰘦",
+            Color = "󰏘",
+            File = "󰈙",
+            Reference = "󰈇",
+            Folder = "󰉋",
+            EnumMember = "",
+            Constant = "󰏿",
+            Struct = "󰙅",
+            Event = "",
+            Operator = "",
+            TypeParameter = "",
+          },
+        },
+        cmdline = {
+          completion = {
+            list = { selection = { preselect = false, auto_insert = true } },
+            menu = { auto_show = true },
+          },
+        },
+      })
+    end,
+  },
+
+  -- 代码自动补全 (now provided by blink.cmp)
+  {
+    enabled = false,
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
@@ -52,7 +197,7 @@ return {
       local luasnip = require("luasnip")
       cmp.setup({
         enabled = function()
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+          return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt"
             or require("cmp_dap").is_dap_buffer()
         end,
         sources = {
@@ -145,8 +290,9 @@ return {
     end,
   },
 
-  -- 命令自动补全
+  -- 命令自动补全 (now provided by blink.cmp)
   {
+    enabled = false,
     "gelguy/wilder.nvim",
     event = "CmdlineEnter",
     dependencies = {
@@ -159,7 +305,7 @@ return {
       wilder.set_option("pipeline", {
         wilder.branch(
           wilder.python_file_finder_pipeline({
-            file_command = function(ctx, arg)
+            file_command = function(_, arg)
               if string.match(arg, "^%.") then
                 return { "fd", "-tf", "-H" }
               else
@@ -169,16 +315,16 @@ return {
             dir_command = { "fd", "-td" },
           }),
           {
-            wilder.check(function(ctx, x)
+            wilder.check(function(_, x)
               return x == ""
             end),
             wilder.history(),
           },
           { -- 条件开启历史记录匹配
-            wilder.check(function(ctx, x)
+            wilder.check(function(_, x)
               return x:find("%s", 1, true) == 1
             end),
-            wilder.subpipeline(function(ctx, x)
+            wilder.subpipeline(function(_, x)
               return {
                 wilder.history(),
                 function(ctx, h)

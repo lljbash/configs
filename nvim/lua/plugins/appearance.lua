@@ -208,15 +208,10 @@ return {
         notify = { view = "mini" },
         lsp = {
           hover = { enabled = false },
+          signature = { enabled = false },
         },
-        popupmenu = {
-          enabled = false,
-        },
-        views = {
-          mini = {
-            timeout = 5000,
-          },
-        },
+        popupmenu = { enabled = false },
+        views = { mini = { timeout = 5000 } },
       })
       -- telescope integration
       require("telescope").load_extension("noice")

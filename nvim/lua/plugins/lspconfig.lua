@@ -3,7 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp", -- for capabilities setting
+      "saghen/blink.cmp", -- for capabilities setting
       "folke/which-key.nvim", -- for easier key-binding
       "williamboman/mason-tool-installer.nvim", -- for automatic installation
     },
@@ -12,7 +12,7 @@ return {
 
       -- The nvim-cmp almost supports LSP's capabilities
       -- so you should advertise it to LSP servers.
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       -- c/cpp
       lspconfig.clangd.setup({
