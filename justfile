@@ -64,6 +64,10 @@ set-login-shell:
 generate-ssh-key:
 	ssh-keygen -t rsa -b 4096
 
+git-config-lljbash:
+	git config --global user.name "lljbash"
+	git config --global user.email "lljbash@gmail.com"
+
 install-miniconda:
 	mkdir -p ~/miniconda3
 	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
