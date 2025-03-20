@@ -169,7 +169,7 @@ return {
       -- https://neovim.discourse.group/t/how-to-show-diagnostics-on-hover/3830/3
       vim.api.nvim_create_autocmd("CursorHold", {
         group = vim.api.nvim_create_augroup("lsp_diagnostics_hold", {}),
-        callback = function(ev)
+        callback = function(_)
           -- Function to check if a floating dialog exists and if not
           -- then check for diagnostics under the cursor
           for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
@@ -200,7 +200,7 @@ return {
         callback = function(ev)
           -- Enable inline virtual-text hints if available
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          if client.server_capabilities.inlayHintProvider then
+          if client and client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(true)
           end
 
@@ -217,6 +217,8 @@ return {
             { "gD", vim.lsp.buf.declaration, desc = "Goto declaration" },
             { "gi", vim.lsp.buf.implementation, desc = "Goto implementation" },
             { "gr", vim.lsp.buf.references, desc = "Goto references" },
+            { "go", vim.lsp.buf.outgoing_calls, desc = "Outgoing calls" },
+            { "gh", vim.lsp.buf.incoming_calls, desc = "Incoming calls" },
             buffer = ev.buf,
           })
         end,
