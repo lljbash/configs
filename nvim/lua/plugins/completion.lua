@@ -24,6 +24,7 @@ return {
     "saghen/blink.cmp",
     version = "*",
     dependencies = {
+      "onsails/lspkind.nvim", -- for menu icons
       "rafamadriz/friendly-snippets",
       {
         "Kaiser-Yang/blink-cmp-dictionary",
@@ -49,7 +50,31 @@ return {
                 { "source_icon" },
               },
               components = {
-                label = {},
+                kind_icon = {
+                  -- https://cmp.saghen.dev/recipes.html#nvim-web-devicons-lspkind
+                  text = function(ctx)
+                    local icon = ctx.kind_icon
+                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                      local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                      if dev_icon then
+                        icon = dev_icon
+                      end
+                    else
+                      icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
+                    end
+                    return icon .. ctx.icon_gap
+                  end,
+                  highlight = function(ctx)
+                    local hl = ctx.kind_hl
+                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                      local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                      if dev_icon then
+                        hl = dev_hl
+                      end
+                    end
+                    return hl
+                  end,
+                },
                 source_icon = {
                   ellipsis = false,
                   text = function(ctx)
@@ -126,33 +151,6 @@ return {
         },
         appearance = {
           nerd_font_variant = "normal",
-          kind_icons = {
-            Text = "󰉿",
-            Method = "󰆧",
-            Function = "󰊕",
-            Constructor = "",
-            Field = "󰜢",
-            Variable = "󰀫",
-            Class = "󰠱",
-            Interface = "",
-            Module = "",
-            Property = "󰜢",
-            Unit = "󰑭",
-            Value = "󰎠",
-            Enum = "",
-            Keyword = "󰌋",
-            Snippet = "󰘦",
-            Color = "󰏘",
-            File = "󰈙",
-            Reference = "󰈇",
-            Folder = "󰉋",
-            EnumMember = "",
-            Constant = "󰏿",
-            Struct = "󰙅",
-            Event = "",
-            Operator = "",
-            TypeParameter = "",
-          },
         },
         cmdline = {
           completion = {
