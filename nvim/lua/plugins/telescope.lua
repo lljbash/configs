@@ -10,7 +10,6 @@ return {
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "gbprod/yanky.nvim",                     -- for yank history
-      "gbrlsnchs/telescope-lsp-handlers.nvim", -- hijack lsp commands
       "folke/which-key.nvim",                  -- for easier key-binding
     },
     config = function()
@@ -85,7 +84,6 @@ return {
       telescope.load_extension("ui-select")
       telescope.load_extension("file_browser")
       telescope.load_extension("yank_history")
-      telescope.load_extension("lsp_handlers")
       telescope.load_extension("session-lens")
 
       require("which-key").add({

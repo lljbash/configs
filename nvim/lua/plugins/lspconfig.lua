@@ -6,16 +6,23 @@ return {
       "saghen/blink.cmp", -- for capabilities setting
       "folke/which-key.nvim", -- for easier key-binding
       "williamboman/mason-tool-installer.nvim", -- for automatic installation
+      "nvim-telescope/telescope.nvim",
     },
     config = function()
-      local lspconfig = require("lspconfig")
+      vim.lsp.enable("clangd")
+      vim.lsp.enable("basedpyright")
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("typos_lsp")
+      vim.lsp.enable("bashls")
+      vim.lsp.enable("neocmake")
+      vim.lsp.enable("jsonls")
+      vim.lsp.enable("yamlls")
+      vim.lsp.enable("marksman")
 
-      -- The nvim-cmp almost supports LSP's capabilities
-      -- so you should advertise it to LSP servers.
       local capabilities = require("blink.cmp").get_lsp_capabilities()
+      vim.lsp.config("*", { capabilities = capabilities })
 
-      -- c/cpp
-      lspconfig.clangd.setup({
+      vim.lsp.config("clangd", {
         cmd = {
           "clangd",
           "--compile-commands-dir=build",
@@ -30,72 +37,37 @@ return {
           "--enable-config",
           "--offset-encoding=utf-16",
         },
-        capabilities = capabilities,
-        on_attach = function()
-          vim.keymap.set(
-            "n",
-            "<Leader>sw",
-            "<cmd>ClangdSwitchSourceHeader<cr>",
-            { desc = "Switch source/header" }
-          )
-        end,
-        root_dir = function(fname)
-          local util = require("lspconfig.util")
-          local root_files = {
-            "build/compile_commands.json",
-            "compile_commands.json",
-            ".clangd",
-            ".clang-tidy",
-            ".clang-format",
-            "compile_flags.txt",
-            "configure.ac",
-          }
-          return util.root_pattern(unpack(root_files))(fname)
-            or util.find_git_ancestor(fname)
-            or util.path.dirname(fname)
-        end,
+        root_markers = {
+          "build/compile_commands.json",
+          "compile_commands.json",
+          ".clangd",
+          ".clang-tidy",
+          ".clang-format",
+          "compile_flags.txt",
+          "configure.ac",
+        },
       })
-      -- python
-      lspconfig.basedpyright.setup({
-        capabilities = capabilities,
+
+      vim.lsp.config("basedpyright", {
         on_init = function(client, _)
           client.server_capabilities.semanticTokensProvider = nil
         end,
-        root_dir = function(fname)
-          local util = require("lspconfig.util")
-          local root_files = {
-            "pyproject.toml",
-            "setup.py",
-            "setup.cfg",
-            "requirements.txt",
-            "Pipfile",
-            "pyrightconfig.json",
-            ".git",
-          }
-          return util.root_pattern(unpack(root_files))(fname)
-            or util.find_git_ancestor(fname)
-            or vim.fn.fnamemodify(fname, ":p:h")
-        end,
-        single_file_support = false,
         settings = {
           basedpyright = {
             analysis = {
-              typeCheckingMode = "standard",
+              typeCheckingMode = "strict",
             },
           },
         },
       })
+
       -- lua with neovim runtime support
-      lspconfig.lua_ls.setup({
+      vim.lsp.config("lua_ls", {
         on_init = function(client)
-          local path = client.workspace_folders[1].name
-          if
-            vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc")
-          then
-            return
-          end
           client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
             runtime = {
+              -- Tell the language server which version of Lua you're using
+              -- (most likely LuaJIT in the case of Neovim)
               version = "LuaJIT",
             },
             -- Make the server aware of Neovim runtime files
@@ -103,43 +75,21 @@ return {
               checkThirdParty = false,
               library = {
                 vim.env.VIMRUNTIME,
+                -- Depending on the usage, you might want to add additional paths here.
+                -- "${3rd}/luv/library"
+                -- "${3rd}/busted/library",
               },
             },
           })
         end,
-        settings = {
-          Lua = {},
-        },
+        settings = { Lua = {} },
       })
-      -- typos
-      lspconfig.typos_lsp.setup({
-        capabilities = capabilities,
-        init_options = {
-          diagnosticSeverity = "Hint",
-        },
-      })
-      -- bash
-      lspconfig.bashls.setup({
-        filetypes = { "sh", "zsh" },
-        capabilities = capabilities,
-      })
-      lspconfig.neocmake.setup({ capabilities = capabilities }) -- cmake
-      lspconfig.jsonls.setup({ capabilities = capabilities }) -- json
-      lspconfig.yamlls.setup({ capabilities = capabilities }) -- yaml
-      lspconfig.marksman.setup({ capabilities = capabilities }) -- markdown
 
-      -- rounded border on :LspInfo
-      require("lspconfig.ui.windows").default_options.border = "rounded"
+      vim.lsp.config("typos_lsp", { init_options = { diagnosticSeverity = "Hint" } })
+
+      vim.lsp.config("bashls", { filetypes = { "bash", "sh", "zsh" } })
 
       -- Customization and appearance -----------------------------------------
-      -- change gutter diagnostic symbols
-      local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
-
       vim.diagnostic.config({
         virtual_text = {
           source = "if_many",
@@ -148,22 +98,31 @@ return {
           source = true,
           border = "rounded",
         },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "",
+            [vim.diagnostic.severity.HINT] = "",
+          },
+          numhl = {
+            [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+            [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+            [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+            [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+          },
+        },
         severity_sort = true,
       })
 
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = "rounded",
-      })
-
-      vim.lsp.handlers["textDocument/signatureHelp"] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, {
-          border = "rounded",
-        })
-
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+      vim.keymap.set("n", "[d", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end, { desc = "Prev diagnostic" })
+      vim.keymap.set("n", "]d", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end, { desc = "Next diagnostic" })
 
       -- Show diagnostics under the cursor when holding position
       -- https://neovim.discourse.group/t/how-to-show-diagnostics-on-hover/3830/3
@@ -193,13 +152,26 @@ return {
         end,
       })
 
+      -- remove annoying gr* default mappings since nvim-0.11.0
+      -- https://neovim.io/doc/user/lsp.html#lsp-defaults
+      vim.keymap.del("n", "grn")
+      vim.keymap.del("n", "gra")
+      vim.keymap.del("n", "grr")
+      vim.keymap.del("n", "gri")
+      vim.keymap.del("n", "gO")
+      vim.keymap.del("i", "<C-S>")
+
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
-          -- Enable inline virtual-text hints if available
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if not client then
+            return
+          end
+
+          -- Enable inline virtual-text hints if available
           if client and client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(true)
           end
@@ -209,30 +181,33 @@ return {
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
+          local function rounded(fn)
+            return function()
+              fn({ border = "rounded" })
+            end
+          end
+          -- https://github.com/gbrlsnchs/telescope-lsp-handlers.nvim/issues/10
+          local telb = require("telescope.builtin")
           require("which-key").add({
-            { "K", vim.lsp.buf.hover, desc = "Hover" },
+            buffer = ev.buf,
+            { "K", rounded(vim.lsp.buf.hover), desc = "Hover" },
             { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature help" },
             { "<leader>r", vim.lsp.buf.rename, desc = "Rename symbol" },
-            { "gd", vim.lsp.buf.definition, desc = "Goto definition" },
-            { "gD", vim.lsp.buf.declaration, desc = "Goto declaration" },
-            { "gi", vim.lsp.buf.implementation, desc = "Goto implementation" },
-            { "gr", vim.lsp.buf.references, desc = "Goto references" },
-            { "go", vim.lsp.buf.outgoing_calls, desc = "Outgoing calls" },
-            { "gh", vim.lsp.buf.incoming_calls, desc = "Incoming calls" },
-            buffer = ev.buf,
+            { "gd", telb.lsp_definitions, desc = "Goto definition" },
+            -- { "gD", vim.lsp.buf.declaration, desc = "Goto declaration" },
+            { "gi", telb.lsp_implementations, desc = "Goto implementation" },
+            { "gr", telb.lsp_references, desc = "Goto references" },
+            { "go", telb.lsp_outgoing_calls, desc = "Outgoing calls" },
+            { "gh", telb.lsp_incoming_calls, desc = "Incoming calls" },
           })
+          if client.name == "clangd" then
+            vim.keymap.set("n", "<Leader>sw", "<cmd>ClangdSwitchSourceHeader<cr>", {
+              buffer = ev.buf,
+              desc = "Switch source/header",
+            })
+          end
         end,
       })
-    end,
-    init = function()
-      -- https://github.com/neovim/neovim/issues/23725
-      local ok, wf = pcall(require, "vim.lsp._watchfiles")
-      if ok then
-        -- disable lsp watcher. Too slow on linux
-        wf._watchfunc = function()
-          return function() end
-        end
-      end
     end,
   },
 
