@@ -69,6 +69,7 @@ return {
       "sainnhe/sonokai",
       "stevearc/aerial.nvim",
       "AndreM222/copilot-lualine",
+      "folke/noice.nvim",
     },
     config = function()
       --- @param min_width number
@@ -106,7 +107,16 @@ return {
           theme = "sonokai",
         },
         sections = {
-          lualine_a = { "mode" },
+          lualine_a = {
+            "mode",
+            function()
+              local reg = vim.fn.reg_recording()
+              if reg == "" then
+                return ""
+              end -- not recording
+              return "@" .. reg
+            end,
+          },
           lualine_b = {
             { "branch", cond = width_not_less_than(140) },
             { "diff", cond = width_not_less_than(140) },
@@ -179,21 +189,19 @@ return {
   },
 
   -- UI replacement for messages, cmdline and popupmenu
-  -- NOTE: 为简洁起见，用 mini 代替 nvim-notify 接管通知
   {
     "folke/noice.nvim",
     event = "VeryLazy",
     priority = 90,
     dependencies = {
       "MunifTanjim/nui.nvim",
-      -- {
-      --   "rcarriga/nvim-notify",
-      --   opts = {
-      --     stages = "fade",
-      --     timeout = 2000,
-      --     top_down = false,
-      --   },
-      -- },
+      {
+        "rcarriga/nvim-notify",
+        opts = {
+          stages = "fade",
+          timeout = 5000,
+        },
+      },
       "nvim-telescope/telescope.nvim", -- telescope integration
     },
     config = function()
@@ -204,14 +212,54 @@ return {
             input = { view = "cmdline_popup" },
           },
         },
-        -- notify = { enabled = false },
-        notify = { view = "mini" },
+        messages = {
+          view = "mini",
+        },
+        popupmenu = { enabled = false },
+        commands = {
+          history = {
+            filter = {
+              any = {
+                { event = "notify" },
+                { error = true },
+                { warning = true },
+                { event = "msg_show" },
+                { event = "lsp", kind = "message" },
+              },
+            },
+          },
+        },
         lsp = {
           hover = { enabled = false },
           signature = { enabled = false },
         },
-        popupmenu = { enabled = false },
         views = { mini = { timeout = 5000 } },
+        routes = {
+          {
+            view = "notify",
+            filter = {
+              event = "msg_show",
+              kind = {
+                "shell_out",
+                "shell_err",
+                "shell_ret",
+              },
+            },
+            opts = { title = "Shell" },
+          },
+          {
+            view = "mini",
+            filter = {
+              event = "msg_show",
+              kind = {
+                "bufwrite",
+                "undo",
+                "verbose",
+                "wildlist",
+              },
+            },
+          },
+        },
       })
       -- telescope integration
       require("telescope").load_extension("noice")
