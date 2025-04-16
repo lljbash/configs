@@ -8,4 +8,5 @@ for V in $(declare -x | grep "declare -x NVM" | cut -f 3 -d " " | cut -f 1 -d "=
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 source ~/.nvm/nvm.sh
-nvm install 18
+nvm install --lts
+nvm alias default lts/*
