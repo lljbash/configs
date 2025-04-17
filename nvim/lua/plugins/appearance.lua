@@ -272,4 +272,49 @@ return {
       )
     end,
   },
+  -- 平滑滚动
+  {
+    "karb94/neoscroll.nvim",
+    dependencies = {
+      "folke/which-key.nvim", -- for convenient keymap
+    },
+    config = function()
+      local neoscroll = require("neoscroll")
+      neoscroll.setup({
+        duration_multiplier = 0.5,
+      })
+      local mousescroll = vim.o.mousescroll
+      local ver_str = assert(mousescroll:match("ver:(%d+)"), "Missing 'ver' in mousescroll")
+      local ver = assert(tonumber(ver_str), "Invalid 'ver' value in mousescroll")
+      local scroll_opt = { move_cursor = false, duration = 40 }
+      require("which-key").add({
+        mode = { "n", "v", "x" },
+        {
+          "<ScrollWheelUp>",
+          function()
+            neoscroll.scroll(-ver, scroll_opt)
+          end,
+        },
+        {
+          "<ScrollWheelDown>",
+          function()
+            neoscroll.scroll(ver, scroll_opt)
+          end,
+        },
+      })
+    end,
+    keys = {
+      "<ScrollWheelUp>",
+      "<ScrollWheelDown>",
+      "<C-u>",
+      "<C-d>",
+      "<C-b>",
+      "<C-f>",
+      "<C-y>",
+      "<C-e>",
+      "zt",
+      "zz",
+      "zb",
+    },
+  },
 }
