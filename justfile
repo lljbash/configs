@@ -42,7 +42,7 @@ install-zsh-configs:
 
 install-nvim-configs:
 	mkdir -p ~/.config/nvim
-	cd ~/.config/nvim && ~/.local/bin/uv venv && ~/.local/bin/uv pip install neovim
+	cd ~/.config/nvim && ~/.local/bin/uv venv --python=3.12 --python-preference="only-managed" && ~/.local/bin/uv pip install neovim
 	cp -r nvim ~/.config
 
 install-tmux-configs:
