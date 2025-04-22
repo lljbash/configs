@@ -33,6 +33,14 @@ return {
   -- 支持鼠标点击的 statuscolumn
   { "luukvbaal/statuscol.nvim", opts = {} },
 
+  -- color highlighter (like #8080ff)
+  {
+    "norcalli/nvim-colorizer.lua",
+    main = "colorizer",
+    opts = { "*" },
+    ft = { "lua", "bash", "sh", "zsh", "vim", "tmux" },
+  },
+
   -- 项目特殊配置
   {
     "jenterkin/vim-autosource",
