@@ -20,6 +20,14 @@ reset-bootstrap:
 	rm -rf ~/.rustup ~/.cargo
 	rm -rf ~/.nvm ~/.npm
 
+update: install-user-apps install-nvim-configs
+	cp zshrc ~/.zshrc
+	zsh -ic "zinit self-update && zinit update"
+	nvim --headless "+Lazy! sync" +qa
+	cp tmux.conf ~/.tmux.conf
+	tmux new-session -s "InstallTmuxPlugins" "sleep 1; ~/.tmux/plugins/tpm/bin/install_plugins && ~/.tmux/plugins/tpm/bin/update_plugins all || sleep 10" ||\
+	  (~/.tmux/plugins/tpm/bin/install_plugins && ~/.tmux/plugins/tpm/bin/update_plugins all)
+
 ubuntu-install-apps:
 	sudo apt update
 	sudo apt install -y curl wget git tar gzip zip \
