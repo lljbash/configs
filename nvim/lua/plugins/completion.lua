@@ -114,7 +114,16 @@ return {
           providers = {
             lsp = { fallbacks = {} },
             path = { opts = { trailing_slash = false } },
-            buffer = { fallbacks = { "ripgrep" } },
+            buffer = {
+              opts = {
+                -- Buffer completion from all open buffers
+                get_bufnrs = function()
+                  return vim.tbl_filter(function(bufnr)
+                    return vim.bo[bufnr].buftype == ""
+                  end, vim.api.nvim_list_bufs())
+                end,
+              },
+            },
             dictionary = {
               module = "blink-cmp-dictionary",
               name = "Dict",

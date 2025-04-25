@@ -7,8 +7,14 @@ return {
     end,
     config = function()
       require("auto-session").setup({
-        pre_save_cmds = {
-          -- "AerialClose",
+        post_restore_cmds = {
+          function()
+            for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+              if vim.bo[bufnr].buftype == "" then
+                vim.fn.bufload(bufnr)
+              end
+            end
+          end,
         },
       })
       vim.keymap.set("n", "<C-s>", require("auto-session.session-lens").search_session, {
