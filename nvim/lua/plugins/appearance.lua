@@ -292,13 +292,19 @@ return {
         {
           "<ScrollWheelUp>",
           function()
-            neoscroll.scroll(-ver, scroll_opt)
+            local winid = vim.fn.getmousepos().winid
+            local scroll_opt_with_winid = vim.deepcopy(scroll_opt)
+            scroll_opt_with_winid.winid = winid
+            neoscroll.scroll(-ver, scroll_opt_with_winid)
           end,
         },
         {
           "<ScrollWheelDown>",
           function()
-            neoscroll.scroll(ver, scroll_opt)
+            local winid = vim.fn.getmousepos().winid
+            local scroll_opt_with_winid = vim.deepcopy(scroll_opt)
+            scroll_opt_with_winid.winid = winid
+            neoscroll.scroll(ver, scroll_opt_with_winid)
           end,
         },
       })
