@@ -30,9 +30,10 @@ return {
     config = function()
       local cc = require("CopilotChat")
       local ccp = require("CopilotChat.config.prompts")
+      local ccs = require("CopilotChat.select")
       for key, value in pairs(ccp) do
-        if type(value) == "string" then
-          ccp[key] = value .. "\nSpeak Chinese by default."
+        if vim.startswith(key, "COPILOT_") then
+          ccp[key].system_prompt = value.system_prompt .. "\nSpeak Chinese by default."
         end
       end
       cc.setup({
@@ -40,6 +41,9 @@ return {
         window = {
           width = 0.45,
         },
+        selection = function(source)
+          return ccs.visual(source) or ccs.buffer(source)
+        end,
       })
       local wk = require("which-key")
       wk.add({
