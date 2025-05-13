@@ -107,6 +107,8 @@ return {
       require("lualine").setup({
         options = {
           theme = "sonokai",
+          globalstatus = true,
+          component_separators = {},
         },
         sections = {
           lualine_a = {
@@ -121,7 +123,7 @@ return {
           },
           lualine_b = {
             { "branch", cond = width_not_less_than(140) },
-            { "diff", cond = width_not_less_than(140) },
+            { "diff", cond = width_not_less_than(140), padding = { left = 0, right = 1 } },
             {
               "diagnostics",
               on_click = function()
@@ -141,6 +143,7 @@ return {
               newfile_status = true,
               path = 1,
               separator = "%#lualine_c_aerial_LLNonText_normal#⟩%#lualine_c_normal#",
+              padding = { left = 0, right = 1 },
               fmt = shorten_path(40),
               on_click = function()
                 require("telescope").extensions.file_browser.file_browser({
@@ -158,12 +161,16 @@ return {
           },
           lualine_x = {
             { "copilot", cond = width_not_less_than(160), show_colors = true },
-            { "encoding", cond = width_not_less_than(160) },
-            { "fileformat", cond = width_not_less_than(160) },
-            "filetype",
           },
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
+          lualine_y = {
+            "filetype",
+            { "fileformat", cond = width_not_less_than(160), padding = { left = 1, right = 0 } },
+            { "encoding", cond = width_not_less_than(160) },
+          },
+          lualine_z = {
+            "progress",
+            "location",
+          },
         },
       })
     end,

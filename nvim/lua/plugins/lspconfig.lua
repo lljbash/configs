@@ -82,7 +82,11 @@ return {
             },
           })
         end,
-        settings = { Lua = {} },
+        settings = {
+          Lua = {
+            hint = { enable = true },
+          },
+        },
       })
 
       vim.lsp.config("typos_lsp", { init_options = { diagnosticSeverity = "Hint" } })
