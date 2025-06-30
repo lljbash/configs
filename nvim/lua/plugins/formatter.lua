@@ -5,7 +5,7 @@ return {
       {
         mode = "n",
         "<leader>f",
-        "<cmd>lua require('conform').format()<CR>",
+        "<cmd>lua require('conform').format { async = true, lsp_fallback = true }<CR>",
         desc = "Format buffer",
       },
     },
