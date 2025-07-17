@@ -3,7 +3,7 @@
 set -e
 
 for APP in \
-  curl wget git tar unzip gunzip \
+  curl wget git tar unzip gunzip ip \
   zsh tmux \
   xsel fzf \
   gcc g++ cmake ccache ninja \

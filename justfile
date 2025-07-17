@@ -30,7 +30,7 @@ update: install-user-apps install-nvim-configs
 
 ubuntu-install-apps:
 	sudo apt update
-	sudo apt install -y curl wget git tar gzip zip \
+	sudo apt install -y curl wget git tar gzip zip iproute2 \
 	                    zsh tmux ncurses-term \
 	                    xsel fzf \
 	                    gcc g++ cmake ccache universal-ctags ninja-build \
