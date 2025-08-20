@@ -57,7 +57,7 @@ install-tmux-configs:
 	cp tmux.conf ~/.tmux.conf
 	rm -rf ~/.tmux/plugins/tpm
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	tmux new-session -s "InstallTmuxPlugins" "sleep 1; ~/.tmux/plugins/tpm/bin/install_plugins || sleep 10"
+	./install_or_update_tmux_plugins.sh install
 
 install-inputrc:
 	cp inputrc ~/.inputrc
