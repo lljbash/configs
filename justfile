@@ -22,7 +22,7 @@ reset-bootstrap:
 
 update: install-user-apps install-nvim-configs
 	cp zshrc ~/.zshrc
-	zsh -ic "zinit self-update && zinit update -p -n"
+	zsh -ic "zinit self-update && zinit update -p -n && wait"
 	nvim --headless "+Lazy! sync" +qa
 	cp tmux.conf ~/.tmux.conf
 	./install_or_update_tmux_plugins.sh update
