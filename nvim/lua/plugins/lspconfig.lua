@@ -18,6 +18,7 @@ return {
       vim.lsp.enable("jsonls")
       vim.lsp.enable("yamlls")
       vim.lsp.enable("marksman")
+      vim.lsp.enable("dockerls")
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       vim.lsp.config("*", { capabilities = capabilities })

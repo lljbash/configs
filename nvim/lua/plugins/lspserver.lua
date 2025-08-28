@@ -27,6 +27,7 @@ return {
         "marksman",
         "shellcheck",
         "typos-lsp",
+        "dockerfile-language-server",
         -- Formatter
         "clang-format",
         "stylua",
