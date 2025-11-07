@@ -206,7 +206,7 @@ return {
             { "gh", telb.lsp_incoming_calls, desc = "Incoming calls" },
           })
           if client.name == "clangd" then
-            vim.keymap.set("n", "<Leader>sw", "<cmd>ClangdSwitchSourceHeader<cr>", {
+            vim.keymap.set("n", "<Leader>sw", "<cmd>LspClangdSwitchSourceHeader<cr>", {
               buffer = ev.buf,
               desc = "Switch source/header",
             })
