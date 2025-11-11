@@ -33,7 +33,7 @@ return {
           "--completion-style=detailed",
           "--function-arg-placeholders=0",
           "--header-insertion=iwyu",
-          "-j=4",
+          "-j=" .. (vim.env.NVIM_LSP_JOBS or "4"),
           "--pch-storage=memory",
           "--enable-config",
           "--offset-encoding=utf-16",
