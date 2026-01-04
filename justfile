@@ -3,6 +3,11 @@ hello:
 
 bootstrap-root: ubuntu-install-apps
 
+bootstrap-macos:
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	brew install wget iproute2mac tmux xsel fzf cmake ccache ninja eza
+	brew install gawk grep gnu-sed coreutils  # for lincheney/fzf-tab-completion
+
 check-apps:
 	bash ./check_apps.sh || (echo 'maybe run "make bootstrap-root"' && false)
 

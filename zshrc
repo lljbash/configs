@@ -125,6 +125,9 @@ zt as"null" from"gh-r" nocompile light-mode for \
                    echo "--icons"
                fi
            }
+           if [ -x /opt/homebrew/bin/eza ]; then
+               eza() { /opt/homebrew/bin/eza "$@" }
+           fi
            alias l='\''eza -lbF --git $(_lljbash_eza_icons)'\'';
            alias ll='\''eza -lbGF --git $(_lljbash_eza_icons)'\'';
            alias llm='\''eza -lbGd --git --sort=modified $(_lljbash_eza_icons)'\'';
